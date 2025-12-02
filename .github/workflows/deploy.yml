@@ -3,7 +3,7 @@ name: Deploy Angular to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - main # or master if your main branch is master
 
 jobs:
   build-deploy:
@@ -27,16 +27,13 @@ jobs:
       - name: Build Angular app
         run: npm run build -- --configuration production --base-href "/AquaNex-Demo_1/"
 
-      - name: List dist folder for debugging
-        run: ls -R dist
-
       - name: Copy index.html to 404.html
-          run: cp dist/AquaNex-Demo_1/browser/index.html dist/AquaNex-Demo_1/browser/404.html
+        run: cp dist/AquaNex-Demo_1/browser/index.html dist/AquaNex-Demo_1/browser/404.html
 
       - name: Deploy to GitHub Pages
-          uses: JamesIves/github-pages-deploy-action@v4
-          with:
-            branch: gh-pages
-            folder: dist/AquaNex-Demo_1/browser
-            clean: true
-            token: ${{ secrets.GITHUB_TOKEN }}
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: dist/AquaNex-Demo_1/browser
+          clean: true
+          token: ${{ secrets.GITHUB_TOKEN }}
