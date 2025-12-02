@@ -1,0 +1,139 @@
+<p-breadcrumb [home]="home" [model]="items" />
+<div class="main-content_top main-content_top-view">
+  <div class="title-container">
+    <p class="page-title">Engine Gear 12</p>
+
+    <p class="page-subtitle">Item #ITEM-119-221</p>
+    <div class="title-row">
+      <p class="title-subitem">
+        <i class="pi pi-bars"></i>
+        Deck & Engine
+      </p>
+    </div>
+  </div>
+
+  <div class="cta-container cta-container-view">
+    <div class="cta">
+      <p-button label="Edit" size="large" type="button" />
+    </div>
+
+    <div class="cta">
+      <p-button label="More" icon="pi pi-plus" size="large" type="button" />
+    </div>
+
+    <div class="cta">
+      <p-button label="Add New Item" size="large" type="button" />
+    </div>
+  </div>
+</div>
+
+<div class="main-content_form main-content_form-view">
+  <div class="form-row-content">
+    <div class="form-column">
+      <div class="form form-inner-col form-view">
+        <div class="form-group form-group-view mb-0">
+          <div class="form-group_header form-group_header-view">
+            <i class="pi pi-box"></i>
+            <p class="form-group_title">Item information</p>
+          </div>
+
+          <div class="form-info-column width-10">
+            <p class="form-title-view form-title-view-col">System ID :</p>
+            <p class="form-data form-data-col">ITEM-119-221</p>
+          </div>
+
+          <div class="form-info-column width-10">
+            <p class="form-title-view form-title-view-col">Name :</p>
+            <p class="form-data form-data-col">
+              <i class="pi pi-info-circle"></i> Engine Gear 12
+            </p>
+          </div>
+
+          <div class="form-info-column width-10">
+            <p class="form-title-view form-title-view-col">Description :</p>
+            <p class="form-data form-data-col">
+              An engine gear, 12.2inch, used for automatic gearbox at deck
+              engine part 00121
+            </p>
+          </div>
+
+          <div class="form-info-column width-10">
+            <p class="form-title-view form-title-view-col">IMBA Code :</p>
+            <p class="form-data form-data-imp form-data-col">3411928</p>
+          </div>
+
+          <div class="form-info-column width-10">
+            <p class="form-title-view form-title-view-col">Unit of Measure :</p>
+            <p class="form-data form-data-imp form-data-col">Piece</p>
+          </div>
+          <div class="form-info-column width-10">
+            <p class="form-title-view form-title-view-col">Category :</p>
+            <p class="form-data form-data-col">Deck & Engine</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form form-view">
+      <div class="form-row">
+        <div class="form-group form-group-view mb-0">
+          <div class="form-group_header form-group_header-view">
+            <i class="pi pi-wave-pulse"></i>
+            <p class="form-group_title">Item Insights</p>
+          </div>
+
+          <div class="form-info-row form-info-row-imp width-10 mb-8">
+            <div class="form-info rb mb-0">
+              <p class="form-title-view">Default Supplier</p>
+              <p class="form-data fn-18 form-data-danger">Boch Corp.</p>
+            </div>
+            <div class="form-info rb mb-0">
+              <p class="form-title-view">Quantity Sold</p>
+              <p class="form-data fn-18">11</p>
+            </div>
+            <div class="form-info mb-0">
+              <p class="form-title-view">Last Purchase Price</p>
+              <p class="form-data fn-18">1100 USD</p>
+            </div>
+          </div>
+
+          <div class="form-group_header form-group_header-view mt-4 mb-0">
+            <i class="pi pi-shopping-bag"></i>
+            <p class="form-group_title">Item Purchase History</p>
+          </div>
+
+          <app-data-table
+            [columns]="purchaseHistoryColumns"
+            [value]="purchaseHistoryOrders"
+            [globalFilterFields]="['itemName']"
+            [selectionMode]="'multiple'"
+            [exportable]="true"
+          />
+          <div class="form-group_header form-group_header-view mt-4 mb-0">
+            <i class="pi pi-sitemap"></i>
+            <p class="form-group_title">Suppliers List</p>
+          </div>
+
+          <app-data-table
+            [columns]="supplierColumns"
+            [value]="supplierOrders"
+            [globalFilterFields]="['itemName']"
+            [selectionMode]="'multiple'"
+            [exportable]="true"
+          />
+          <div class="form-group_header form-group_header-view mt-4 mb-0">
+            <i class="pi pi-shopping-cart"></i>
+            <p class="form-group_title">Item Sales Orders</p>
+          </div>
+
+          <app-data-table
+            [columns]="salesOrdersColumns"
+            [value]="salesOrders"
+            [globalFilterFields]="['itemName']"
+            [selectionMode]="'multiple'"
+            [exportable]="true"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

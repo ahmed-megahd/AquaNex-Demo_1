@@ -4,9 +4,10 @@ import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.css'
+  standalone: true,
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
 })
-export class App {
+export class AppComponent {
   protected title = 'AquaNex-Demo_1';
 }

@@ -1,0 +1,203 @@
+<p-breadcrumb [home]="home" [model]="items" />
+<div class="main-content_top">
+  <div class="title-container">
+    <p class="page-title">Add New Supplier</p>
+  </div>
+
+  <div class="cta">
+    <p-button
+      label="Save as Draft"
+      size="large"
+      type="button"
+      (onClick)="onSubmit(supplierForm)"
+    />
+  </div>
+</div>
+
+<div class="main-content_form form-small">
+  <form
+    action="#"
+    class="form"
+    [formGroup]="supplierForm"
+    (ngSubmit)="onSubmit(supplierForm)"
+  >
+    <div class="form-row">
+      <div class="form-group mb-0">
+        <div class="form-group_header">
+          <p class="form-group_title">Supplier Information</p>
+          <p class="form-group_desc">
+            Enter supplier`s information, This information is important for
+            further use of supplier related information
+          </p>
+        </div>
+        <div class="form-inputs">
+          <app-form-field label="Name" [control]="supplierForm.get('name')">
+            <input
+              placeholder="Name"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="name"
+              name="name"
+              id="name"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+
+          <app-form-field
+            label="Supplier Category"
+            [control]="supplierForm.get('category')"
+          >
+            <p-multiselect
+              appendTo="body"
+              [options]="categories"
+              formControlName="category"
+              name="category"
+              id="category"
+              optionLabel="name"
+              display="chip"
+              placeholder="Select Supplier Category"
+            />
+          </app-form-field>
+        </div>
+
+        <div class="form-inputs">
+          <app-form-field
+            label="Phone Number"
+            [control]="supplierForm.get('phone')"
+          >
+            <input
+              placeholder="Phone Number"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="phone"
+              name="phone"
+              id="phone"
+              type="number"
+              (keypress)="allowOnlyNumbers($event)"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+
+          <app-form-field label="E-mail " [control]="supplierForm.get('email')">
+            <input
+              placeholder="email "
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="email"
+              name="email"
+              id="email"
+            />
+          </app-form-field>
+        </div>
+
+        <div class="form-inputs">
+          <app-form-field
+            label="Address"
+            [control]="supplierForm.get('address')"
+          >
+            <input
+              placeholder="Address"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="address"
+              name="address"
+              id="address"
+            />
+          </app-form-field>
+          <app-form-field label="Tax ID" [control]="supplierForm.get('taxID')">
+            <input
+              placeholder="Tax ID"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="taxID"
+              name="taxID"
+              id="taxID"
+              type="number"
+              (keypress)="allowOnlyNumbers($event)"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group mb-0">
+        <div class="form-group_header">
+          <p class="form-group_title">Payment Information</p>
+          <p class="form-group_desc">
+            Please, make sure to correctly enter the below fields
+          </p>
+        </div>
+
+        <div class="form-inputs">
+          <app-form-field
+            label="Payment Terms"
+            [control]="supplierForm.get('paymentTerms')"
+          >
+            <p-select
+              appendTo="body"
+              [options]="paymentTerms"
+              formControlName="paymentTerms"
+              name="paymentTerms"
+              id="paymentTerms"
+              optionLabel="name"
+              display="chip"
+            />
+          </app-form-field>
+        </div>
+
+        <div class="form-inputs">
+          <app-form-field
+            label="Payment Method"
+            [control]="supplierForm.get('paymentMethod')"
+          >
+            <p-select
+              [filter]="true"
+              filterBy="name"
+              appendTo="body"
+              [options]="paymentMethod"
+              formControlName="paymentMethod"
+              name="paymentMethod"
+              id="paymentMethod"
+              optionLabel="name"
+            />
+          </app-form-field>
+        </div>
+
+        <div class="form-inputs mb-0">
+          <app-form-field
+            label="Billing Address"
+            [control]="supplierForm.get('billingAddress')"
+          >
+            <input
+              placeholder="billingAddress"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="billingAddress"
+              name="billingAddress"
+              id="billingAddress"
+            />
+          </app-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-container">
+      <div class="cta ml-auto">
+        <p-button
+          size="large"
+          label="Save"
+          type="button"
+          (onClick)="onSubmit(supplierForm)"
+        />
+      </div>
+    </div>
+  </form>
+</div>

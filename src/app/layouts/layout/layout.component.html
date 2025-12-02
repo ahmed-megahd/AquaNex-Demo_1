@@ -1,0 +1,87 @@
+<div class="top-bar">
+  <div class="top-bar_left">
+    <div class="logo-img-container">
+      <img src="logo-only-removebg-preview.png" alt="" class="logo-img" />
+    </div>
+    <p class="logo-name">Aqua <span>nex</span></p>
+  </div>
+
+  <div class="top-bar_center">
+    <p-iconfield>
+      <p-inputicon class="pi pi-search" />
+      <input
+        name="mainSearch"
+        type="text"
+        pInputText
+        placeholder="Search"
+        [(ngModel)]="searchTerm"
+      />
+    </p-iconfield>
+  </div>
+  <div class="top-bar_right">
+    <div class="top-bar-item">
+      <div class="tool-wrapper">
+        <i class="pi pi-bell"></i>
+      </div>
+
+      <!-- <ul class="sub-menu">
+        <li>
+          <a href="#">
+            <span>Config</span>
+          </a>
+        </li>
+      </ul> -->
+    </div>
+    <div class="top-bar-item">
+      <div class="tool-wrapper">
+        <i class="pi pi-user"></i>
+      </div>
+
+      <!-- <ul class="sub-menu">
+        <li>
+          <a href="#">
+            <span>Config</span>
+          </a>
+        </li>
+      </ul> -->
+    </div>
+
+    <div class="top-bar-item">
+      <div class="tool-wrapper">
+        <i class="pi pi-cog"></i>
+      </div>
+
+      <!-- <ul class="sub-menu">
+        <li>
+          <a href="#">
+            <span>Config</span>
+          </a>
+        </li>
+      </ul> -->
+    </div>
+  </div>
+</div>
+<div class="container">
+  <aside class="side-nav" (mouseleave)="hovered = null">
+    <div
+      *ngFor="let item of items"
+      class="menu-item"
+      (mouseenter)="hovered = item"
+    >
+      <div class="icon-wrapper">
+        <i class="{{ item.icon }}"></i>
+        <span class="menu-label">{{ item.label }}</span>
+      </div>
+
+      <ul class="sub-menu" *ngIf="hovered === item && item.children?.length">
+        <li *ngFor="let sub of item.children">
+          <a [routerLink]="sub.route" routerLinkActive="active-link">
+            <i class="{{ sub.icon }}"></i>
+            <span>{{ sub.label }}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </aside>
+  <div class="main-content"><router-outlet></router-outlet></div>
+</div>
