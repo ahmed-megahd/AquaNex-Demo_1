@@ -33,3 +33,4 @@ jobs:
           branch: gh-pages
           folder: dist/AquaNex-Demo_1
           clean: true
+          token: ${{ secrets.GITHUB_TOKEN }}
