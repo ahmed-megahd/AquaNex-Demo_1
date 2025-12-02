@@ -1,0 +1,147 @@
+<p-breadcrumb [home]="home" [model]="items" />
+<div class="main-content_top">
+  <div class="title-container">
+    <p class="page-title">Add New Item</p>
+  </div>
+
+  <div class="cta">
+    <p-button
+      label="Save as Draft"
+      size="large"
+      type="button"
+      (onClick)="onSubmit(itemForm)"
+    />
+  </div>
+</div>
+
+<div class="main-content_form form-small">
+  <form
+    action="#"
+    class="form"
+    [formGroup]="itemForm"
+    (ngSubmit)="onSubmit(itemForm)"
+  >
+    <div class="form-row">
+      <div class="form-group mb-0">
+        <div class="form-group_header">
+          <p class="form-group_title">Basic Information</p>
+          <p class="form-group_desc">
+            Enter your item`s breakdown, This information is important for
+            reselcting items in all purchase orders, sales orders and invoices
+          </p>
+        </div>
+        <div class="form-inputs">
+          <app-form-field label="Name" [control]="itemForm.get('name')">
+            <input
+              placeholder="Name"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="name"
+              name="name"
+              id="name"
+            />
+          </app-form-field>
+          <app-form-field label="IMBA Code" [control]="itemForm.get('IMBA')">
+            <input
+              placeholder="IMBA Code"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="IMBA"
+              name="IMBA"
+              id="IMBA"
+              type="number"
+              (keypress)="allowOnlyNumbers($event)"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+        </div>
+
+        <div class="form-inputs">
+          <app-form-field
+            label="Item Description"
+            [control]="itemForm.get('description')"
+          >
+            <input
+              placeholder="Item Description"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="description"
+              name="description"
+              id="description"
+              optionLabel="name"
+              display="chip"
+            />
+          </app-form-field>
+        </div>
+        <div class="form-inputs mb-0">
+          <app-form-field label="Unit" [control]="itemForm.get('unit')">
+            <p-select
+              appendTo="body"
+              [options]="unit"
+              formControlName="unit"
+              name="unit"
+              id="unit"
+              optionLabel="name"
+              display="chip"
+            />
+          </app-form-field>
+
+          <app-form-field label="Category" [control]="itemForm.get('category')">
+            <p-select
+              appendTo="body"
+              [options]="category"
+              formControlName="category"
+              name="category"
+              id="category"
+              optionLabel="name"
+              display="chip"
+            />
+          </app-form-field>
+        </div>
+
+        <div class="form-inputs">
+          <app-form-field
+            label="Last Purchase Price"
+            [control]="itemForm.get('lastPrice')"
+          >
+            <input
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="lastPrice"
+              name="lastPrice"
+              id="lastPrice"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+        </div>
+
+        <div class="form-inputs">
+          <app-form-field
+            label="Default / Preferred Supplier"
+            [control]="itemForm.get('defaultSupplier')"
+          >
+            <p-select
+              appendTo="body"
+              [options]="suppliers"
+              formControlName="defaultSupplier"
+              name="defaultSupplier"
+              id="defaultSupplier"
+              optionLabel="name"
+              display="chip"
+            />
+          </app-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-container">
+      <div class="cta ml-auto">
+        <p-button size="large" label="Save" />
+      </div>
+    </div>
+  </form>
+</div>

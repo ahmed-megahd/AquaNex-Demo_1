@@ -1,0 +1,202 @@
+<p-breadcrumb [home]="home" [model]="items" />
+<div class="main-content_top">
+  <div class="title-container">
+    <p class="page-title">Add New Expense</p>
+  </div>
+
+  <div class="cta">
+    <p-button
+      label="Save as Draft"
+      size="large"
+      type="button"
+      (onClick)="onSubmit(expenseForm)"
+    />
+  </div>
+</div>
+
+<div class="main-content_form form-small">
+  <form
+    action="#"
+    class="form"
+    [formGroup]="expenseForm"
+    (ngSubmit)="onSubmit(expenseForm)"
+  >
+    <div class="form-row">
+      <div class="form-group mb-0">
+        <div class="form-group_header">
+          <p class="form-group_title">Basic Information</p>
+          <p class="form-group_desc">
+            Enter your expense`s breakdown, This information is important for
+            budget and resource planning
+          </p>
+        </div>
+        <div class="form-inputs">
+          <app-form-field
+            label="Expense Date"
+            [control]="expenseForm.get('date')"
+          >
+            <p-datepicker
+              size="large"
+              [iconDisplay]="'input'"
+              [showIcon]="true"
+              formControlName="date"
+              name="date"
+              id="date"
+            />
+          </app-form-field>
+
+          <app-form-field label="Amount" [control]="expenseForm.get('total')">
+            <input
+              placeholder="Amount"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="total"
+              name="total"
+              id="total"
+              type="number"
+              (keypress)="allowOnlyNumbers($event)"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+        </div>
+
+        <div class="form-inputs mb-0">
+          <app-form-field
+            label="Expense Category"
+            [control]="expenseForm.get('category')"
+          >
+            <p-select
+              appendTo="body"
+              [options]="categoryOptions"
+              formControlName="category"
+              name="category"
+              id="category"
+              optionLabel="name"
+              optionValue="value"
+              display="chip"
+            />
+          </app-form-field>
+
+          <app-form-field
+            label="Sub Category"
+            [control]="expenseForm.get('subCategory')"
+          >
+            <p-select
+              appendTo="body"
+              [options]="subCategoryOptions"
+              formControlName="subCategory"
+              name="subCategory"
+              id="subCategory"
+              optionLabel="name"
+              display="chip"
+            />
+          </app-form-field>
+        </div>
+
+        <div class="form-inputs">
+          <app-form-field
+            label="Department"
+            [control]="expenseForm.get('department')"
+          >
+            <p-select
+              appendTo="body"
+              [options]="departmentsOptions"
+              formControlName="department"
+              name="department"
+              id="department"
+              optionLabel="name"
+              display="chip"
+            />
+          </app-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group mb-0">
+        <div class="form-group_header">
+          <p class="form-group_title">Expense Information</p>
+          <p class="form-group_desc">
+            Please, make sure to correctly enter the below fields
+          </p>
+        </div>
+
+        <div class="form-inputs">
+          <app-form-field
+            label="Description"
+            [control]="expenseForm.get('description')"
+          >
+            <input
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="description"
+              name="description"
+              id="description"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+        </div>
+
+        <div class="form-inputs">
+          <app-form-field
+            label="Customer"
+            [control]="expenseForm.get('customer')"
+          >
+            <p-select
+              appendTo="body"
+              [options]="customers"
+              formControlName="customer"
+              name="customer"
+              id="customer"
+              optionLabel="name"
+              display="chip"
+            />
+          </app-form-field>
+        </div>
+
+        <div class="form-inputs">
+          <app-form-field
+            label="Payment Method"
+            [control]="expenseForm.get('paymentMethod')"
+          >
+            <p-select
+              [filter]="true"
+              filterBy="name"
+              appendTo="body"
+              [options]="paymentMethod"
+              formControlName="paymentMethod"
+              name="paymentMethod"
+              id="paymentMethod"
+              optionLabel="name"
+            />
+          </app-form-field>
+        </div>
+
+        <div class="form-inputs mb-0">
+          <app-form-field
+            label="Reference to PO / SO"
+            [control]="expenseForm.get('relatedOrders')"
+          >
+            <p-multiselect
+              appendTo="body"
+              [options]="linkedOrders"
+              formControlName="relatedOrders"
+              name="relatedOrders"
+              id="relatedOrders"
+              optionLabel="name"
+              display="chip"
+            />
+          </app-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-container">
+      <div class="cta ml-auto">
+        <p-button size="large" label="Save" />
+      </div>
+    </div>
+  </form>
+</div>

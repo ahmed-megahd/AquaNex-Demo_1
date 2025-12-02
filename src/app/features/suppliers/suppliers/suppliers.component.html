@@ -1,0 +1,97 @@
+<p-breadcrumb [home]="home" [model]="items" />
+<div class="main-content_top">
+  <div class="title-container">
+    <p class="page-title">Suppliers center</p>
+  </div>
+
+  <div class="cta">
+    <p-button
+      label="Add New Supplier"
+      icon="pi pi-plus"
+      size="large"
+      (onClick)="openNew()"
+    />
+  </div>
+</div>
+
+<div class="main-content_center">
+  <div class="search-header">
+    <p>Searching Options based on your insights</p>
+  </div>
+  <div class="search-inputs">
+    <div class="search-input-item">
+      <p-multiselect
+        [options]="categories"
+        [(ngModel)]="selectedCategories"
+        placeholder="Select Supplier Category"
+        optionLabel="name"
+        display="chip"
+      />
+    </div>
+
+    <div class="search-input-item">
+      <p-multiselect
+        [options]="paymentStatus"
+        [(ngModel)]="selectedPaymentStatus"
+        placeholder="Select Payment Status"
+        optionLabel="name"
+        display="chip"
+      />
+    </div>
+    <div class="cta">
+      <p-button icon="pi pi-search" size="large" (onClick)="onSearch()" />
+    </div>
+  </div>
+</div>
+
+<div class="main-content_bottom">
+  <div class="analysis-box">
+    <div class="analysis-card">
+      <p class="card-title">
+        <i class="pi pi-box total-orders"></i> total suppliers
+      </p>
+      <p class="card-data">48</p>
+    </div>
+    <div class="analysis-card">
+      <p class="card-title">
+        <i class="pi pi-check-circle total-closed"></i>total payments
+      </p>
+      <p class="card-data">20,190 LE</p>
+    </div>
+    <div class="analysis-card">
+      <p class="card-title">
+        <i class="pi pi-hourglass total-in-progress"></i>total remaining
+      </p>
+      <p class="card-data">1800 LE</p>
+    </div>
+    <div class="analysis-card">
+      <p class="card-title">
+        <i class="pi pi-money-bill total-invoiced"></i>top supplier
+      </p>
+      <p class="card-data">B.Tech</p>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <p-tabs>
+    <p-tablist>
+      @for (tab of tabs; track tab.value) {
+      <p-tab [value]="tab.value" (click)="onTabChange(tab.value)">
+        {{ tab.title }}
+      </p-tab>
+      }
+    </p-tablist>
+  </p-tabs>
+  <app-data-table
+    [columns]="columns"
+    [value]="filteredSuppliers"
+    [globalFilterFields]="['orderNumber', 'customer', 'status']"
+    [selectionMode]="'multiple'"
+    [exportable]="true"
+    (onView)="onViewSupplier($event)"
+    (onEdit)="handleEdit($event)"
+    (onDelete)="handleDelete($event)"
+    (onDeleteSelected)="handleBulkDelete($event)"
+  />
+</div>

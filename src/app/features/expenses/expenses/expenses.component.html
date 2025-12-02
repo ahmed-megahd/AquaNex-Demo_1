@@ -1,0 +1,114 @@
+<p-breadcrumb [home]="home" [model]="items" />
+<div class="main-content_top">
+  <div class="title-container">
+    <p class="page-title">Expenses center</p>
+  </div>
+
+  <div class="cta">
+    <p-button
+      label="Add New Expense"
+      icon="pi pi-plus"
+      size="large"
+      (onClick)="openNew()"
+    />
+  </div>
+</div>
+
+<div class="main-content_center">
+  <div class="search-header">
+    <p>Searching Options based on your insights</p>
+  </div>
+  <div class="search-inputs">
+    <div class="search-input-item">
+      <p-datepicker
+        placeholder="Creation Date"
+        size="large"
+        [(ngModel)]="creationDate"
+        selectionMode="range"
+        [iconDisplay]="'input'"
+        [showIcon]="true"
+      />
+    </div>
+
+    <div class="search-input-item">
+      <p-multiselect
+        [options]="categoryOptions"
+        [(ngModel)]="categorySelection"
+        placeholder="Select Expense Category"
+        optionLabel="name"
+        display="chip"
+      />
+    </div>
+
+    <div class="search-input-item">
+      <p-multiselect
+        [options]="departmentsOptions"
+        [(ngModel)]="departmentSelection"
+        placeholder="Select Department"
+        optionLabel="name"
+        display="chip"
+      />
+    </div>
+    <div class="cta">
+      <p-button icon="pi pi-search" size="large" (onClick)="onSearch()" />
+    </div>
+  </div>
+</div>
+
+<div class="main-content_bottom">
+  <div class="analysis-box">
+    <div class="analysis-card">
+      <p class="card-title">
+        <i class="pi pi-box total-orders"></i> total expenses
+      </p>
+      <p class="card-data">48112 LE</p>
+    </div>
+    <div class="analysis-card">
+      <p class="card-title">
+        <i class="pi pi-check-circle total-closed"></i>top expense category
+      </p>
+      <p class="card-data">Rent and property related</p>
+    </div>
+    <div class="analysis-card">
+      <p class="card-title">
+        <i class="pi pi-hourglass total-in-progress"></i>top expense
+      </p>
+      <p class="card-data">18099</p>
+    </div>
+    <div class="analysis-card">
+      <p class="card-title">
+        <i class="pi pi-money-bill total-invoiced"></i>top vendor
+      </p>
+      <p class="card-data">El-Hussieny</p>
+    </div>
+    <!-- <div class="analysis-card">
+      <p class="card-title">
+        <i class="pi pi-send total-delivered"></i>total Delivered
+      </p>
+      <p class="card-data">10</p>
+    </div> -->
+  </div>
+
+  <div class="card">
+    <!-- <p-tabs>
+      <p-tablist>
+        @for (tab of tabs; track tab.value) {
+        <p-tab [value]="tab.value" (click)="onTabChange(tab.value)">
+          {{ tab.title }}
+        </p-tab>
+        }
+      </p-tablist>
+    </p-tabs> -->
+    <app-data-table
+      [columns]="columns"
+      [value]="expenses"
+      [globalFilterFields]="['ID', 'category', 'department']"
+      [selectionMode]="'multiple'"
+      [exportable]="true"
+      (onView)="onViewExpense($event)"
+      (onEdit)="handleEdit($event)"
+      (onDelete)="handleDelete($event)"
+      (onDeleteSelected)="handleBulkDelete($event)"
+    />
+  </div>
+</div>

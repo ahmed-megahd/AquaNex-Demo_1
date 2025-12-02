@@ -1,0 +1,98 @@
+<p-breadcrumb [home]="home" [model]="items" />
+<div class="main-content_top">
+  <div class="title-container">
+    <p class="page-title">Items center</p>
+  </div>
+
+  <div class="cta">
+    <p-button
+      label="Add New Item"
+      icon="pi pi-plus"
+      size="large"
+      (onClick)="openNew()"
+    />
+  </div>
+</div>
+
+<div class="main-content_center">
+  <div class="search-header">
+    <p>Searching Options based on your insights</p>
+  </div>
+  <div class="search-inputs">
+    <div class="search-input-item">
+      <p-datepicker
+        placeholder="Pick Purchase Date"
+        size="large"
+        [(ngModel)]="selectedPurchaseDate"
+        selectionMode="range"
+        [iconDisplay]="'input'"
+        [showIcon]="true"
+      />
+    </div>
+
+    <div class="search-input-item">
+      <p-multiselect
+        [options]="categoryOptions"
+        [(ngModel)]="selectedCategory"
+        placeholder="Select Item Category"
+        optionLabel="name"
+        display="chip"
+      />
+    </div>
+    <div class="cta">
+      <p-button icon="pi pi-search" size="large" (onClick)="onSearch()" />
+    </div>
+  </div>
+</div>
+
+<div class="main-content_bottom">
+  <div class="analysis-box">
+    <div class="analysis-card">
+      <p class="card-title">
+        <i class="pi pi-box total-orders"></i> total items
+      </p>
+      <p class="card-data">4811</p>
+    </div>
+    <div class="analysis-card">
+      <p class="card-title">
+        <i class="pi pi-check-circle total-closed"></i>top purchased item
+      </p>
+      <p class="card-data">Green Apple</p>
+    </div>
+    <div class="analysis-card">
+      <p class="card-title">
+        <i class="pi pi-bars total-in-progress"></i>top category
+      </p>
+      <p class="card-data">Provision</p>
+    </div>
+    <!-- <div class="analysis-card">
+      <p class="card-title">
+        <i class="pi pi-money-bill total-invoiced"></i>top vendor
+      </p>
+      <p class="card-data fn-18">El-Hussieny</p>
+    </div> -->
+  </div>
+
+  <div class="card">
+    <!-- <p-tabs>
+      <p-tablist>
+        @for (tab of tabs; track tab.value) {
+        <p-tab [value]="tab.value" (click)="onTabChange(tab.value)">
+          {{ tab.title }}
+        </p-tab>
+        }
+      </p-tablist>
+    </p-tabs> -->
+    <app-data-table
+      [columns]="columns"
+      [value]="itemsValue"
+      [globalFilterFields]="['ID', 'category', 'department']"
+      [selectionMode]="'multiple'"
+      [exportable]="true"
+      (onView)="onViewItem($event)"
+      (onEdit)="handleEdit($event)"
+      (onDelete)="handleDelete($event)"
+      (onDeleteSelected)="handleBulkDelete($event)"
+    />
+  </div>
+</div>

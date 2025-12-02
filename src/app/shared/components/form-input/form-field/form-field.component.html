@@ -1,0 +1,7 @@
+<div class="form-input">
+  <p class="label">{{ label() }} <i class="pi pi-asterisk"></i></p>
+  <ng-content></ng-content>
+  <p class="error" [class.visible]="control()?.invalid && control()?.touched">
+    {{ getError(control()?.errors || {}) }}
+  </p>
+</div>
