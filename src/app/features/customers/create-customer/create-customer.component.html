@@ -1,0 +1,480 @@
+<p-breadcrumb [home]="home" [model]="items" />
+<div class="main-content_top">
+  <div class="title-container">
+    <p class="page-title">Create New Customer</p>
+  </div>
+
+  <div class="cta">
+    <p-button
+      label="Save as Draft"
+      size="large"
+      type="button"
+      (onClick)="onSubmit(cstForm)"
+    />
+  </div>
+</div>
+
+<div class="main-content_form">
+  <!-- <p class="form-title">Sales Order</p> -->
+
+  <form action="#" class="form" [formGroup]="cstForm">
+    <p-stepper [value]="1" class="basis-[50rem]" [linear]="true">
+      <p-step-list>
+        <p-step [value]="1"
+          ><p class="step-no">Step 1</p>
+          <p class="step-title">Basic Info</p></p-step
+        >
+        <p-step [value]="2"
+          ><p class="step-no">Step 2</p>
+          <p class="step-title">Customer Info</p></p-step
+        >
+        <!-- <p-step [value]="3"
+          ><p class="step-no">Step 3</p>
+          <p class="step-title">Additional Info</p></p-step
+        > -->
+      </p-step-list>
+
+      <p-step-panels>
+        <p-step-panel [value]="1">
+          <ng-template #content let-activateCallback="activateCallback">
+            <div class="form-row mb-1">
+              <div class="form-group bg-grey">
+                <div class="form-group_header">
+                  <p class="form-group_title">Internal Info</p>
+                  <p class="form-group_desc">
+                    Enter your company`s information, This information are not
+                    visible to clients and specific to company
+                  </p>
+                </div>
+                <div class="form-inputs">
+                  <app-form-field
+                    label="Account Manager"
+                    [control]="cstForm.get('accountManager')"
+                  >
+                    <p-select
+                      appendTo="body"
+                      [options]="assignedEmployees"
+                      formControlName="accountManager"
+                      name="accountManager"
+                      id="accountManager"
+                      placeholder="Select Account Manager"
+                      optionLabel="name"
+                      display="chip"
+                    />
+                  </app-form-field>
+
+                  <app-form-field
+                    label="Customer Since"
+                    [control]="cstForm.get('cstAge')"
+                  >
+                    <p-datepicker
+                      size="large"
+                      [iconDisplay]="'input'"
+                      [showIcon]="true"
+                      formControlName="cstAge"
+                      name="cstAge"
+                      id="cstAge"
+                    />
+                  </app-form-field>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group bg-grey">
+                <div class="form-group_header">
+                  <p class="form-group_title">Customer Info</p>
+                  <p class="form-group_desc">
+                    Enter your customer related info
+                  </p>
+                </div>
+                <div class="form-inputs">
+                  <app-form-field
+                    label="Customer Name"
+                    [control]="cstForm.get('name')"
+                  >
+                    <input
+                      placeholder="Enter Customer Name"
+                      class="p-inputtext"
+                      pSize="large"
+                      pInputText
+                      formControlName="name"
+                      name="name"
+                      id="name"
+                      aria-describedby="username-help"
+                    />
+                  </app-form-field>
+                  <app-form-field
+                    label="Customer Type"
+                    [control]="cstForm.get('type')"
+                  >
+                    <p-select
+                      [filter]="true"
+                      filterBy="name"
+                      appendTo="body"
+                      [options]="type"
+                      formControlName="type"
+                      name="type"
+                      optionLabel="name"
+                      display="chip"
+                    />
+                  </app-form-field>
+                </div>
+
+                <!-- <div class="form-inputs">
+                  
+                </div> -->
+
+                <div class="form-inputs">
+                  <app-form-field
+                    label="Registeration Country"
+                    [control]="cstForm.get('regCountry')"
+                  >
+                    <p-select
+                      appendTo="body"
+                      [options]="regCountry"
+                      formControlName="regCountry"
+                      name="regCountry"
+                      id="regCountry"
+                      optionLabel="name"
+                      display="chip"
+                    />
+                  </app-form-field>
+
+                  <app-form-field
+                    label="Tax ID/VAT"
+                    [control]="cstForm.get('vat')"
+                  >
+                    <input
+                      class="p-inputtext"
+                      pSize="large"
+                      pInputText
+                      formControlName="vat"
+                      name="vat"
+                      id="vat"
+                      aria-describedby="username-help"
+                    />
+                  </app-form-field>
+                </div>
+
+                <div class="form-inputs">
+                  <app-form-field
+                    label="Office Address"
+                    [control]="cstForm.get('address')"
+                  >
+                    <input
+                      placeholder="Enter Office Address"
+                      class="p-inputtext"
+                      pSize="large"
+                      pInputText
+                      formControlName="address"
+                      name="address"
+                      id="address"
+                      aria-describedby="username-help"
+                    />
+                  </app-form-field>
+                </div>
+
+                <div class="form-inputs">
+                  <app-form-field
+                    label="Country"
+                    [control]="cstForm.get('country')"
+                  >
+                    <p-select
+                      appendTo="body"
+                      [options]="countries"
+                      formControlName="country"
+                      name="country"
+                      id="country"
+                      optionLabel="name"
+                      display="chip"
+                    />
+                  </app-form-field>
+
+                  <app-form-field label="City" [control]="cstForm.get('city')">
+                    <input
+                      placeholder="Enter city ex. (New York)"
+                      class="p-inputtext"
+                      pSize="large"
+                      pInputText
+                      formControlName="city"
+                      name="city"
+                      id="city"
+                      aria-describedby="username-help"
+                    />
+                  </app-form-field>
+                </div>
+
+                <div class="form-inputs">
+                  <app-form-field
+                    label="Company Website"
+                    [control]="cstForm.get('website')"
+                  >
+                    <input
+                      class="p-inputtext"
+                      pSize="large"
+                      pInputText
+                      formControlName="website"
+                      name="website"
+                    />
+                  </app-form-field>
+
+                  <app-form-field
+                    label="Time zone"
+                    [control]="cstForm.get('timeZone')"
+                  >
+                    <p-select
+                      appendTo="body"
+                      [options]="timeZones"
+                      formControlName="timeZone"
+                      name="timeZone"
+                      optionLabel="name"
+                      display="chip"
+                    />
+                  </app-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="cta-container">
+              <div class="cta"></div>
+              <div class="cta">
+                <p-button
+                  size="large"
+                  label="Next"
+                  icon="pi pi-arrow-right"
+                  iconPos="right"
+                  (onClick)="activateCallback(2)"
+                />
+              </div>
+            </div>
+          </ng-template>
+        </p-step-panel>
+
+        <p-step-panel [value]="2">
+          <ng-template #content let-activateCallback="activateCallback">
+            <div class="form-row mb-1">
+              <div class="form-group bg-grey">
+                <div class="form-group_header">
+                  <p class="form-group_title">Contact Person Info</p>
+                  <p class="form-group_desc">
+                    Enter all required contact person info for further
+                    communication
+                  </p>
+                </div>
+
+                <div class="form-inputs">
+                  <app-form-field
+                    label="Contact Name"
+                    [control]="cstForm.get('contact')"
+                  >
+                    <input
+                      class="p-inputtext"
+                      pSize="large"
+                      pInputText
+                      formControlName="contact"
+                      name="contact"
+                      aria-describedby="username-help"
+                    />
+                  </app-form-field>
+                  <app-form-field
+                    label="Contact Title/Position"
+                    [control]="cstForm.get('title')"
+                  >
+                    <input
+                      class="p-inputtext"
+                      pSize="large"
+                      pInputText
+                      formControlName="title"
+                      name="title"
+                      aria-describedby="username-help"
+                    />
+                  </app-form-field>
+                </div>
+
+                <!-- <div class="form-inputs">
+                  
+                 
+                </div> -->
+
+                <div class="form-inputs">
+                  <app-form-field
+                    label="Email"
+                    [control]="cstForm.get('email')"
+                  >
+                    <input
+                      class="p-inputtext"
+                      pSize="large"
+                      pInputText
+                      formControlName="email"
+                      name="email"
+                      placeholder="Enter contact email"
+                      aria-describedby="username-help"
+                    />
+                  </app-form-field>
+                  <app-form-field
+                    label="contact phone"
+                    [control]="cstForm.get('phone')"
+                  >
+                    <input
+                      class="p-inputtext"
+                      pSize="large"
+                      pInputText
+                      formControlName="phone"
+                      name="phone"
+                      aria-describedby="username-help"
+                    />
+                  </app-form-field>
+                </div>
+                <!-- <div class="form-inputs">
+                  <app-form-field
+                    label="vessel name"
+                    [control]="cstForm.get('vesselName')"
+                  >
+                    <p-select
+                      appendTo="body"
+                      [options]="availableVessels"
+                      formControlName="vesselName"
+                      name="vesselName"
+                      placeholder="Choose vessel after Manager/Owner"
+                      optionLabel="name"
+                      display="chip"
+                    />
+                  </app-form-field>
+                  <app-form-field label="IMO" [control]="cstForm.get('imoNum')">
+                    <input
+                      class="p-inputtext"
+                      pInputText
+                      formControlName="imoNum"
+                      name="imoNum"
+                      placeholder="Vessel IMO number"
+                      aria-describedby="username-help"
+                    />
+                  </app-form-field>
+                </div> -->
+              </div>
+            </div>
+
+            <div class="form-row">
+              <!-- PAYMENT INFO -->
+              <div class="form-group bg-grey">
+                <div class="form-group_header">
+                  <p class="form-group_title">Payment Info</p>
+                  <p class="form-group_desc">
+                    Fill in all agreed payment conditions as per customer data
+                  </p>
+                </div>
+
+                <div class="form-inputs">
+                  <app-form-field
+                    label="billing address"
+                    [control]="cstForm.get('billingAddress')"
+                  >
+                    <input
+                      class="p-inputtext"
+                      pSize="large"
+                      pInputText
+                      formControlName="billingAddress"
+                      name="billingAddress"
+                    />
+                  </app-form-field>
+                  <app-form-field
+                    label="payment terms"
+                    [control]="cstForm.get('pyTerms')"
+                  >
+                    <p-select
+                      appendTo="body"
+                      [options]="paymentTerms"
+                      formControlName="pyTerms"
+                      name="pyTerms"
+                      optionLabel="name"
+                      display="chip"
+                    />
+                  </app-form-field>
+                </div>
+
+                <!-- <div class="form-inputs">
+                  
+                </div> -->
+
+                <!-- <div class="form-inputs">
+                 
+                </div> -->
+
+                <div class="form-inputs">
+                  <app-form-field
+                    label="payment method"
+                    [control]="cstForm.get('pyMethod')"
+                  >
+                    <p-select
+                      appendTo="body"
+                      [options]="paymentMethods"
+                      formControlName="pyMethod"
+                      name="pyMethod"
+                      optionLabel="name"
+                      display="chip"
+                    />
+                  </app-form-field>
+                  <app-form-field
+                    label="currency"
+                    [control]="cstForm.get('currency')"
+                  >
+                    <p-select
+                      appendTo="body"
+                      [options]="currencys"
+                      formControlName="currency"
+                      name="currency"
+                      optionLabel="name"
+                      display="chip"
+                    />
+                  </app-form-field>
+                </div>
+              </div>
+            </div>
+
+            <div class="cta-container">
+              <div class="cta">
+                <p-button
+                  size="large"
+                  label="Back"
+                  severity="secondary"
+                  icon="pi pi-arrow-left"
+                  (onClick)="activateCallback(1)"
+                />
+              </div>
+              <div class="cta">
+                <p-button
+                  label="Submit SO"
+                  size="large"
+                  (onClick)="onSubmit(cstForm)"
+                />
+              </div>
+            </div>
+          </ng-template>
+        </p-step-panel>
+
+        <!-- <p-step-panel [value]="3">
+          <ng-template #content let-activateCallback="activateCallback">
+            <div class="cta-container">
+              <div class="cta">
+                <p-button
+                  size="large"
+                  label="Back"
+                  icon="pi pi-arrow-left"
+                  iconPos="left"
+                  (onClick)="activateCallback(2)"
+                />
+              </div>
+              <div class="cta">
+                <p-button
+                  label="Submit SO"
+                  size="large"
+                  (onClick)="onSubmit(cstForm)"
+                />
+              </div>
+            </div>
+          </ng-template>
+        </p-step-panel> -->
+      </p-step-panels>
+    </p-stepper>
+  </form>
+</div>

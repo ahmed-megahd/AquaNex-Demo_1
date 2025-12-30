@@ -39,7 +39,7 @@
   --main-font: "Urbanist", sans-serif;
   --mb-4: 4rem;
 
-  --border-radius: 8px;
+  --border-radius: 4px;
 
   /* --p-form-field-lg-font-size: 1.4rem; */
 }
@@ -62,8 +62,8 @@ html {
 body {
   font-family: var(--main-font);
   font-size: 1.4rem;
-  background-color: var(--light-grey-color);
   height: 100vh;
+  background-color: var(--light-grey-color);
 }
 
 .main-content_top,
@@ -85,10 +85,10 @@ body {
 }
 
 .p-breadcrumb {
-  background-color: var(--light-grey-color) !important;
   display: flex;
-  justify-content: flex-end;
+  /* justify-content: flex-end; */
   margin-bottom: 2rem;
+  background-color: var(--light-grey-color);
 }
 
 .p-breadcrumb-item-label {
@@ -107,7 +107,7 @@ body {
   color: var(--dark-color-2);
 }
 .page-title {
-  font-size: 3rem;
+  font-size: 2.4rem;
   text-transform: capitalize;
   font-weight: 600;
   color: var(--dark-color-2);
@@ -164,8 +164,26 @@ body {
   background-color: var(--primary-color-main-btn);
   color: var(--white-color);
   border: none;
+  border: 1px solid transparent;
   padding: 1rem 2rem;
   border-radius: var(--border-radius);
+}
+
+.cta-del {
+  margin-right: 1rem;
+}
+.cta-del .p-button-lg {
+  font-size: 1.4rem;
+  padding: 1rem 2rem;
+  color: var(--danger-color);
+  border-radius: var(--border-radius);
+}
+
+@media screen and (max-width: 1500px) {
+  .cta .p-button-lg,
+  .cta-del .p-button-lg {
+    padding: 0.6rem 1.6rem;
+  }
 }
 
 .search-inputs .cta .p-button-lg {
@@ -191,6 +209,8 @@ body {
 
 .main-content_center {
   border: 1px solid var(--input-border-color);
+  border: 1px solid rgba(0, 0, 0, 0.1); /* soft stroke */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   background-color: var(--white-color);
   border-radius: var(--border-radius);
   padding: 1.5rem 2rem;
@@ -227,6 +247,18 @@ p-datepicker {
   /* box-shadow: 0 1px 1px #e1e1e1; */
 }
 
+@media screen and (max-width: 1500px) {
+  .p-inputtext,
+  .p-multiselect,
+  .p-textarea-fluid,
+  .p-select,
+  .p-autoComplete,
+  .form-data {
+    padding: 0.6rem;
+    padding-left: 1rem;
+  }
+}
+
 .p-select-label {
   font-size: 1.4rem;
 }
@@ -235,7 +267,7 @@ p-datepicker {
 .form-group .p-multiselect,
 .form-group .p-textarea-fluid,
 .form-group .p-select {
-  background-color: var(--light-grey-color);
+  background-color: var(--white-color);
 }
 .p-inputtext::placeholder {
   color: var(--grey-color);
@@ -325,9 +357,12 @@ p-datepicker {
   width: 100%;
   border: 1px solid var(--input-border-color);
   border-radius: var(--border-radius);
+  border: 1px solid rgba(0, 0, 0, 0.1); /* soft stroke */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   background-color: var(--white-color);
   display: flex;
   align-items: center;
+  overflow: hidden;
   justify-content: space-between;
 }
 
@@ -341,7 +376,7 @@ p-datepicker {
   border-right: 1px solid var(--input-border-color);
 }
 .card-title {
-  color: var(--dark-color-2);
+  color: var(--grey-color);
   font-size: 1.6rem;
   font-weight: 500;
   text-transform: capitalize;
@@ -364,8 +399,28 @@ p-datepicker {
 
 .card-data {
   color: var(--dark-color-2);
-  font-size: 2rem;
+  font-size: 2.4rem;
+  font-weight: 600;
+}
+
+.card-context-box {
+  display: flex;
+  align-items: center;
+  font-size: 1.4rem;
   font-weight: 500;
+  color: var(--grey-color);
+  text-transform: capitalize;
+}
+
+.card-context-label {
+  margin-right: 0.5rem;
+}
+
+.card-context-data {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0.2rem 0.8rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
 }
 /* TABS STYLING */
 .p-tabs {
@@ -386,7 +441,7 @@ p-datepicker {
   background-color: var(--light-grey-color);
   border-radius: var(--border-radius);
   width: fit-content;
-  margin-bottom: 2rem;
+  /* margin-bottom: 2rem; */
   /* align-items: center; */
 }
 
@@ -396,6 +451,7 @@ p-datepicker {
   border-bottom: 1px solid var(--input-border-color);
   border-radius: 0;
   width: 100%;
+  margin-bottom: 2rem;
 }
 
 .p-tablist-tab-list-view {
@@ -411,6 +467,12 @@ p-datepicker {
   border-radius: var(--border-radius);
   border: 1px solid transparent;
   /* background-color: var(--white-color); */
+}
+
+@media screen and (max-width: 1500px) {
+  .p-tab {
+    padding: 0.6rem 2rem;
+  }
 }
 
 .form-row .p-tab {
@@ -436,6 +498,8 @@ p-datepicker {
   width: 100%;
   margin-top: 1rem;
   border: 1px solid var(--input-border-color);
+  border: 1px solid rgba(0, 0, 0, 0.1); /* soft stroke */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   background-color: var(--white-color);
   border-radius: var(--border-radius);
 }
@@ -443,26 +507,11 @@ p-datepicker {
 .p-toolbar {
   background-color: var(--white-color);
   border: 1px solid transparent;
+  border-radius: var(--border-radius);
   border-bottom: none;
   padding: 2rem;
-  border-radius: var(--border-radius);
-  /* margin-bottom: 1rem; */
-}
-.cta-del {
-  margin-right: 1rem;
-}
-.cta-del .p-button-lg {
-  font-size: 1.4rem;
-  padding: 1rem 2rem;
-  color: var(--danger-color);
 }
 
-.cta-sec .p-button-lg {
-  border: 1px solid var(--primary-color-main-btn);
-  background-color: var(--white-color);
-  color: var(--dark-color);
-  padding: 1rem 2rem;
-}
 .table-title {
   font-size: 2.2rem;
   color: var(--dark-color-2);
@@ -473,7 +522,7 @@ p-datepicker {
   background-color: var(--light-grey-color);
   color: var(--dark-color);
   font-weight: 500;
-  padding: 1rem 2rem !important;
+  padding: 1rem !important;
   /* border-top: 1px solid var(--input-border-color); */
   border-bottom: 1px solid var(--input-border-color);
 }
@@ -482,8 +531,9 @@ p-datepicker {
 }
 
 .p-datatable-table {
-  border: 1px solid var(--input-border-color);
+  /* border: 1px solid var(--input-border-color); */
   border-bottom: none;
+  padding: 0 2rem;
 }
 
 /* .p-datatable {
@@ -502,7 +552,7 @@ p-datepicker {
 .p-datatable-tbody > tr > td {
   background-color: var(--white-color);
   color: var(--dark-color-2);
-  padding: 2rem;
+  padding: 1rem;
   border-bottom: 1px solid var(--input-border-color);
 }
 
@@ -609,8 +659,10 @@ p-button.edit-btn button {
 .form {
   width: 100%;
   /* border: 1px solid var(--input-border-color); */
+  /* box-shadow: 0px 0px 0.5px 0.5px var(--input-border-color); */
   border-radius: var(--border-radius);
-  box-shadow: 0px 0px 0.5px 0.5px var(--input-border-color);
+  border: 1px solid rgba(0, 0, 0, 0.1); /* soft stroke */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   margin-bottom: 1rem;
   background-color: var(--white-color);
 }
@@ -638,8 +690,23 @@ p-button.edit-btn button {
   gap: 1rem;
 }
 
+@media screen and (max-width: 1500px) {
+  .form-row-content {
+    flex-direction: column;
+    gap: 0;
+  }
+}
+
 .form-row-content .form-column {
-  width: 30%;
+  width: 40%;
+}
+
+@media screen and (max-width: 1500px) {
+  .form-row-content .form-column {
+    width: 100% !important;
+    flex-direction: row;
+    gap: 1rem;
+  }
 }
 .form-view {
   padding: 2rem;
@@ -661,9 +728,6 @@ p-button.edit-btn button {
   flex: 1;
   padding: 2rem;
   padding-bottom: 0;
-  /* margin-top: 1rem; */
-  /* margin-bottom: 1rem; */
-  /* border: 1px solid var(--input-border-color); */
   border-radius: var(--border-radius);
   background-color: var(--white-color);
   height: auto;
@@ -699,12 +763,13 @@ p-button.edit-btn button {
 }
 
 .form-group_header-view i {
-  padding: 0.8rem;
+  padding: 0.6rem;
   border: 0.5px solid var(--input-border-color);
   border-radius: var(--border-radius);
-  font-size: 2rem;
-  color: var(--primary-color);
-  background-color: #dce2ff;
+  font-size: 1.8rem;
+  color: var(--dark-color);
+  /* background-color: #dce2ff; */
+  background-color: var(--light-grey-color);
   /* margin-right: 1rem; */
 }
 
@@ -728,8 +793,8 @@ p-button.edit-btn button {
   letter-spacing: 0.2px;
   font-weight: 500;
   text-transform: capitalize;
-  padding-bottom: 0.8rem;
-  border-bottom: 0.5px solid var(--input-border-color);
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--input-border-color);
 }
 
 .sub-form-title {
@@ -737,7 +802,7 @@ p-button.edit-btn button {
   border-radius: var(--border-radius);
   font-size: 1.8rem;
   margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   padding: 2rem;
   color: var(--white-color);
   background-color: var(--primary-color-main-btn);
@@ -753,14 +818,14 @@ p-button.edit-btn button {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 4rem;
+  gap: 2rem;
   overflow: visible;
 }
 .form-info-row {
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 2rem;
 }
 
 .form-info-row-imp {
@@ -794,7 +859,7 @@ p-button.edit-btn button {
   align-items: flex-start;
   gap: 0.5rem;
   /* justify-content: center; */
-  margin: 0.5rem 0;
+  /* margin: 0.5rem 0; */
 }
 
 .form-info i {
@@ -860,10 +925,10 @@ p-button.edit-btn button {
 }
 
 .form-data-pending {
-  color: var(--pending-color);
+  color: var(--dark-color-2);
   background-color: var(--pending-color);
   padding-left: 1rem;
-  padding-right: 1rem;
+  padding: 0.5rem;
 }
 
 .form-data-danger {
@@ -885,7 +950,7 @@ p-stepper {
   justify-content: flex-start;
   /* gap: 1rem; */
   background-color: var(--light-grey-color);
-  height: 30rem;
+  height: 25rem;
   border: 1px solid var(--input-border-color);
   border-radius: var(--border-radius);
   padding: 2rem;
@@ -926,11 +991,11 @@ p-stepper {
   font-weight: 500;
 }
 .p-step-number {
-  font-size: 1.6rem;
+  z-index: 0;
+  font-size: 1.8rem;
   font-weight: 500;
-  height: 3rem;
-  min-width: 3rem;
-  text-align: center;
+  height: 4rem;
+  min-width: 4rem;
 }
 .p-step-active .p-step-number {
   color: var(--white-color);
@@ -942,7 +1007,8 @@ p-stepper {
 }
 .p-stepper-separator {
   width: 5px;
-  margin-left: 1.2rem;
+  margin-left: 1.65rem;
+  border-radius: var(--border-radius);
   background-color: var(--white-color);
 }
 .p-step:has(~ .p-step-active) .p-stepper-separator {
@@ -982,8 +1048,11 @@ p-stepper {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 2rem 0;
+}
+
+.form-small .cta-container {
   padding: 2rem;
-  padding-top: 0;
 }
 
 .cta-container-view {
@@ -1007,7 +1076,7 @@ p-stepper {
 }
 
 .p-autocomplete {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   width: 50%;
 }
 
@@ -1098,6 +1167,9 @@ p-stepper {
   margin-bottom: 8rem;
 }
 
+.mt-2 {
+  margin-top: 2rem;
+}
 .mt-4 {
   margin-top: 4rem;
 }
@@ -1105,6 +1177,13 @@ p-stepper {
   margin-left: auto;
 }
 
+.pl-1 {
+  padding-left: 1rem;
+}
+
+.pt-0 {
+  padding-top: 0;
+}
 .br-6 {
   border-radius: var(--border-radius);
 }

@@ -16,6 +16,14 @@ import { ViewSupplierComponent } from './features/suppliers/view-supplier/view-s
 import { PurchasesComponent } from './features/purchase-orders/purchases/purchases.component';
 import { CreatePurchaseComponent } from './features/purchase-orders/create-purchase/create-purchase.component';
 import { ViewPurchaseComponent } from './features/purchase-orders/view-purchase/view-purchase.component';
+import { CustomersComponent } from './features/customers/customers/customers.component';
+import { CreateCustomerComponent } from './features/customers/create-customer/create-customer.component';
+import { ViewCustomerComponent } from './features/customers/view-customer/view-customer.component';
+import { VesselsComponent } from './features/vessels/vessels/vessels.component';
+import { AddVesselComponent } from './features/vessels/add-vessel/add-vessel.component';
+import { ViewVesselComponent } from './features/vessels/view-vessel/view-vessel.component';
+import { SupplierInvoices } from './features/invoices/supplier/supplier-invoices/supplier-invoices.component';
+import { SupplierInvoiceCreateComponent } from './features/invoices/supplier/supplier-invoice-create/supplier-invoice-create.component';
 
 export const routes: Routes = [
   {
@@ -30,19 +38,39 @@ export const routes: Routes = [
       { path: 'sales-orders', component: SalesComponent },
       { path: 'sales-order/create', component: CreateSalesOrderComponent },
       { path: 'sales-order/view/:id', component: ViewSalesComponent },
+
       { path: 'payments', component: PaymentsComponent },
+
       { path: 'expenses', component: ExpensesComponent },
       { path: 'expenses/create', component: CreateExpenseComponent },
       { path: 'expenses/view/:id', component: ViewExpensesComponent },
+
       { path: 'items', component: ItemsComponent },
       { path: 'items/add', component: AddItemComponent },
       { path: 'items/view/:id', component: ViewItemComponent },
+
       { path: 'suppliers', component: SuppliersComponent },
       { path: 'suppliers/create', component: CreateSupplierComponent },
       { path: 'suppliers/view/:id', component: ViewSupplierComponent },
+
+      { path: 'customers', component: CustomersComponent },
+      { path: 'customers/create', component: CreateCustomerComponent },
+      { path: 'customers/view/:id', component: ViewCustomerComponent },
+
+      { path: 'vessels', component: VesselsComponent },
+      { path: 'vessels/create', component: AddVesselComponent },
+      { path: 'vessels/view/:id', component: ViewVesselComponent },
+
       { path: 'purchase-orders', component: PurchasesComponent },
       { path: 'purchase-orders/create', component: CreatePurchaseComponent },
       { path: 'purchase-orders/view/:id', component: ViewPurchaseComponent },
+
+      { path: 'supplier-invocies', component: SupplierInvoices },
+      {
+        path: 'supplier-invocies/create',
+        component: SupplierInvoiceCreateComponent,
+      },
+      // { path: 'purchase-orders/view/:id', component: ViewPurchaseComponent },
     ],
   },
 ];

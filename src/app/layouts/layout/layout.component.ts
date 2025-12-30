@@ -71,7 +71,7 @@ export class LayoutComponent {
         {
           label: 'Supplier Invoices',
           icon: 'pi pi-receipt',
-          route: '/invoice',
+          route: '/supplier-invocies',
         },
         {
           label: 'Purchasing Reports',
@@ -134,7 +134,12 @@ export class LayoutComponent {
         {
           label: 'Customers Profiles',
           icon: 'pi pi-briefcase',
-          route: '/purchasing',
+          route: '/customers',
+        },
+        {
+          label: 'Vessels Management',
+          icon: 'pi pi-compass',
+          route: '/vessels',
         },
         {
           label: 'Customers Analysis',

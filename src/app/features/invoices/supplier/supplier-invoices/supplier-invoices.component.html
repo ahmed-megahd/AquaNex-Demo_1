@@ -1,0 +1,125 @@
+<p-breadcrumb [home]="home" [model]="items" />
+<div class="main-content_top">
+  <div class="title-container">
+    <p class="page-title">Supplier Invoices center</p>
+  </div>
+
+  <div class="cta">
+    <p-button
+      label="Create New Invoice"
+      icon="pi pi-plus"
+      size="large"
+      (onClick)="openNew()"
+    />
+  </div>
+</div>
+
+<div class="main-content_center">
+  <div class="search-header">
+    <p>Searching Options based on your insights</p>
+  </div>
+  <div class="search-inputs">
+    <div class="search-input-item">
+      <p-datepicker
+        placeholder="Creation Date"
+        size="large"
+        [(ngModel)]="creationDate"
+        selectionMode="range"
+        [iconDisplay]="'input'"
+        [showIcon]="true"
+      />
+    </div>
+
+    <!-- <div class="search-input-item">
+      <p-datepicker
+        placeholder="Delivery Date"
+        size="large"
+        [(ngModel)]="rangeDates"
+        selectionMode="range"
+        [iconDisplay]="'input'"
+        [showIcon]="true"
+      />
+    </div> -->
+    <!-- 
+    <div class="search-input-item">
+      <p-multiselect
+        [options]="salesOrderStatus"
+        [(ngModel)]="selectedSalesStatus"
+        placeholder="Select Sales Order Status"
+        optionLabel="name"
+        display="chip"
+      />
+    </div> -->
+
+    <div class="search-input-item">
+      <p-multiselect
+        [options]="status"
+        [(ngModel)]="selectedStatus"
+        placeholder="Select Payment Status"
+        optionLabel="name"
+        display="chip"
+      />
+    </div>
+    <div class="cta">
+      <p-button icon="pi pi-search" size="large" (onClick)="onSearch()" />
+    </div>
+  </div>
+</div>
+
+<div class="main-content_bottom">
+  <div class="analysis-box">
+    <div class="analysis-card">
+      <p class="card-title">
+        <i class="pi pi-box total-orders"></i> total invoices
+      </p>
+      <p class="card-data">48</p>
+    </div>
+    <div class="analysis-card">
+      <p class="card-title">
+        <i class="pi pi-check-circle total-closed"></i>total Paid
+      </p>
+      <p class="card-data">20</p>
+    </div>
+    <div class="analysis-card">
+      <p class="card-title">
+        <i class="pi pi-hourglass total-in-progress"></i>total Partial
+      </p>
+      <p class="card-data">18</p>
+    </div>
+    <div class="analysis-card">
+      <p class="card-title">
+        <i class="pi pi-money-bill total-invoiced"></i>total Un-paid
+      </p>
+      <p class="card-data">10</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <p-tabs>
+      <p-tablist>
+        @for (tab of tabs; track tab.value) {
+        <p-tab [value]="tab.value" (click)="onTabChange(tab.value)">
+          {{ tab.title }}
+        </p-tab>
+        }
+      </p-tablist>
+    </p-tabs>
+    <app-data-table
+      [columns]="columns"
+      [value]="filteredInvoices"
+      [globalFilterFields]="[
+        'supplierInvoice',
+        'linkedPO',
+        'supplier',
+        'status',
+        'amount'
+      ]"
+      [selectionMode]="'multiple'"
+      [exportable]="true"
+      (onView)="onViewOrder($event)"
+      (onEdit)="handleEdit($event)"
+      (onDelete)="handleDelete($event)"
+      (onDeleteSelected)="handleBulkDelete($event)"
+    />
+  </div>
+</div>

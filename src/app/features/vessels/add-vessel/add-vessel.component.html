@@ -1,0 +1,244 @@
+<p-breadcrumb [home]="home" [model]="items" />
+<div class="main-content_top">
+  <div class="title-container">
+    <p class="page-title">Add New Vessel</p>
+  </div>
+
+  <div class="cta">
+    <p-button
+      label="Save as Draft"
+      size="large"
+      type="button"
+      (onClick)="onSubmit(vesselForm)"
+    />
+  </div>
+</div>
+
+<div class="main-content_form form-small">
+  <form
+    action="#"
+    class="form"
+    [formGroup]="vesselForm"
+    (ngSubmit)="onSubmit(vesselForm)"
+  >
+    <div class="form-row">
+      <div class="form-group mb-0">
+        <div class="form-group_header">
+          <p class="form-group_title">Basic Information</p>
+          <p class="form-group_desc">
+            Enter vessel`s information, This information is linked with the
+            selected vessel owner and manager in all sales orders
+          </p>
+        </div>
+        <div class="form-inputs">
+          <app-form-field
+            label="Vessel Name"
+            [control]="vesselForm.get('name')"
+          >
+            <input
+              placeholder="Name"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="name"
+              name="name"
+              id="name"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+
+          <app-form-field
+            label="Vessel type"
+            [control]="vesselForm.get('type')"
+          >
+            <p-multiselect
+              appendTo="body"
+              [options]="type"
+              formControlName="type"
+              name="type"
+              id="type"
+              optionLabel="name"
+              display="chip"
+              placeholder="Select Vessel Type"
+            />
+          </app-form-field>
+        </div>
+
+        <div class="form-inputs">
+          <app-form-field label="IMO Number" [control]="vesselForm.get('IMO')">
+            <input
+              placeholder="IMO Number"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="IMO"
+              name="IMO"
+              id="IMO"
+              type="number"
+              (keypress)="allowOnlyNumbers($event)"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+
+          <app-form-field label="Flag " [control]="vesselForm.get('flag')">
+            <input
+              placeholder="Registeration Company"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="flag"
+              name="flag"
+              id="flag"
+            />
+          </app-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group mb-0">
+        <div class="form-group_header">
+          <p class="form-group_title">Ownership & Operator Information</p>
+          <p class="form-group_desc">
+            Please, make sure to correctly enter the below fields
+          </p>
+        </div>
+
+        <div class="form-inputs">
+          <app-form-field
+            label="Vessel Owner"
+            [control]="vesselForm.get('owner')"
+          >
+            <p-select
+              appendTo="body"
+              [options]="owners"
+              formControlName="owner"
+              name="owner"
+              id="owner"
+              optionLabel="name"
+              display="chip"
+            />
+          </app-form-field>
+
+          <app-form-field
+            label="Vessel Manager/Operator"
+            [control]="vesselForm.get('manager')"
+          >
+            <p-select
+              [filter]="true"
+              filterBy="name"
+              appendTo="body"
+              [options]="managers"
+              formControlName="manager"
+              name="manager"
+              id="manager"
+              optionLabel="name"
+            />
+          </app-form-field>
+        </div>
+
+        <div class="form-inputs mb-0">
+          <app-form-field label="E-mail" [control]="vesselForm.get('email')">
+            <input
+              placeholder="Email"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="email"
+              name="email"
+              id="email"
+            />
+          </app-form-field>
+
+          <app-form-field label="Phone" [control]="vesselForm.get('phone')">
+            <input
+              placeholder="Phone Number"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="phone"
+              name="phone"
+              id="phone"
+              type="number"
+              (keypress)="allowOnlyNumbers($event)"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group mb-0">
+        <div class="form-group_header">
+          <p class="form-group_title">Captain / Contact Details</p>
+          <p class="form-group_desc">
+            Please, make sure to correctly enter the below fields
+          </p>
+        </div>
+
+        <div class="form-inputs">
+          <app-form-field
+            label="Captain Name"
+            [control]="vesselForm.get('captainName')"
+          >
+            <input
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="captainName"
+              name="captainName"
+              id="captainName"
+            />
+          </app-form-field>
+        </div>
+
+        <div class="form-inputs mb-0">
+          <app-form-field
+            label="Captain E-mail"
+            [control]="vesselForm.get('captainEmail')"
+          >
+            <input
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="captainEmail"
+              name="captainEmail"
+              id="captainEmail"
+            />
+          </app-form-field>
+        </div>
+
+        <div class="form-inputs">
+          <app-form-field
+            label="Captain Phone"
+            [control]="vesselForm.get('captainPhone')"
+          >
+            <input
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="captainPhone"
+              name="captainPhone"
+              id="captainPhone"
+              type="number"
+              (keypress)="allowOnlyNumbers($event)"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-container">
+      <div class="cta ml-auto">
+        <p-button
+          size="large"
+          label="Save"
+          type="button"
+          (onClick)="onSubmit(vesselForm)"
+        />
+      </div>
+    </div>
+  </form>
+</div>

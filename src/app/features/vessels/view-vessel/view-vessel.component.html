@@ -1,0 +1,251 @@
+<p-breadcrumb [home]="home" [model]="items" />
+<div class="main-content_top main-content_top-view">
+  <div class="title-container">
+    <p class="page-title">MAERSC-Party</p>
+    <p class="page-subtitle">Vessel #CST-119-221</p>
+  </div>
+
+  <div class="cta-container cta-container-view">
+    <div class="cta">
+      <p-button label="Edit" size="large" type="button" variant="outlined" />
+    </div>
+
+    <div class="cta">
+      <p-button label="More" icon="pi pi-plus" size="large" type="button" />
+    </div>
+    <div class="cta">
+      <p-button label="Add New Vessel" size="large" type="button" />
+    </div>
+  </div>
+</div>
+
+<div class="main-content_form main-content_form-view">
+  <div class="analysis-box mb-1">
+    <div class="analysis-card">
+      <p class="card-title">total orders</p>
+      <p class="card-data mt-2">8</p>
+      <div class="card-context-box">
+        <p class="card-context-label">Processing :</p>
+        <p class="card-context-data total-in-progress">3</p>
+      </div>
+    </div>
+    <div class="analysis-card">
+      <p class="card-title">total revenue</p>
+      <p class="card-data mt-2">4000 USD</p>
+      <div class="card-context-box">
+        <p class="card-context-label">From :</p>
+        <p class="card-context-data total-closed">5</p>
+      </div>
+    </div>
+
+    <div class="analysis-card">
+      <p class="card-title">Outstanding Balance</p>
+      <p class="card-data mt-2">400 USD</p>
+      <div class="card-context-box">
+        <p class="card-context-label">From :</p>
+        <p class="card-context-data total-in-progress">2</p>
+      </div>
+    </div>
+
+    <div class="analysis-card">
+      <p class="card-title">Last Delivery Date</p>
+      <p class="card-data mt-2">4/4/2025</p>
+      <div class="card-context-box">
+        <p class="card-context-label">This year :</p>
+        <p class="card-context-data total-closed">3</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="form form-view">
+    <div class="form-row">
+      <div class="form-group form-group-view mb-0">
+        <div class="form-group_header form-group_header-view">
+          <i class="pi pi-file"></i>
+          <p class="form-group_title">Vessel Information</p>
+        </div>
+        <div class="form-group-view-line">
+          <div class="form-info-row">
+            <div class="form-info-column">
+              <p class="form-title-view width-5">Name</p>
+              <p class="form-data">Maersc-Party</p>
+            </div>
+          </div>
+
+          <div class="form-info-row">
+            <div class="form-info-column">
+              <p class="form-title-view width-5">Vessel Owner</p>
+              <p class="form-data">MAERSC</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group-view-line">
+          <div class="form-info-row">
+            <div class="form-info-column">
+              <p class="form-title-view width-5">Status</p>
+              <p class="form-data br-6 form-data-pending">Active</p>
+            </div>
+          </div>
+
+          <div class="form-info-row">
+            <div class="form-info-column">
+              <p class="form-title-view width-5">Operator/Manager</p>
+              <p class="form-data br-6">Bonvoy</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group-view-line">
+          <div class="form-info-row">
+            <div class="form-info-column">
+              <p class="form-title-view width-5">Vessel Type</p>
+              <p class="form-data">Cargo</p>
+            </div>
+          </div>
+
+          <div class="form-info-row"></div>
+        </div>
+
+        <div class="form-group-view-line">
+          <div class="form-info-row">
+            <div class="form-info-column">
+              <p class="form-title-view width-5">IMO Number</p>
+              <p class="form-data">112309</p>
+            </div>
+          </div>
+          <div class="form-info-row"></div>
+        </div>
+
+        <div class="form-group-view-line">
+          <div class="form-info-row">
+            <div class="form-info-column">
+              <p class="form-title-view width-5">Country of Reg</p>
+              <p class="form-data"><i class="pi pi-map-marker"></i> Panama</p>
+            </div>
+
+            <div class="form-info-row"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form form-view">
+    <div class="form-row">
+      <div class="form-group form-group-view mb-0">
+        <p-tabs class="p-tabs-view" value="0">
+          <p-tablist class="p-tablist-tab-list-view">
+            <p-tab value="0">Contact</p-tab>
+            <p-tab value="1">Sales Orders</p-tab>
+            <p-tab value="2">Invoices</p-tab>
+            <p-tab value="3">Purchase History</p-tab>
+            <p-tab value="4">Delivery Note</p-tab>
+          </p-tablist>
+          <p-tabpanels>
+            <p-tabpanel value="0">
+              <div class="form-group_header form-group_header-view">
+                <i class="pi pi-users"></i>
+                <p class="form-group_title">Captain Details</p>
+              </div>
+              <div class="form-group-view-line">
+                <div class="form-info-row">
+                  <div class="form-info-column">
+                    <p class="form-title-view width-5">Name</p>
+                    <p class="form-data border br-6 bg-grey pl-1 width-5">
+                      John Edwards
+                    </p>
+                  </div>
+
+                  <div class="form-info-column"></div>
+                </div>
+              </div>
+
+              <div class="form-group-view-line">
+                <div class="form-info-row">
+                  <div class="form-info-column">
+                    <p class="form-title-view width-5">Email</p>
+                    <p class="form-data border br-6 bg-grey pl-1 width-5">
+                      JEdwars&#64;.com
+                    </p>
+                  </div>
+
+                  <div class="form-info-column"></div>
+                </div>
+              </div>
+
+              <div class="form-group-view-line">
+                <div class="form-info-row">
+                  <div class="form-info-column">
+                    <p class="form-title-view width-5">phone</p>
+                    <p class="form-data border br-6 bg-grey pl-1 width-5">
+                      +90-00910298892
+                    </p>
+                  </div>
+
+                  <div class="form-info-column"></div>
+                </div>
+              </div>
+            </p-tabpanel>
+
+            <p-tabpanel value="1">
+              <div class="form-group_header form-group_header-view">
+                <i class="pi pi-shopping-bag"></i>
+                <p class="form-group_title">Sales Orders List</p>
+              </div>
+              <app-data-table
+                [columns]="salesOrdersColumns"
+                [value]="salesOrders"
+                [globalFilterFields]="['itemName']"
+                [selectionMode]="'multiple'"
+                [exportable]="true"
+              />
+            </p-tabpanel>
+
+            <p-tabpanel value="2">
+              <div class="form-group_header form-group_header-view">
+                <i class="pi pi-money-bill"></i>
+                <p class="form-group_title">Invoices List</p>
+              </div>
+              <app-data-table
+                [columns]="invoiceColumn"
+                [value]="invoices"
+                [globalFilterFields]="['itemName']"
+                [selectionMode]="'multiple'"
+                [exportable]="true"
+              />
+            </p-tabpanel>
+
+            <p-tabpanel value="3">
+              <div class="form-group_header form-group_header-view">
+                <i class="pi pi-dollar"></i>
+                <p class="form-group_title">Payments History</p>
+              </div>
+              <app-data-table
+                [columns]="purchasesColumn"
+                [value]="purchases"
+                [globalFilterFields]="['itemName']"
+                [selectionMode]="'multiple'"
+                [exportable]="true"
+              />
+            </p-tabpanel>
+
+            <p-tabpanel value="4">
+              <div class="form-group_header form-group_header-view">
+                <i class="pi pi-truck"></i>
+                <p class="form-group_title">Delivery Note List</p>
+              </div>
+              <app-data-table
+                [columns]="deliveryNoteColumn"
+                [value]="deliveryNote"
+                [globalFilterFields]="['itemName']"
+                [selectionMode]="'multiple'"
+                [exportable]="true"
+              />
+            </p-tabpanel>
+          </p-tabpanels>
+        </p-tabs>
+      </div>
+    </div>
+  </div>
+</div>

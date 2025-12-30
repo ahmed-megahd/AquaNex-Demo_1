@@ -14,15 +14,12 @@ import { InputTextModule } from 'primeng/inputtext';
 
 import { MultiSelectModule } from 'primeng/multiselect';
 import { RatingModule } from 'primeng/rating';
-import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
-import { ToastModule } from 'primeng/toast';
-import { ToolbarModule } from 'primeng/toolbar';
 import { SalesOrder, SalesService } from '../sales.services';
 import { DataTableComponent } from '../../../shared/components/data-table/data-table/data-table.component';
 import { Status } from '../../../shared/models/menuItem.model';
 import { TabsModule } from 'primeng/tabs';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-sales',
@@ -50,12 +47,11 @@ import { Observable, Subscription } from 'rxjs';
 export class SalesComponent implements OnInit {
   private salesService = inject(SalesService);
   private router = inject(Router);
-  private subscription?: Subscription;
   salesOrders: any[] = [];
   loading = true;
   error = '';
 
-  orders$!: Observable<any[]>;
+  // orders$!: Observable<any[]>;
   items: MenuItem[] = [{ label: 'Sales', routerLink: '/sales' }];
 
   home: MenuItem = { icon: 'pi pi-home', routerLink: '/' };
@@ -79,7 +75,6 @@ export class SalesComponent implements OnInit {
   ];
 
   tabs: { title: string; value: string }[] = [];
-  activeTabIndex = 0;
   orders: SalesOrder[] = [];
   filteredOrders: SalesOrder[] = [];
 

@@ -1,12 +1,12 @@
 <p-breadcrumb [home]="home" [model]="items" />
 <div class="main-content_top">
   <div class="title-container">
-    <p class="page-title">Customers center</p>
+    <p class="page-title">Vessels Management</p>
   </div>
 
   <div class="cta">
     <p-button
-      label="Add New Customer"
+      label="Add New Vessel"
       icon="pi pi-plus"
       size="large"
       (onClick)="openNew()"
@@ -21,9 +21,9 @@
   <div class="search-inputs">
     <div class="search-input-item">
       <p-multiselect
-        [options]="customerType"
-        [(ngModel)]="selectedCustomerType"
-        placeholder="Select Customer Type"
+        [options]="vesselType"
+        [(ngModel)]="selectedVesselType"
+        placeholder="Select Vessel Type"
         optionLabel="name"
         display="chip"
       />
@@ -31,27 +31,18 @@
 
     <div class="search-input-item">
       <p-multiselect
-        [options]="customerStatus"
-        [(ngModel)]="selectedCustomerStatus"
-        placeholder="Select Customer Status"
+        [options]="vesselStatus"
+        [(ngModel)]="selectedVesselStatus"
+        placeholder="Select Vessel Status"
         optionLabel="name"
         display="chip"
       />
     </div>
     <div class="search-input-item">
       <p-multiselect
-        [options]="customerCountry"
-        [(ngModel)]="selectedCustomerCountry"
-        placeholder="Select Customer Reg Country"
-        optionLabel="name"
-        display="chip"
-      />
-    </div>
-    <div class="search-input-item">
-      <p-multiselect
-        [options]="accountManager"
-        [(ngModel)]="selectedAccountManager"
-        placeholder="Select Account Manager"
+        [options]="hasOutstanding"
+        [(ngModel)]="selectedHasOutstanding"
+        placeholder="Select Payment Status"
         optionLabel="name"
         display="chip"
       />
@@ -66,15 +57,15 @@
   <div class="analysis-box">
     <div class="analysis-card">
       <p class="card-title">
-        <i class="pi pi-box total-orders"></i> total Customers
+        <i class="pi pi-box total-orders"></i> total ships
       </p>
       <p class="card-data">48</p>
     </div>
     <div class="analysis-card">
       <p class="card-title">
-        <i class="pi pi-check-circle total-closed"></i>total invoices
+        <i class="pi pi-check-circle total-closed"></i>Active ships
       </p>
-      <p class="card-data">20,190 USD</p>
+      <p class="card-data">29</p>
     </div>
     <div class="analysis-card">
       <p class="card-title">
@@ -103,11 +94,11 @@
   </p-tabs>
   <app-data-table
     [columns]="columns"
-    [value]="filteredCustomers"
-    [globalFilterFields]="['name']"
+    [value]="filteredVessels"
+    [globalFilterFields]="['name', 'IMO']"
     [selectionMode]="'multiple'"
     [exportable]="true"
-    (onView)="onViewCustomer($event)"
+    (onView)="onViewVessel($event)"
     (onEdit)="handleEdit($event)"
     (onDelete)="handleDelete($event)"
     (onDeleteSelected)="handleBulkDelete($event)"

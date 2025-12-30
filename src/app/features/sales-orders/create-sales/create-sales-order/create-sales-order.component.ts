@@ -17,7 +17,6 @@ import { StepperModule } from 'primeng/stepper';
 import { TableModule } from 'primeng/table';
 import { AutoComplete } from 'primeng/autocomplete';
 import { SelectModule } from 'primeng/select';
-import { BadgeDirective } from 'primeng/badge';
 
 export interface Vessel {
   id: number;
@@ -49,7 +48,6 @@ export interface ShipManager {
     TableModule,
     FormsModule,
     AutoComplete,
-    BadgeDirective,
   ],
   standalone: true,
   templateUrl: './create-sales-order.component.html',
