@@ -5,15 +5,16 @@ import { ButtonModule } from 'primeng/button';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { DataTableComponent } from '../../../../shared/components/data-table/data-table/data-table.component';
 import { Router } from '@angular/router';
-import { Invoice, SupplierInvoicesService } from '../supplier-invoices.service';
 import { MenuItem } from 'primeng/api';
 import { Status } from '../../../../shared/models/menuItem.model';
 import { DatePipe } from '@angular/common';
 import { DatePicker } from 'primeng/datepicker';
 import { TabsModule } from 'primeng/tabs';
 
+import { CustomerInvoicesService, Invoice } from '../customer-invoices.service';
+
 @Component({
-  selector: 'app-supplier-invoices',
+  selector: 'app-customer-invoices',
   imports: [
     Breadcrumb,
     MultiSelectModule,
@@ -25,14 +26,14 @@ import { TabsModule } from 'primeng/tabs';
   ],
   standalone: true,
   providers: [DatePipe],
-  templateUrl: './supplier-invoices.component.html',
+  templateUrl: './customer-invoices.component.html',
 })
-export class SupplierInvoices implements OnInit {
+export class CustomerInvoices implements OnInit {
   private router = inject(Router);
-  private supplierInvoiceService = inject(SupplierInvoicesService);
+  private customerInvoiceService = inject(CustomerInvoicesService);
 
   items: MenuItem[] = [
-    { label: 'Supplier Invocies', routerLink: '/customers' },
+    { label: 'Customer Invocies', routerLink: '/customers' },
   ];
   home: MenuItem = { icon: 'pi pi-home', routerLink: '/' };
 
@@ -48,9 +49,10 @@ export class SupplierInvoices implements OnInit {
   //Table columns
   columns = [
     { field: 'id', header: 'ID' },
-    { field: 'supplierInvoice', header: 'Supplier INV' },
-    { field: 'supplier', header: 'Supplier' },
-    { field: 'linkedPO', header: 'Linked PO' },
+    { field: 'customer', header: 'Customer' },
+    { field: 'vessel', header: 'Vessel' },
+    { field: 'quotationNo', header: 'Quotation #' },
+    { field: 'linkedSO', header: 'Linked SO' },
     { field: 'date', header: 'Date' },
     { field: 'dueDate', header: 'Due Date' },
     { field: 'amount', header: 'Amount' },
@@ -66,7 +68,7 @@ export class SupplierInvoices implements OnInit {
   constructor(private datePipe: DatePipe) {}
 
   ngOnInit(): void {
-    this.supplierInvoiceService.getProducts().subscribe((data) => {
+    this.customerInvoiceService.getProducts().subscribe((data) => {
       this.invoices = data;
       this.filteredInvoices = [...this.invoices];
     });
@@ -106,7 +108,7 @@ export class SupplierInvoices implements OnInit {
   }
 
   openNew() {
-    this.router.navigate(['supplier-invoices/create']);
+    this.router.navigate(['customer-invoices/create']);
   }
 
   onSearch() {
@@ -140,6 +142,6 @@ export class SupplierInvoices implements OnInit {
 
   onViewOrder(invoice: Invoice) {
     console.log(invoice.id);
-    this.router.navigate(['supplier-invoices/view', invoice.id]);
+    this.router.navigate(['customer-invoices/view', invoice.id]);
   }
 }

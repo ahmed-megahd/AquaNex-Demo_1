@@ -1,0 +1,219 @@
+.invoice-document {
+  max-width: 794px;
+  margin: auto;
+  padding: 40px;
+  background: #ffffff;
+  color: var(--dark-color-2);
+  font-family: var(--main-font);
+}
+
+/* HEADER */
+.invoice-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+.company {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.company-logo {
+  width: 64px;
+  height: auto;
+}
+
+.company-info h2 {
+  margin: 0;
+  font-size: 20px;
+  color: var(--dark-color-2);
+}
+
+.company-info p {
+  margin: 2px 0;
+  font-size: 13px;
+  color: #555;
+}
+
+.invoice-meta {
+  text-align: right;
+}
+
+.invoice-meta p {
+  margin: 4px 0;
+  font-size: 13px;
+}
+
+.badge {
+  display: inline-block;
+  background: #eef3ff;
+  color: #1e40af;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+/* SECTIONS */
+.invoice-section {
+  margin-bottom: 24px;
+}
+
+.card {
+  background: #fafafa;
+  border: 1px solid #eee;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+/* TABLE */
+.invoice-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 32px 0;
+}
+
+.invoice-table th {
+  background: #f3f4f6;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.invoice-table th,
+.invoice-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  font-size: 13px;
+}
+
+/* TOTALS */
+.invoice-totals {
+  width: 40%;
+  margin-left: auto;
+}
+
+.invoice-totals p {
+  display: flex;
+  justify-content: space-between;
+  margin: 6px 0;
+}
+
+.grand-total {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 2px solid #111;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+/* FOOTER */
+.invoice-footer {
+  margin-top: 48px;
+  font-size: 12px;
+  text-align: center;
+  color: #666;
+}
+
+/* PRINT */
+/* @media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .invoice-document,
+  .invoice-document * {
+    visibility: visible;
+  }
+
+  .invoice-document {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 20px;
+  }
+} */
+
+/* Page setup */
+
+/*  */
+
+/* Print-only behavior */
+/* @media print {
+  @page {
+    size: A4;
+    margin: 16mm;
+  }
+  body * {
+    visibility: hidden;
+  }
+
+  .invoice-document,
+  .invoice-document * {
+    visibility: visible;
+  }
+
+  .invoice-document {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 20px;
+  }
+
+  table {
+    page-break-inside: auto;
+  }
+
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tfoot {
+    display: table-footer-group;
+  }
+} */
+
+/* @media print {
+  @page {
+    size: A4;
+    margin: 16mm;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  .invoice-document,
+  .invoice-document * {
+    visibility: visible;
+  }
+
+  .invoice-document {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 0;
+  }
+
+  table {
+    page-break-inside: auto;
+  }
+
+  tr {
+    page-break-inside: avoid;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+} */

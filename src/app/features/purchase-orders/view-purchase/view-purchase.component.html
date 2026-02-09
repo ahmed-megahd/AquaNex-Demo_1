@@ -1,7 +1,12 @@
 <p-breadcrumb [home]="home" [model]="items" />
 <div class="main-content_top main-content_top-view">
   <div class="title-container">
-    <p class="page-title">Purchase Order Details</p>
+    <div class="page-title">
+      Purchase Order: El-Hussieny
+      <p class="form-data form-data-pending white-text fn-18 min-width">
+        In-progress
+      </p>
+    </div>
 
     <p class="page-subtitle">Order #PO-119-221</p>
     <div class="title-row">
@@ -9,9 +14,6 @@
         <i class="pi pi-address-book"></i>
         Abdelrahman Rashad
       </p>
-      <!-- <p class="title-subitem">
-        <i class="pi pi-bookmark"></i>Provision, Bonded
-      </p> -->
     </div>
   </div>
 
@@ -29,348 +31,393 @@
   </div>
 </div>
 
-<div class="main-content_form main-content_form-view">
-  <div class="form form-view">
-    <div class="form-row">
-      <div class="form-group form-group-view mb-0">
-        <div class="form-group_header form-group_header-view">
-          <i class="pi pi-file"></i>
-          <p class="form-group_title">Order Overview</p>
+<div class="main-content_form">
+  <div class="form mt-2 bg-grey no-border no-shadow">
+    <div class="form-group_header form-group_header-view">
+      <i class="pi pi-list"></i>
+      <p class="form-group_title">Overview</p>
+    </div>
+
+    <div class="form-group-view-line">
+      <div class="form-info-row">
+        <div class="form-info">
+          <p class="form-data">Delivery</p>
+          <p class="form-title-view">25/03/2029</p>
         </div>
-        <div class="form-group-view-line">
-          <div class="form-info-row">
-            <div class="form-info-column">
-              <p class="form-title-view width-5">Supplier</p>
-              <p class="form-data">B Tech Corp</p>
-            </div>
-          </div>
+      </div>
 
-          <div class="form-info-row">
-            <!-- <div class="form-info-column">
-              <p class="form-title-view width-5">Supplier</p>
-              <p class="form-data">B Tech Corp</p>
-            </div> -->
-          </div>
+      <div class="form-info-row">
+        <div class="form-info">
+          <p class="form-data">Total Amount</p>
+          <p class="form-title-view">$5,889</p>
         </div>
-        <div class="form-group-view-line">
-          <div class="form-info-row">
-            <div class="form-info-column">
-              <p class="form-title-view width-5">Order Status</p>
-              <p class="form-data br-6 form-data-pending">In-progress</p>
-            </div>
-          </div>
+      </div>
 
-          <div class="form-info-row">
-            <div class="form-info-column">
-              <p class="form-title-view width-5">Payment Status</p>
-              <p class="form-data br-6 form-data-pending">Partial</p>
-            </div>
-          </div>
+      <div class="form-info-row">
+        <div class="form-info">
+          <p class="form-data">Remaining Amount</p>
+          <p class="form-title-view">$889</p>
         </div>
+      </div>
 
-        <div class="form-group-view-line">
-          <!-- <div class="form-info-row">
-            <div class="form-info">
-              <p class="form-title-view">Order date</p>
-              <p class="form-data">25/03/2025</p>
-            </div>
-          </div> -->
-
-          <div class="form-info-row">
-            <div class="form-info-column">
-              <p class="form-title-view width-5">Total Amount</p>
-              <p class="form-data">$5,889</p>
-            </div>
-          </div>
-
-          <div class="form-info-row">
-            <div class="form-info-column">
-              <p class="form-title-view width-5">Remaining Amount</p>
-              <p class="form-data">$889</p>
-            </div>
-          </div>
+      <div class="form-info-row">
+        <div class="form-info">
+          <p class="form-data">Payment Status</p>
+          <p class="form-title-view form-data-pending min-width">Partial</p>
         </div>
       </div>
     </div>
-  </div>
-  <div class="form-row-content">
-    <div class="form form-view">
+
+    <div class="form form-view mt-4">
       <div class="form-row">
         <div class="form-group form-group-view mb-0">
-          <div class="form-group_header form-group_header-view">
-            <i class="pi pi-user"></i>
-            <p class="form-group_title">Supplier Details</p>
+          <p-tabs class="p-tabs-view" value="0">
+            <p-tablist class="p-tablist-tab-list-view">
+              <p-tab value="0"><i class="pi pi-file"></i> Summary</p-tab>
 
-            <div class="cta-container cta-container-view">
-              <div class="cta">
-                <p-button
-                  icon="pi pi-arrow-up-right"
-                  label="Edit"
-                  size="large"
-                  type="button"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div class="form-info-row">
-            <div class="form-info-column">
-              <p class="form-title-view width-5">Name</p>
-              <p class="form-data form-data-col border br-6 bg-grey pl-1">
-                B.Tech
-              </p>
-            </div>
-            <div class="form-info-column">
-              <p class="form-title-view width-5">ID</p>
-              <p class="form-data form-data-col border br-6 bg-grey pl-1">
-                SUP-1009-111
-              </p>
-            </div>
-          </div>
-
-          <div class="form-info-row">
-            <div class="form-info-column">
-              <p class="form-title-view width-5">Category</p>
-              <p class="form-data form-data-col border br-6 bg-grey pl-1">
-                Electronics
-              </p>
-            </div>
-            <div class="form-info-column">
-              <p class="form-title-view width-5">Last Order</p>
-              <p class="form-data form-data-col border br-6 bg-grey pl-1">
-                25/03/1996
-              </p>
-            </div>
-          </div>
-
-          <div class="form-info-row">
-            <div class="form-info-column">
-              <p class="form-title-view width-5">email</p>
-              <p
-                class="form-data form-data-col border br-6 bg-grey pl-1 form-data-imp"
+              <p-tab value="1"
+                ><i class="pi pi-cart-arrow-down"></i>Items</p-tab
               >
-                <i class="pi pi-envelope"></i>
-                cr.masersc&#64;maersc.com
-              </p>
-            </div>
+              <p-tab value="2"
+                ><i class="pi pi-dollar"></i>Invoice & Payment</p-tab
+              >
+              <p-tab value="3"><i class="pi pi-box"></i>Delivery Terms</p-tab>
+            </p-tablist>
+            <p-tabpanels>
+              <p-tabpanel value="0">
+                <div class="form no-border no-shadow">
+                  <div class="form-row">
+                    <div class="form-group form-group-view mb-0">
+                      <div class="form-group-view-line">
+                        <div class="form-info-row">
+                          <div class="form-info-column">
+                            <p class="form-title-view">order ID</p>
+                            <p class="form-data form-data-imp">PO-119-221</p>
+                          </div>
+                        </div>
 
-            <div class="form-info-column">
-              <p class="form-title-view width-5">phone</p>
-              <p class="form-data form-data-col border br-6 bg-grey pl-1">
-                <i class="pi pi-phone"></i> +990-299-221-11
-              </p>
-            </div>
-          </div>
+                        <div class="form-info-row">
+                          <div class="form-info-column">
+                            <p class="form-title-view">Quotation Number</p>
+                            <p class="form-data form-data-imp">
+                              1112-AAEQX-298E
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group-view-line">
+                        <div class="form-info-row">
+                          <div class="form-info-column">
+                            <p class="form-title-view">Created On</p>
+                            <p class="form-data">30/3/2025</p>
+                          </div>
+                        </div>
 
-          <div class="form-info-row">
-            <div class="form-info-column width-5">
-              <p class="form-title-view width-5">address</p>
-              <p class="form-data form-data-col border br-6 bg-grey pl-1">
-                <i class="pi pi-map-marker"></i>
-                34, Hilnan St., NewCastle city, England
-              </p>
-            </div>
+                        <div class="form-info-row">
+                          <div class="form-info-column">
+                            <p class="form-title-view">Assigned By</p>
+                            <p class="form-data">Abdelrahman Rashad</p>
+                          </div>
+                        </div>
+                      </div>
 
-            <div class="form-info-column width-5"></div>
-          </div>
+                      <div class="form-group-view-line">
+                        <div class="form-info-row">
+                          <div class="form-info-column">
+                            <p class="form-title-view">Category</p>
+                            <p class="form-data">Bonded, Provision</p>
+                          </div>
+                        </div>
+
+                        <div class="form-info-row">
+                          <div class="form-info-column">
+                            <p class="form-title-view">Linked Expense ID</p>
+                            <p class="form-data">-</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group-view-line">
+                        <div class="form-info-row">
+                          <div class="form-info-column">
+                            <p class="form-title-view">Linked SO</p>
+                            <p class="form-data">SO-0090-1192</p>
+                          </div>
+                        </div>
+
+                        <div class="form-info-row">
+                          <div class="form-info-column">
+                            <p class="form-title-view">Linked Invoice</p>
+                            <p class="form-data">-</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form no-border no-shadow">
+                  <div class="form-row">
+                    <div class="form-group form-group-view mb-0">
+                      <div class="form-view pb-0">
+                        <div class="form-group_header form-group_header-view">
+                          <i class="pi pi-user"></i>
+                          <p class="form-group_title">Supplier</p>
+
+                          <div class="cta-container cta-container-view">
+                            <div class="cta">
+                              <p-button
+                                icon="pi pi-arrow-up-right"
+                                label="Edit"
+                                size="large"
+                                type="button"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group-view-line">
+                        <div class="form-info-row">
+                          <div class="form-info-column">
+                            <p class="form-title-view">Name</p>
+                            <p class="form-data">B.Tech</p>
+                          </div>
+                        </div>
+                        <div class="form-info-row">
+                          <div class="form-info-column">
+                            <p class="form-title-view">ID</p>
+                            <p class="form-data">SUP-1009-111</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group-view-line">
+                        <div class="form-info-row">
+                          <div class="form-info-column">
+                            <p class="form-title-view">Category</p>
+                            <p class="form-data">Electronics</p>
+                          </div>
+                        </div>
+                        <div class="form-info-row">
+                          <div class="form-info-column">
+                            <p class="form-title-view">Last Order</p>
+                            <p class="form-data">25/03/1996</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group-view-line">
+                        <div class="form-info-row">
+                          <div class="form-info-column">
+                            <p class="form-title-view">email</p>
+                            <p class="form-data form-data-imp">
+                              <i class="pi pi-envelope"></i>
+                              cr.masersc&#64;maersc.com
+                            </p>
+                          </div>
+                        </div>
+                        <div class="form-info-row">
+                          <div class="form-info-column">
+                            <p class="form-title-view">phone</p>
+                            <p class="form-data">
+                              <i class="pi pi-phone"></i> +990-299-221-11
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group-view-line">
+                        <div class="form-info-row">
+                          <div class="form-info-column">
+                            <p class="form-title-view">address</p>
+                            <p class="form-data">
+                              34, Hilnan St., NewCastle city, England
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </p-tabpanel>
+              <p-tabpanel value="1">
+                <div class="form no-border no-shadow">
+                  <div class="form-row">
+                    <div class="form-group form-group-view mb-0">
+                      <div class="form-group-view-line">
+                        <div class="form-info-row">
+                          <div class="form-info-column">
+                            <p class="form-title-view">Items</p>
+                            <p class="form-data form-data-imp">102</p>
+                          </div>
+                        </div>
+                        <div class="form-info-row"></div>
+                      </div>
+
+                      <div class="form-group-view-line">
+                        <div class="form-info-row">
+                          <div class="form-info-column">
+                            <p class="form-title-view">Highest Item</p>
+                            <p class="form-data">Iphone 17 pro max</p>
+                          </div>
+                        </div>
+                        <div class="form-info-row">
+                          <div class="form-info-column">
+                            <p class="form-title-view">Lowest Item</p>
+                            <p class="form-data">8 GB Ram</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-view pt-0">
+                  <app-data-table
+                    [columns]="itemsColumns"
+                    [value]="itemsOrders"
+                    [globalFilterFields]="['itemName']"
+                    [selectionMode]="'multiple'"
+                    [exportable]="true"
+                  />
+
+                  <div class="order-summary order-summary-view">
+                    <div class="summary-row">
+                      <p class="form-title-view">Net Price</p>
+                      <p class="form-data">1999 USD</p>
+                    </div>
+
+                    <div class="summary-row">
+                      <p class="form-title-view">Discount</p>
+                      <p class="form-data">0 USD</p>
+                    </div>
+
+                    <div class="summary-row">
+                      <p class="form-title-view">Delivery Cost</p>
+                      <p class="form-data">99 USD</p>
+                    </div>
+
+                    <div class="summary-row">
+                      <p class="form-title-view">Additional Costs</p>
+                      <p class="form-data">999 USD</p>
+                    </div>
+
+                    <div class="summary-row">
+                      <p class="form-title-view">VAT / TAX</p>
+                      <p class="form-data">0 USD</p>
+                    </div>
+
+                    <div class="summary-row">
+                      <p class="form-title-view">Total</p>
+                      <p class="form-data form-data-imp">2998 USD</p>
+                    </div>
+                  </div>
+                </div>
+              </p-tabpanel>
+
+              <p-tabpanel value="2">
+                <div class="form no-border no-shadow">
+                  <div class="form-row">
+                    <div class="form-group form-group-view mb-0">
+                      <div class="form-group-view-line">
+                        <div class="form-info-row">
+                          <div class="form-info-column">
+                            <p class="form-title-view">Due Date</p>
+                            <p class="form-data">
+                              <i class="pi pi-calendar"></i>30/4/2025
+                            </p>
+                          </div>
+                        </div>
+
+                        <div class="form-info-row">
+                          <div class="form-info-column">
+                            <p class="form-title-view">Terms</p>
+                            <p class="form-data">Net 30</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group-view-line">
+                        <div class="form-info-row">
+                          <div class="form-info-column">
+                            <p class="form-title-view">Method</p>
+                            <p class="form-data">Bank Transfer</p>
+                          </div>
+                        </div>
+
+                        <div class="form-info-row">
+                          <div class="form-info-column">
+                            <p class="form-title-view">Invoice Address</p>
+                            <p class="form-data">34, NewCastle, England</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group-view-line">
+                        <div class="form-info-row">
+                          <div class="form-info-column">
+                            <p class="form-title-view">Currency</p>
+                            <p class="form-data">USD</p>
+                          </div>
+                        </div>
+
+                        <div class="form-info-row"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-view pt-0">
+                  <app-data-table
+                    [columns]="invoiceColumn"
+                    [value]="invoice"
+                    [globalFilterFields]="['itemName']"
+                    [selectionMode]="'multiple'"
+                    [exportable]="true"
+                  />
+                </div>
+              </p-tabpanel>
+              <p-tabpanel value="3">
+                <div class="form no-border no-shadow">
+                  <div class="form-row">
+                    <div class="form-group form-group-view mb-0">
+                      <div class="form-group-view-line">
+                        <div class="form-info-row">
+                          <div class="form-info-column">
+                            <p class="form-title-view">Date</p>
+                            <p class="form-data">
+                              <i class="pi pi-calendar"></i>30/3/2025
+                            </p>
+                          </div>
+                        </div>
+                        <div class="form-info-row">
+                          <div class="form-info-column">
+                            <p class="form-title-view">Method</p>
+                            <p class="form-data">Onboard delivery</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group-view-line">
+                        <div class="form-info-row">
+                          <div class="form-info-column">
+                            <p class="form-title-view">Delivery address</p>
+                            <p class="form-data">
+                              <i class="pi pi-map-marker"></i>Suez Port
+                            </p>
+                          </div>
+                        </div>
+                        <div class="form-info-row">
+                          <div class="form-info-column">
+                            <p class="form-title-view">Delivery city</p>
+                            <p class="form-data">Suez</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </p-tabpanel>
+            </p-tabpanels>
+          </p-tabs>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="form-row-content br-6 bg-white mb-1">
-    <div class="form-column width-5">
-      <div class="form no-border no-shadow form-inner-col form-view">
-        <div class="form-group form-group-view mb-0">
-          <div class="form-group_header form-group_header-view">
-            <i class="pi pi-clipboard"></i>
-            <p class="form-group_title">Order Details</p>
-          </div>
-          <div class="form-info-column">
-            <p class="form-title-view form-title-view-col">order ID</p>
-            <p class="form-data form-data-col form-data-imp">PO-119-221</p>
-          </div>
-
-          <div class="form-info-column">
-            <p class="form-title-view form-title-view-col">Quotation Number</p>
-            <p class="form-data form-data-col form-data-imp">1112-AAEQX-298E</p>
-          </div>
-          <div class="form-info-column">
-            <p class="form-title-view form-title-view-col">Created On</p>
-            <p class="form-data form-data-col">30/3/2025</p>
-          </div>
-
-          <div class="form-info-column">
-            <p class="form-title-view form-title-view-col">Assigned By</p>
-            <p class="form-data form-data-col">Abdelrahman Rashad</p>
-          </div>
-
-          <div class="form-info-column">
-            <p class="form-title-view form-title-view-col">Category</p>
-            <p class="form-data form-data-col">Bonded, Provision</p>
-          </div>
-
-          <div class="form-info-column">
-            <p class="form-title-view form-title-view-col">Items</p>
-            <p class="form-data form-data-col">4</p>
-          </div>
-
-          <div class="form-info-column">
-            <p class="form-title-view form-title-view-col">Linked SO</p>
-            <p class="form-data form-data-col">SO-0090-1192</p>
-          </div>
-
-          <div class="form-info-column">
-            <p class="form-title-view form-title-view-col">Linked Invoice</p>
-            <p class="form-data form-data-col">-</p>
-          </div>
-          <div class="form-info-column">
-            <p class="form-title-view form-title-view-col">Linked Expense ID</p>
-            <p class="form-data form-data-col">-</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="form-column width-5">
-      <div class="form no-border no-shadow form-inner-col form-view">
-        <div class="form-group bg form-group-view mb-0">
-          <div class="form-group_header form-group_header-view">
-            <i class="pi pi-credit-card"></i>
-            <p class="form-group_title">Payment & Invoice</p>
-          </div>
-          <div class="form-info-column">
-            <p class="form-title-view form-title-view-col">due date</p>
-            <p class="form-data form-data-col form-data-danger">
-              <i class="pi pi-calendar"></i> 30/4/2025
-            </p>
-          </div>
-          <div class="form-info-column">
-            <p class="form-title-view form-title-view-col">Terms</p>
-            <p class="form-data form-data-col">Net 30</p>
-          </div>
-
-          <div class="form-info-column">
-            <p class="form-title-view form-title-view-col">method</p>
-            <p class="form-data form-data-col">Bank transfer</p>
-          </div>
-
-          <div class="form-info-column">
-            <p class="form-title-view form-title-view-col">Billing address</p>
-            <p class="form-data form-data-col">34, NewCastle, Suez</p>
-          </div>
-
-          <div class="form-info-column">
-            <p class="form-title-view form-title-view-col">Currency</p>
-            <p class="form-data form-data-col">LE - Egyptian Pounds</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="form no-border no-shadow form-inner-col form-view">
-        <div class="form-group form-group-view mb-0">
-          <div class="form-group_header form-group_header-view">
-            <i class="pi pi-box"></i>
-            <p class="form-group_title">Delivery Details</p>
-          </div>
-
-          <div class="form-info-column">
-            <p class="form-title-view form-title-view-col">Shipping date</p>
-            <p class="form-data form-data-col form-data-danger">
-              <i class="pi pi-calendar"></i> 30/3/2025
-            </p>
-          </div>
-
-          <div class="form-info-column">
-            <p class="form-title-view form-title-view-col">method</p>
-            <p class="form-data form-data-col">Onboard delivery</p>
-          </div>
-
-          <div class="form-info-column">
-            <p class="form-title-view form-title-view-col">Delivery address</p>
-            <p class="form-data form-data-col">
-              <i class="pi pi-map-marker"></i>Suez Port
-            </p>
-          </div>
-          <div class="form-info-column">
-            <p class="form-title-view form-title-view-col">Delivery city</p>
-            <p class="form-data form-data-col">
-              <i class="pi pi-map"></i> Suez
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="form form-view">
-    <div class="form-row">
-      <div class="form-group form-group-view mb-0">
-        <p-tabs class="p-tabs-view" value="0">
-          <p-tablist class="p-tablist-tab-list-view">
-            <p-tab value="0">Items</p-tab>
-            <p-tab value="2">Invoice</p-tab>
-          </p-tablist>
-          <p-tabpanels>
-            <p-tabpanel value="0">
-              <div class="form-group_header form-group_header-view mb-0">
-                <i class="pi pi-cart-arrow-down"></i>
-                <p class="form-group_title">Items List</p>
-              </div>
-              <app-data-table
-                [columns]="itemsColumns"
-                [value]="itemsOrders"
-                [globalFilterFields]="['itemName']"
-                [selectionMode]="'multiple'"
-                [exportable]="true"
-              />
-
-              <div class="order-summary order-summary-view">
-                <div class="summary-row">
-                  <p class="form-title">Net Price</p>
-                  <p class="form-data">1999 USD</p>
-                </div>
-
-                <div class="summary-row">
-                  <p class="form-title">Discount</p>
-                  <p class="form-data">0 USD</p>
-                </div>
-
-                <div class="summary-row">
-                  <p class="form-title">Delivery Cost</p>
-                  <p class="form-data">99 USD</p>
-                </div>
-
-                <div class="summary-row">
-                  <p class="form-title">Additional Costs</p>
-                  <p class="form-data">999 USD</p>
-                </div>
-
-                <div class="summary-row">
-                  <p class="form-title">VAT / TAX</p>
-                  <p class="form-data">0 USD</p>
-                </div>
-
-                <div class="summary-row">
-                  <p class="form-title">Total</p>
-                  <p class="form-data form-data-imp">2998 USD</p>
-                </div>
-              </div>
-            </p-tabpanel>
-
-            <p-tabpanel value="2">
-              <div class="form-group_header form-group_header-view mb-0">
-                <i class="pi pi-money-bill"></i>
-                <p class="form-group_title">Invoices List</p>
-              </div>
-              <app-data-table
-                [columns]="invoiceColumn"
-                [value]="invoice"
-                [globalFilterFields]="['itemName']"
-                [selectionMode]="'multiple'"
-                [exportable]="true"
-              />
-            </p-tabpanel>
-          </p-tabpanels>
-        </p-tabs>
       </div>
     </div>
   </div>

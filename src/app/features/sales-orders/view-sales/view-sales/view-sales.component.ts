@@ -4,15 +4,50 @@ import { Breadcrumb } from 'primeng/breadcrumb';
 import { Button } from 'primeng/button';
 import { TabsModule } from 'primeng/tabs';
 import { DataTableComponent } from '../../../../shared/components/data-table/data-table/data-table.component';
+import { TimelineModule } from 'primeng/timeline';
+import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-view-sales',
-  imports: [Breadcrumb, Button, TabsModule, DataTableComponent],
+  imports: [
+    CardModule,
+    Breadcrumb,
+    Button,
+    TabsModule,
+    DataTableComponent,
+    TimelineModule,
+  ],
   standalone: true,
   templateUrl: './view-sales.component.html',
   styleUrl: './view-sales.component.css',
 })
 export class ViewSalesComponent {
+  events: any[] = [
+    {
+      status: 'Ordered',
+      date: '15/10/2020 ',
+      icon: 'pi pi-shopping-cart',
+      // color: '#9C27B0',
+    },
+    {
+      status: 'Processing',
+      date: '15/10/2020 ',
+      icon: 'pi pi-cog',
+      // color: '#673AB7',
+    },
+    {
+      status: 'Shipped',
+      date: '15/10/2020 ',
+      icon: 'pi pi-shopping-cart',
+      // color: '#FF9800',
+    },
+    {
+      status: 'Delivered',
+      date: '16/10/2020 ',
+      icon: 'pi pi-check',
+      // color: '#607D8B',
+    },
+  ];
   items: MenuItem[] = [
     { label: 'Sales', routerLink: '/sales-orders' },
     { label: 'Sales Order' },

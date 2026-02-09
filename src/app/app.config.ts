@@ -10,21 +10,16 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import Aura from '@primeuix/themes/aura';
 import { provideHttpClient } from '@angular/common/http';
 
-import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { provideAuth, getAuth } from '@angular/fire/auth';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
-import { provideStorage, getStorage } from '@angular/fire/storage';
-import { firebaseConfig } from '../environments/environment';
+// import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+// import { provideAuth, getAuth } from '@angular/fire/auth';
+// import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+// import { provideStorage, getStorage } from '@angular/fire/storage';
+// import { firebaseConfig } from '../environments/environment';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    //
-    provideFirebaseApp(() => initializeApp(firebaseConfig)),
-    provideFirestore(() => getFirestore()),
-    provideAuth(() => getAuth()),
-    provideStorage(() => getStorage()),
-    //
+
     provideHttpClient(),
     provideBrowserGlobalErrorListeners(),
 

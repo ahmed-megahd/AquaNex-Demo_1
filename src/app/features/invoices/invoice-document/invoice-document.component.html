@@ -1,0 +1,117 @@
+<div #invoiceRef class="invoice-document">
+  <!-- HEADER -->
+  <div class="invoice-header">
+    <!-- BRAND -->
+    <div class="company">
+      <img
+        src="cropped-cropped-Bonvoy-logo-1-e1654444004955.png"
+        alt="AquaNex Logo"
+        class="company-logo"
+      />
+      <div class="company-info">
+        <h2>Bonvoy Marine Services</h2>
+        <p>Alexandria, Egypt</p>
+        <p>Tax ID: TAX-998812</p>
+        <p>Email: finance&:64;aquanex.com</p>
+      </div>
+    </div>
+
+    <!-- META -->
+    <div class="invoice-meta">
+      <span class="badge">
+        {{ type === "supplier" ? "Supplier Invoice" : "Customer Invoice" }}
+      </span>
+
+      <div *ngIf="type === 'supplier'">
+        <h4>Supplier</h4>
+        ...
+      </div>
+
+      <div *ngIf="type === 'customer'">
+        <h4>Customer</h4>
+        ...
+      </div>
+
+      <p><strong>Invoice No:</strong> {{ invoice?.invoiceNumber }}</p>
+      <p><strong>Issue Date:</strong> {{ invoice?.date }}</p>
+      <p><strong>Due Date:</strong> {{ invoice?.dueDate }}</p>
+      <p><strong>Currency:</strong> {{ invoice?.currency }}</p>
+    </div>
+  </div>
+
+  <!-- SUPPLIER -->
+  <div class="invoice-section card">
+    @if(type == 'supplier') {
+    <h4>Supplier</h4>
+    }@else {
+    <h4>Customer</h4>
+    }
+    <p>
+      <strong>{{ invoice.supplier?.name || invoice.customer?.name }}</strong>
+    </p>
+    @if(type == 'customer') {
+
+    <p>
+      <strong>{{ invoice.customer?.vessel }}</strong>
+    </p>
+    }
+    <p>{{ invoice.supplier?.address || invoice.customer?.address }}</p>
+    <p>Tax ID: {{ invoice.supplier?.taxId || invoice.customer?.taxId }}</p>
+  </div>
+
+  <!-- ITEMS -->
+  <table class="invoice-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Item</th>
+        <th>Qty</th>
+        <th>Unit</th>
+        <th>Unit Price</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of invoice.items; index as i">
+        <td>{{ i + 1 }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.unit }}</td>
+        <td>{{ item.unitPrice | number : "1.2-2" }}</td>
+        <td>{{ item.total | number : "1.2-2" }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- TOTALS -->
+  <div class="invoice-totals card">
+    <p>
+      <span>Subtotal</span><span>{{ invoice.subtotal }}</span>
+    </p>
+    <p>
+      <span>Delivery</span><span>{{ invoice.delivery }}</span>
+    </p>
+    <p>
+      <span>Tax</span><span>{{ invoice.tax }}</span>
+    </p>
+    <p class="grand-total">
+      <span>Total</span><span>{{ invoice.total }}</span>
+    </p>
+  </div>
+
+  <!-- PAYMENT -->
+  <div class="invoice-section card">
+    <h4>Payment Information</h4>
+    <p>Bank: National Bank of Egypt</p>
+    <p>IBAN: EG380019000500000000263180002</p>
+    <p>SWIFT: NBEGEGCX</p>
+    <p>Reference: Invoice Number</p>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="invoice-footer">
+    <p>
+      This invoice was generated electronically and is valid without signature.
+    </p>
+  </div>
+</div>

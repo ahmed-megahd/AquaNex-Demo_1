@@ -17,6 +17,8 @@ import { StepperModule } from 'primeng/stepper';
 import { TableModule } from 'primeng/table';
 import { AutoComplete } from 'primeng/autocomplete';
 import { SelectModule } from 'primeng/select';
+import { CommonModule } from '@angular/common';
+import * as XLSX from 'xlsx';
 
 export interface Vessel {
   id: number;
@@ -48,6 +50,7 @@ export interface ShipManager {
     TableModule,
     FormsModule,
     AutoComplete,
+    CommonModule,
   ],
   standalone: true,
   templateUrl: './create-sales-order.component.html',
@@ -55,6 +58,11 @@ export interface ShipManager {
 })
 export class CreateSalesOrderComponent {
   private fb = inject(FormBuilder);
+
+  baseTotal = 0;
+  sellingTotal = 0;
+  grossProfit = 0;
+  netProfit = 0;
 
   items: MenuItem[] = [
     { label: 'Sales', routerLink: '/sales-orders' },
@@ -204,7 +212,9 @@ export class CreateSalesOrderComponent {
     deliveryMethod: ['', Validators.required],
     deliveryAddress: ['', Validators.required],
     deliveryCity: ['', Validators.required],
-    items: this.fb.array([this.createItem()]),
+    items: this.fb.array([]),
+
+    generalMargin: [0],
     netPrice: [0],
     discount: [0],
     deliveryCost: [0],
@@ -213,28 +223,42 @@ export class CreateSalesOrderComponent {
     totalPrice: [0],
   });
 
-  ngOnInit() {
-    this.orderForm
-      .get('shipManager')
-      ?.valueChanges.subscribe((selectedManager) => {
-        if (selectedManager) {
-          this.availableVessels = selectedManager.vessels || [];
-          this.fillShipManagerDetails(selectedManager);
+  ngOnInit(): void {
+    // 1. Ship manager → vessels + autofill contact info
+    this.orderForm.get('shipManager')?.valueChanges.subscribe((manager) => {
+      if (!manager) return;
 
-          this.orderForm.patchValue({ imoNum: '' });
-        }
-      });
+      this.availableVessels = manager.vessels || [];
+      this.fillShipManagerDetails(manager);
+      this.orderForm.patchValue({ imoNum: '' });
+    });
 
+    // 2. Vessel → IMO autofill
     this.orderForm.get('vesselName')?.valueChanges.subscribe((vessel: any) => {
       if (vessel) {
         this.orderForm.patchValue({ imoNum: vessel.imo });
       }
     });
 
-    // Recalculate whenever items or summary fields change
-    this.orderForm.valueChanges.subscribe(() => {
-      this.updateSummary();
+    // // 3. General margin → propagate to items (unless overridden)
+    this.orderForm.get('generalMargin')?.valueChanges.subscribe(() => {
+      this.applyGeneralMarginToItems();
     });
+
+    // // 4. Order summary recalculation trigger
+    // This listens to ANY meaningful change (items, discounts, VAT, etc.)
+    this.orderForm.valueChanges.subscribe(() => {
+      this.recalculateAllFinancials();
+    });
+
+    // this.orderItems.valueChanges.subscribe(() => {
+    //   this.updateBaseAndSellingTotals();
+    //   this.updateNetProfit();
+    // });
+
+    // this.orderForm.valueChanges.subscribe(() => {
+    //   this.updateNetProfit();
+    // });
   }
 
   fillShipManagerDetails(manager: any) {
@@ -246,47 +270,78 @@ export class CreateSalesOrderComponent {
     });
   }
 
-  updateSummary() {
-    const itemsArray = this.orderItems;
-    const subtotal = itemsArray.controls.reduce((sum, row) => {
-      const price = row.get('price')?.value || 0;
-      const qty = row.get('quantity')?.value || 0;
-      return sum + price * qty;
-    }, 0);
+  //Profit calculation
+  private updateBaseAndSellingTotals(): void {
+    let base = 0;
+    let selling = 0;
 
-    const discount = this.orderForm.get('discount')?.value || 0;
-    const delivery = this.orderForm.get('deliveryCost')?.value || 0;
-    const additional = this.orderForm.get('additionalCost')?.value || 0;
-    const vat = this.orderForm.get('vat')?.value || 0;
+    this.orderItems.controls.forEach((row) => {
+      const qty = Number(row.get('quantity')?.value) || 0;
+      const basePrice = Number(row.get('price')?.value) || 0;
+      const margin = Number(row.get('itemMargin')?.value) || 0;
 
-    // discount as absolute value (you can change to % logic)
-    const net = subtotal - discount;
-    const vatAmount = (vat / 100) * net;
+      const sellingPrice = basePrice + (basePrice * margin) / 100;
 
-    const total = net + delivery + additional + vatAmount;
+      base += basePrice * qty;
+      selling += sellingPrice * qty;
+    });
 
-    this.orderForm.patchValue(
-      {
-        netPrice: subtotal,
-        totalPrice: total,
-      },
-      { emitEvent: false } // prevent infinite loop
+    this.baseTotal = this.roundMoney(base);
+    this.sellingTotal = this.roundMoney(selling);
+    this.grossProfit = this.roundMoney(selling - base);
+  }
+
+  private updateNetProfit(): void {
+    const delivery = Number(this.orderForm.get('deliveryCost')?.value) || 0;
+    const additional = Number(this.orderForm.get('additionalCost')?.value) || 0;
+    const discount = Number(this.orderForm.get('discount')?.value) || 0;
+
+    this.netProfit = this.roundMoney(
+      this.grossProfit - delivery - additional - discount
     );
   }
 
-  get orderItems(): FormArray {
-    return this.orderForm.get('items') as FormArray;
+  //Margin calculation
+  private resolveMargin(row?: FormGroup): number {
+    if (!row) return 0;
+
+    const rowMargin = row.get('itemMargin')?.value;
+    const generalMargin = this.orderForm?.get('generalMargin')?.value;
+
+    return rowMargin !== null && rowMargin !== undefined && rowMargin !== ''
+      ? Number(rowMargin) || 0
+      : Number(generalMargin) || 0;
   }
 
-  createItem(): FormGroup {
-    return this.fb.group({
-      item: [''],
-      description: [''],
-      quantity: [1, Validators.required],
-      price: [''],
-      totalPrice: [''],
-      unit: [{ value: '', disabled: true }],
+  resetItemMargin(row: FormGroup): void {
+    row.get('isMarginOverridden')?.setValue(false, {
+      emitEvent: false,
     });
+
+    const generalMargin =
+      Number(this.orderForm.get('generalMargin')?.value) || 0;
+
+    row.get('itemMargin')?.setValue(generalMargin);
+  }
+
+  applyGeneralMarginToItems(): void {
+    const generalMargin =
+      Number(this.orderForm.get('generalMargin')?.value) || 0;
+
+    this.orderItems.controls.forEach((row) => {
+      const fg = row as FormGroup;
+
+      if (!fg.get('isMarginOverridden')?.value) {
+        fg.get('itemMargin')?.setValue(generalMargin, { emitEvent: false });
+      }
+    });
+
+    this.recalculateAllFinancials(); // 🔥 THIS replaces ngOnInit triggers
+  }
+
+  //Items creation & search
+  get orderItems(): FormArray {
+    return this.orderForm.get('items') as FormArray;
   }
 
   searchItems(event: any) {
@@ -298,55 +353,188 @@ export class CreateSalesOrderComponent {
     );
   }
 
-  //ITEMS MAPPING SELECT OPTION
-  onItemSelect(event: any) {
-    const selectedItem = event;
+  onItemSelect(event: any): void {
+    const item = event.value;
 
-    // Create the new item group
-    const itemGroup = this.fb.group({
-      item: [selectedItem.value.name],
-      description: [selectedItem.value.description],
-      unit: [selectedItem.value.unit],
-      quantity: [1, Validators.required],
-      price: [selectedItem.value.price],
-      totalPrice: [selectedItem.value.price * 1],
+    const row = this.buildItemRow({
+      item: item.name,
+      description: item.description,
+      unit: item.unit,
+      price: item.price,
     });
 
-    itemGroup.get('quantity')?.valueChanges.subscribe((qty) => {
-      const price = itemGroup.get('price')?.value || 0;
-      itemGroup.get('totalPrice')?.setValue(price * qty!, { emitEvent: false });
-    });
-
-    itemGroup.get('price')?.valueChanges.subscribe((price) => {
-      const qty = itemGroup.get('quantity')?.value || 0;
-      itemGroup.get('totalPrice')?.setValue(price * qty, { emitEvent: false });
-    });
-
-    const itemsArray = this.orderItems;
-
-    // Check if first row is empty (item field is not filled)
-    if (itemsArray.length === 0) {
-      itemsArray.push(itemGroup);
-    } else {
-      const firstItem = itemsArray.at(0).get('item')?.value;
-      if (!firstItem) {
-        itemsArray.setControl(0, itemGroup);
-      } else {
-        itemsArray.push(itemGroup);
-      }
-    }
-
-    this.searchInput = '';
+    this.orderItems.push(row);
+    this.updateRowTotal(row); // ✅ HERE
   }
 
-  addItemRow(): void {
-    this.orderItems.push(this.createItem());
+  private buildItemRow(data?: any): FormGroup {
+    const generalMargin =
+      Number(this.orderForm.get('generalMargin')?.value) || null;
+
+    const rowMargin =
+      data?.itemMargin != null ? data.itemMargin : generalMargin;
+
+    const isOverridden = data?.itemMargin != null;
+
+    const row = this.fb.group({
+      item: [data?.item || ''],
+      description: [data?.description || ''],
+      unit: [{ value: data?.unit || '', disabled: true }],
+      quantity: [data?.quantity ?? 1, Validators.required],
+      price: [data?.price ?? 0],
+      itemMargin: [rowMargin],
+      isMarginOverridden: [isOverridden],
+      totalPrice: [0],
+    });
+
+    this.attachRowListeners(row);
+    this.updateRowTotal(row);
+
+    return row;
+  }
+
+  private attachRowListeners(row: FormGroup): void {
+    row.get('quantity')?.valueChanges.subscribe(() => {
+      this.recalculateAllFinancials();
+    });
+
+    row.get('price')?.valueChanges.subscribe(() => {
+      this.recalculateAllFinancials();
+    });
+
+    row.get('itemMargin')?.valueChanges.subscribe(() => {
+      row.get('isMarginOverridden')?.setValue(true, { emitEvent: false });
+      this.recalculateAllFinancials(); // 🔥 REQUIRED
+    });
+  }
+
+  private updateRowTotal(row?: FormGroup): void {
+    if (!row) return;
+
+    const qty = Number(row.get('quantity')?.value) || 0;
+    const basePrice = Number(row.get('price')?.value) || 0;
+    const margin = this.resolveMargin(row);
+
+    const sellingPrice = basePrice + (basePrice * margin) / 100;
+
+    row.get('totalPrice')?.setValue(this.roundMoney(sellingPrice * qty), {
+      emitEvent: false,
+    });
   }
 
   removeItemRow(index: number): void {
     this.orderItems.removeAt(index);
+    this.recalculateAllFinancials();
   }
 
+  resetItems(): void {
+    this.orderItems.clear();
+    this.recalculateAllFinancials();
+    this.orderForm.patchValue(
+      {
+        generalMargin: 0,
+      },
+      { emitEvent: false }
+    );
+  }
+
+  //Item import logic
+  onExcelImport(event: any): void {
+    const file: File = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = (e: any) => {
+      const binaryStr = e.target.result;
+      const workbook = XLSX.read(binaryStr, { type: 'binary' });
+      const sheetName = workbook.SheetNames[0];
+      const sheet = workbook.Sheets[sheetName];
+
+      const rows = XLSX.utils.sheet_to_json<any>(sheet, {
+        defval: '',
+        raw: true,
+      });
+
+      this.importItemsFromExcel(rows);
+    };
+
+    reader.readAsBinaryString(file);
+    event.target.value = '';
+  }
+
+  importItemsFromExcel(rows: any[]): void {
+    const itemsArray = this.orderItems;
+    // itemsArray.clear();
+
+    rows.forEach((rowData) => {
+      const row = this.buildItemRow({
+        item: rowData.item,
+        description: rowData.description,
+        unit: rowData.unit,
+        quantity: Number(rowData.quantity) || 1,
+        price: Number(rowData.price) || 0,
+        itemMargin:
+          rowData['item_margin_%'] !== ''
+            ? Number(rowData['item_margin_%'])
+            : null,
+      });
+
+      itemsArray.push(row);
+      // this.updateRowTotal(row); // ✅ HERE
+    });
+
+    this.recalculateAllFinancials();
+  }
+
+  //Financials
+  updateSummary(): void {
+    const subtotal = this.orderItems.controls.reduce((sum, row) => {
+      return sum + (Number(row.get('totalPrice')?.value) || 0);
+    }, 0);
+
+    const discount = Number(this.orderForm.get('discount')?.value) || 0;
+    const delivery = Number(this.orderForm.get('deliveryCost')?.value) || 0;
+    const additional = Number(this.orderForm.get('additionalCost')?.value) || 0;
+    const vat = Number(this.orderForm.get('vat')?.value) || 0;
+
+    const net = subtotal - discount;
+    const vatAmount = (vat / 100) * net;
+    const total = net + delivery + additional + vatAmount;
+
+    this.orderForm.patchValue(
+      {
+        netPrice: this.roundMoney(subtotal),
+        totalPrice: this.roundMoney(total),
+      },
+      { emitEvent: false }
+    );
+  }
+
+  private recalculateAllFinancials(): void {
+    // 1. Row totals
+    this.orderItems.controls.forEach((row) => {
+      this.updateRowTotal(row as FormGroup);
+    });
+
+    // 2. Base, selling, gross
+    this.updateBaseAndSellingTotals();
+
+    // 3. Net profit
+    this.updateNetProfit();
+
+    // 4. Net & total price
+    this.updateSummary();
+  }
+
+  //Utility Method
+  private roundMoney(value: number, decimals = 3): number {
+    return (
+      Math.round((value + Number.EPSILON) * Math.pow(10, decimals)) /
+      Math.pow(10, decimals)
+    );
+  }
+  //Form submission
   onSubmit(formGroup: FormGroup) {
     this.orderForm.get('paymentStatus')?.setValue('Un-paid');
     this.orderForm.get('salesStatus')?.setValue('Draft');
@@ -355,16 +543,3 @@ export class CreateSalesOrderComponent {
     console.log(formGroup.value);
   }
 }
-
-// onItemSelect(event: any) {
-//   console.log(event);
-//   const selectedItem = event;
-//   const itemGroup = this.fb.group({
-//     item: [selectedItem.value.name],
-//     quantity: [1, Validators.required],
-//     price: [selectedItem.value.price],
-//     unit: [selectedItem.value.unit],
-//   });
-
-//   this.orderItems.push(itemGroup);
-// }

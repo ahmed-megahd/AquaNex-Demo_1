@@ -31,7 +31,7 @@ export class LayoutComponent {
       icon: 'pi pi-desktop',
       label: 'Dashboard',
       children: [
-        { label: 'overview', icon: 'pi pi-home', route: '/home' },
+        { label: 'overview', icon: 'pi pi-home', route: '/overview' },
         { label: 'Recent Activity', icon: 'pi pi-play', route: '/activity' },
         { label: 'KPIs / Charts', icon: 'pi pi-chart-bar', route: '/charts' },
       ],
@@ -49,12 +49,12 @@ export class LayoutComponent {
         {
           label: 'Customer Invoices',
           icon: 'pi pi-receipt',
-          route: '/invoice',
+          route: '/customer-invoices',
         },
         {
           label: 'Sales Reports',
           icon: 'pi pi-chart-bar',
-          route: '/charts-sale',
+          route: '/sales-report',
         },
       ],
     },
@@ -71,12 +71,17 @@ export class LayoutComponent {
         {
           label: 'Supplier Invoices',
           icon: 'pi pi-receipt',
-          route: '/supplier-invocies',
+          route: '/supplier-invoices',
         },
         {
           label: 'Purchasing Reports',
           icon: 'pi pi-chart-bar',
-          route: '/charts-sale',
+          route: '/purchasing-report',
+        },
+        {
+          label: 'Compare Tool',
+          icon: 'pi pi-filter',
+          route: '/compareison-tool',
         },
       ],
     },
@@ -87,12 +92,12 @@ export class LayoutComponent {
         {
           label: 'Payments Recieved',
           icon: 'pi pi-plus-circle',
-          route: '/payments',
+          route: '/payments-cst',
         },
         {
           label: 'Payments Made',
           icon: 'pi pi-minus-circle',
-          route: '/invoice',
+          route: '/payments-sup',
         },
         {
           label: 'Expenses',
@@ -102,7 +107,7 @@ export class LayoutComponent {
         {
           label: 'Financial Summary',
           icon: 'pi pi-gauge',
-          route: '/charts-sale',
+          route: '/finance-summary',
         },
       ],
     },
@@ -118,12 +123,12 @@ export class LayoutComponent {
         {
           label: 'Stock Levels',
           icon: 'pi pi-shop',
-          route: '/invoice',
+          route: '/stock',
         },
         {
           label: 'Reorder Alerts',
           icon: 'pi pi-exclamation-circle',
-          route: '/charts-sale',
+          route: 'stock-reorder',
         },
       ],
     },
@@ -144,7 +149,7 @@ export class LayoutComponent {
         {
           label: 'Customers Analysis',
           icon: 'pi pi-chart-pie',
-          route: '/invoice',
+          route: '/customer-analysis',
         },
       ],
     },
@@ -160,12 +165,12 @@ export class LayoutComponent {
         {
           label: 'Purchase History',
           icon: 'pi pi-history',
-          route: '/invoice',
+          route: '/purchase-history',
         },
         {
           label: 'Pricing Logs',
           icon: 'pi pi-tags',
-          route: '/invoice',
+          route: '/pricing-logs',
         },
       ],
     },
@@ -176,17 +181,17 @@ export class LayoutComponent {
         {
           label: 'Sales & Purchase Summary',
           icon: 'pi pi-table',
-          route: '/purchasing',
+          route: '/reports',
         },
         {
           label: 'Profit by Customer',
           icon: 'pi pi-chart-line',
-          route: '/invoice',
+          route: '/reports',
         },
         {
           label: 'Expenses Breakdown',
           icon: 'pi pi-list',
-          route: '/invoice',
+          route: '/reports',
         },
       ],
     },
@@ -197,17 +202,17 @@ export class LayoutComponent {
         {
           label: 'Users & Roles',
           icon: 'pi pi-user',
-          route: '/purchasing',
+          route: '/users',
         },
         {
           label: 'System Configuration',
           icon: 'pi pi-microchip-ai',
-          route: '/invoice',
+          route: '/users',
         },
         {
           label: 'Audit Logs',
           icon: 'pi pi-lock',
-          route: '/invoice',
+          route: '/users',
         },
       ],
     },

@@ -1,0 +1,132 @@
+<div class="po-comparison-container">
+  <div class="header">
+    <h1>Purchase Order Comparison Tool</h1>
+    <p class="subtitle">Compare multiple supplier quotes side by side</p>
+  </div>
+
+  <!-- File Upload Section -->
+  <div class="upload-section">
+    <div class="upload-box">
+      <input
+        type="file"
+        id="file-upload"
+        multiple
+        accept=".xlsx,.xls"
+        (change)="onFileSelect($event)"
+        style="display: none"
+      />
+      <label for="file-upload" class="upload-label">
+        <div class="upload-icon">📊</div>
+        <div class="upload-text">
+          <strong>Click to upload Excel files</strong>
+          <span>or drag and drop</span>
+        </div>
+        <div class="upload-hint">Support for .xlsx and .xls files</div>
+      </label>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="error" class="error-message">⚠️ {{ error }}</div>
+  </div>
+
+  <!-- Uploaded Files -->
+  <div *ngIf="uploadedFiles.length > 0" class="uploaded-files">
+    <h3>Uploaded Files ({{ uploadedFiles.length }})</h3>
+    <div class="file-list">
+      <div *ngFor="let file of uploadedFiles; let i = index" class="file-item">
+        <div class="file-icon">📄</div>
+        <div class="file-info">
+          <div class="file-name">{{ parsedData[i].supplier }}</div>
+          <div class="file-meta">
+            {{ file.name }} • {{ parsedData[i].items.length }} items
+          </div>
+        </div>
+        <button class="remove-btn" (click)="removeFile(i)">✕</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overall PO Comparison -->
+  <div *ngIf="parsedData.length > 0" class="overall-comparison">
+    <h3>Overall PO Comparison</h3>
+    <div class="summary-cards">
+      <div
+        *ngFor="let supplier of parsedData"
+        class="summary-card"
+        [class.cheapest]="supplier.supplier === getCheapestSupplier()"
+      >
+        <div class="card-header">
+          <h4>{{ supplier.supplier }}</h4>
+          <span
+            *ngIf="supplier.supplier === getCheapestSupplier()"
+            class="best-badge"
+            >Best Price</span
+          >
+        </div>
+        <div class="card-amount">${{ supplier.totalAmount.toFixed(2) }}</div>
+        <div class="card-footer">{{ supplier.items.length }} items</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed Item Comparison -->
+  <div *ngIf="comparisonItems.length > 0" class="item-comparison">
+    <h3>Item-by-Item Comparison</h3>
+    <div class="table-container">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th class="sticky-col">Item Name</th>
+            <ng-container *ngFor="let supplier of supplierNames">
+              <th colspan="3" class="supplier-header">{{ supplier }}</th>
+            </ng-container>
+          </tr>
+          <tr>
+            <th class="sticky-col"></th>
+            <ng-container *ngFor="let supplier of supplierNames">
+              <th>Unit Price</th>
+              <th>Quantity</th>
+              <th>Total</th>
+            </ng-container>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of comparisonItems">
+            <td class="sticky-col item-name">{{ item.itemName }}</td>
+            <ng-container *ngFor="let supplier of supplierNames">
+              <ng-container *ngIf="item.suppliers[supplier]; else noData">
+                <td
+                  [ngClass]="
+                    getPriceDifferenceClass(
+                      item.suppliers[supplier].unitPrice,
+                      item.lowestPrice,
+                      item.highestPrice
+                    )
+                  "
+                >
+                  ${{ item.suppliers[supplier]?.unitPrice || 0 }}
+                </td>
+                <td>{{ item.suppliers[supplier]?.quantity || 0 }}</td>
+                <td class="total-cell">
+                  ${{ item.suppliers[supplier]?.total || 0 }}
+                </td>
+              </ng-container>
+              <ng-template #noData>
+                <td colspan="3" class="no-data">N/A</td>
+              </ng-template>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="uploadedFiles.length === 0" class="empty-state">
+    <div class="empty-icon">📋</div>
+    <h3>No files uploaded yet</h3>
+    <p>
+      Upload Excel files from different suppliers to compare purchase orders
+    </p>
+  </div>
+</div>

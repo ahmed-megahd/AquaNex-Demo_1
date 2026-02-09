@@ -1,7 +1,7 @@
 <p-breadcrumb [home]="home" [model]="items" />
 <div class="main-content_top">
   <div class="title-container">
-    <p class="page-title">Create New Purchase Order</p>
+    <p class="page-title">Create New Invoice</p>
   </div>
 
   <div class="cta">
@@ -9,25 +9,22 @@
       label="Save as Draft"
       size="large"
       type="button"
-      (onClick)="onSubmit(orderForm)"
+      (onClick)="onSubmit(invoiceForm)"
     />
   </div>
 </div>
 
 <div class="main-content_form">
-  <form action="#" class="form" [formGroup]="orderForm">
+  <form action="#" class="form" [formGroup]="invoiceForm">
     <p-stepper [value]="1" class="basis-[50rem]" [linear]="true">
       <p-step-list>
         <p-step [value]="1"
           ><p class="step-no">Step 1</p>
           <p class="step-title">General Info</p></p-step
         >
+
         <p-step [value]="2"
           ><p class="step-no">Step 2</p>
-          <p class="step-title">Supplier Info</p></p-step
-        >
-        <p-step [value]="3"
-          ><p class="step-no">Step 3</p>
           <p class="step-title">Items Info</p></p-step
         >
       </p-step-list>
@@ -38,29 +35,24 @@
             <div class="form-row">
               <div class="form-group bg-grey">
                 <div class="form-group_header">
-                  <p class="form-group_title">Internal Info</p>
+                  <p class="form-group_title">customer Info</p>
                   <p class="form-group_desc">
                     Enter your company`s information, This information are not
                     visible to clients and specific to company
                   </p>
-                  <p class="form-group_desc">
-                    * You can select more than one employee
-                  </p>
-                  <p class="form-group_desc">
-                    * Check order categories related to order
-                  </p>
                 </div>
                 <div class="form-inputs">
                   <app-form-field
-                    label="Assigned Employee(s)"
-                    [control]="orderForm.get('assignedEmployee')"
+                    label="Customer"
+                    [control]="invoiceForm.get('customer')"
                   >
-                    <p-multiselect
+                    <p-select
                       appendTo="body"
-                      [options]="assignedEmployees"
-                      formControlName="assignedEmployee"
-                      name="assignedEmployee"
-                      id="assignedEmployee(s)"
+                      [options]="customers"
+                      formControlName="customer"
+                      name="customer"
+                      id="customer"
+                      placeholder="Select from customers menu"
                       optionLabel="name"
                       display="chip"
                     />
@@ -68,32 +60,72 @@
                 </div>
                 <div class="form-inputs">
                   <app-form-field
-                    label="Creation Date"
-                    [control]="orderForm.get('creationDate')"
+                    label="Vessel"
+                    [control]="invoiceForm.get('vessel')"
                   >
-                    <p-datepicker
-                      size="large"
-                      [iconDisplay]="'input'"
-                      [showIcon]="true"
-                      formControlName="creationDate"
-                      name="creationDate"
-                      id="creationDate"
+                    <input
+                      placeholder="Enter vessel name"
+                      class="p-inputtext"
+                      pSize="large"
+                      pInputText
+                      formControlName="vessel"
+                      name="vessel"
+                      id="vessel"
+                      aria-describedby="username-help"
                     />
                   </app-form-field>
                 </div>
+
                 <div class="form-inputs">
                   <app-form-field
-                    label="PO Category"
-                    [control]="orderForm.get('orderCategory')"
+                    label="IMO"
+                    [control]="invoiceForm.get('IMO')"
                   >
-                    <p-multiselect
-                      appendTo="body"
-                      [options]="orderCategory"
-                      formControlName="orderCategory"
-                      name="orderCategory"
-                      id="orderCategory"
-                      optionLabel="name"
-                      display="chip"
+                    <input
+                      placeholder="Enter IMO Number"
+                      class="p-inputtext"
+                      pSize="large"
+                      pInputText
+                      formControlName="IMO"
+                      name="IMO"
+                      id="IMO"
+                      aria-describedby="username-help"
+                    />
+                  </app-form-field>
+                </div>
+
+                <div class="form-inputs">
+                  <app-form-field
+                    label="Reference Quotation Number"
+                    [control]="invoiceForm.get('quotationNo')"
+                  >
+                    <input
+                      placeholder="Enter Customer Quotation Number as Sent"
+                      class="p-inputtext"
+                      pSize="large"
+                      pInputText
+                      formControlName="quotationNo"
+                      name="quotationNo"
+                      id="quotationNo"
+                      aria-describedby="username-help"
+                    />
+                  </app-form-field>
+                </div>
+
+                <div class="form-inputs">
+                  <app-form-field
+                    label=" Invoice Address"
+                    [control]="invoiceForm.get('invoiceAddress')"
+                  >
+                    <input
+                      placeholder="Enter Invoice Address"
+                      class="p-inputtext"
+                      pSize="large"
+                      pInputText
+                      formControlName="invoiceAddress"
+                      name="invoiceAddress"
+                      id="invoiceAddress"
+                      aria-describedby="username-help"
                     />
                   </app-form-field>
                 </div>
@@ -108,33 +140,98 @@
                 </div>
                 <div class="form-inputs">
                   <app-form-field
-                    label="Quotation Number"
-                    [control]="orderForm.get('quoteNumber')"
+                    label="Creation Date"
+                    [control]="invoiceForm.get('creationDate')"
                   >
-                    <input
-                      placeholder="Enter Customer Quote NO"
-                      class="p-inputtext"
-                      pSize="large"
-                      pInputText
-                      formControlName="quoteNumber"
-                      name="quoteNumber"
-                      id="quoteNumber"
-                      aria-describedby="username-help"
+                    <p-datepicker
+                      size="large"
+                      [iconDisplay]="'input'"
+                      [showIcon]="true"
+                      formControlName="creationDate"
+                      name="creationDate"
+                      id="creationDate"
                     />
                   </app-form-field>
                 </div>
 
                 <div class="form-inputs">
                   <app-form-field
-                    label="PO Status"
-                    [control]="orderForm.get('orderStatus')"
+                    label="Sales Order Reference"
+                    [control]="invoiceForm.get('salesOrder')"
                   >
                     <p-multiselect
                       appendTo="body"
-                      [options]="orderStatus"
-                      formControlName="status"
-                      name="status"
-                      id="status"
+                      [options]="salesOrders"
+                      formControlName="salesOrder"
+                      name="salesOrder"
+                      id="salesOrder"
+                      optionLabel="name"
+                      display="chip"
+                      placeholder="Check the SO related to Invoice"
+                    />
+                  </app-form-field>
+                </div>
+
+                <div class="form-inputs">
+                  <app-form-field
+                    label="Payment Terms"
+                    [control]="invoiceForm.get('paymentTerms')"
+                  >
+                    <p-select
+                      appendTo="body"
+                      [options]="paymentTerms"
+                      formControlName="paymentTerms"
+                      name="paymentTerms"
+                      id="paymentTerms"
+                      optionLabel="name"
+                      display="chip"
+                    />
+                  </app-form-field>
+                </div>
+
+                <div class="form-inputs">
+                  <app-form-field
+                    label="Due Date"
+                    [control]="invoiceForm.get('dueDate')"
+                  >
+                    <p-datepicker
+                      size="large"
+                      [iconDisplay]="'input'"
+                      [showIcon]="true"
+                      formControlName="dueDate"
+                      name="dueDate"
+                      id="dueDate"
+                    />
+                  </app-form-field>
+                </div>
+                <div class="form-inputs">
+                  <app-form-field
+                    label="Currency"
+                    [control]="invoiceForm.get('currency')"
+                  >
+                    <p-select
+                      appendTo="body"
+                      [options]="currencys"
+                      formControlName="currency"
+                      name="currency"
+                      id="currency"
+                      optionLabel="name"
+                      display="chip"
+                    />
+                  </app-form-field>
+                </div>
+
+                <!-- <div class="form-inputs">
+                  <app-form-field
+                    label="SO Status"
+                    [control]="invoiceForm.get('salesStatus')"
+                  >
+                    <p-multiselect
+                      appendTo="body"
+                      [options]="salesStatus"
+                      formControlName="salesStatus"
+                      name="salesStatus"
+                      id="salesStatus"
                       optionLabel="name"
                       display="chip"
                       placeholder="Draft"
@@ -143,7 +240,7 @@
                   </app-form-field>
                   <app-form-field
                     label="Payment Status"
-                    [control]="orderForm.get('paymentStatus')"
+                    [control]="invoiceForm.get('paymentStatus')"
                   >
                     <p-multiselect
                       appendTo="body"
@@ -157,7 +254,7 @@
                       readonly="true"
                     />
                   </app-form-field>
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="cta-container">
@@ -176,256 +273,6 @@
         </p-step-panel>
 
         <p-step-panel [value]="2">
-          <ng-template #content let-activateCallback="activateCallback">
-            <div class="form-row mb-1">
-              <!-- VESSEL INFO -->
-              <div class="form-group bg-grey">
-                <div class="form-group_header">
-                  <p class="form-group_title">Supplier Info</p>
-                  <p class="form-group_desc">
-                    Enter all required client data, All supplier info are
-                    automatically filled upon selection
-                  </p>
-                </div>
-
-                <div class="form-inputs">
-                  <app-form-field
-                    label="Supplier"
-                    [control]="orderForm.get('supplierName')"
-                  >
-                    <p-select
-                      [filter]="true"
-                      filterBy="name"
-                      appendTo="body"
-                      [options]="suppliers"
-                      formControlName="supplierName"
-                      name="supplierName"
-                      optionLabel="supplierName"
-                      display="chip"
-                    />
-                  </app-form-field>
-                </div>
-
-                <div class="form-inputs">
-                  <app-form-field
-                    label="Address"
-                    [control]="orderForm.get('supplierAddress')"
-                  >
-                    <input
-                      class="p-inputtext"
-                      pSize="large"
-                      pInputText
-                      formControlName="supplierAddress"
-                      name="supplierAddress"
-                      aria-describedby="username-help"
-                    />
-                  </app-form-field>
-                </div>
-
-                <div class="form-inputs">
-                  <app-form-field
-                    label="Email"
-                    [control]="orderForm.get('supplierEmail')"
-                  >
-                    <input
-                      class="p-inputtext"
-                      pSize="large"
-                      pInputText
-                      formControlName="supplierEmail"
-                      name="supplierEmail"
-                      aria-describedby="username-help"
-                    />
-                  </app-form-field>
-                  <app-form-field
-                    label="Phone"
-                    [control]="orderForm.get('supplierPhone')"
-                  >
-                    <input
-                      class="p-inputtext"
-                      pSize="large"
-                      pInputText
-                      formControlName="supplierPhone"
-                      name="supplierPhone"
-                      aria-describedby="username-help"
-                    />
-                  </app-form-field>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-row">
-              <!-- PAYMENT INFO -->
-              <div class="form-group bg-grey">
-                <div class="form-group_header">
-                  <p class="form-group_title">Payment Info</p>
-                  <p class="form-group_desc">
-                    Fill in all agreed payment conditions as in order
-                  </p>
-                </div>
-
-                <div class="form-inputs">
-                  <app-form-field
-                    label="payment terms"
-                    [control]="orderForm.get('paymentTerms')"
-                  >
-                    <p-select
-                      appendTo="body"
-                      [options]="paymentTerms"
-                      formControlName="paymentTerms"
-                      name="paymentTerms"
-                      optionLabel="name"
-                      display="chip"
-                    />
-                  </app-form-field>
-                </div>
-
-                <div class="form-inputs">
-                  <app-form-field
-                    label="payment method"
-                    [control]="orderForm.get('paymentMethod')"
-                  >
-                    <p-select
-                      appendTo="body"
-                      [options]="paymentMethods"
-                      formControlName="paymentMethod"
-                      name="paymentMethods"
-                      optionLabel="name"
-                      display="chip"
-                    />
-                  </app-form-field>
-                </div>
-
-                <div class="form-inputs">
-                  <app-form-field
-                    label="invoice address"
-                    [control]="orderForm.get('invoiceAddress')"
-                  >
-                    <input
-                      class="p-inputtext"
-                      pSize="large"
-                      pInputText
-                      formControlName="invoiceAddress"
-                      name="invoiceAddress"
-                    />
-                  </app-form-field>
-                </div>
-                <div class="form-inputs">
-                  <app-form-field
-                    label="currency"
-                    [control]="orderForm.get('currency')"
-                  >
-                    <p-select
-                      appendTo="body"
-                      [options]="currencys"
-                      formControlName="currency"
-                      name="currency"
-                      optionLabel="name"
-                      display="chip"
-                    />
-                  </app-form-field>
-                </div>
-              </div>
-
-              <!-- DELIVERY INFO -->
-              <div class="form-group bg-grey">
-                <div class="form-group_header">
-                  <p class="form-group_title">Delivery Info</p>
-                  <p class="form-group_desc">
-                    Enter all delivery related data, then issue a delivery note
-                    after SO completion
-                  </p>
-                </div>
-
-                <div class="form-inputs">
-                  <app-form-field
-                    label="delivery Date"
-                    [control]="orderForm.get('deliveryDate')"
-                  >
-                    <p-datepicker
-                      size="large"
-                      [iconDisplay]="'input'"
-                      [showIcon]="true"
-                      formControlName="deliveryDate"
-                      name="deliveryDate"
-                      placeholder="choose delivery date"
-                    />
-                  </app-form-field>
-                </div>
-
-                <div class="form-inputs">
-                  <app-form-field
-                    label="delivery method"
-                    [control]="orderForm.get('deliveryMethod')"
-                  >
-                    <p-select
-                      appendTo="body"
-                      [options]="deliveryMethods"
-                      formControlName="deliveryMethod"
-                      name="deliveryMethod"
-                      optionLabel="name"
-                      display="chip"
-                    />
-                  </app-form-field>
-                </div>
-
-                <div class="form-inputs">
-                  <app-form-field
-                    label="delivery address"
-                    [control]="orderForm.get('deliveryAddress')"
-                  >
-                    <input
-                      class="p-inputtext"
-                      pSize="large"
-                      pInputText
-                      formControlName="deliveryAddress"
-                      name="deliveryAddress"
-                      aria-describedby="username-help"
-                    />
-                  </app-form-field>
-                </div>
-
-                <div class="form-inputs">
-                  <app-form-field
-                    label="delivery City"
-                    [control]="orderForm.get('deliveryCity')"
-                  >
-                    <p-select
-                      appendTo="body"
-                      [options]="cities"
-                      formControlName="deliveryCity"
-                      name="deliveryCity"
-                      optionLabel="name"
-                      display="chip"
-                    />
-                  </app-form-field>
-                </div>
-              </div>
-            </div>
-
-            <div class="cta-container">
-              <div class="cta">
-                <p-button
-                  size="large"
-                  label="Back"
-                  severity="secondary"
-                  icon="pi pi-arrow-left"
-                  (onClick)="activateCallback(1)"
-                />
-              </div>
-              <div class="cta">
-                <p-button
-                  size="large"
-                  label="Next"
-                  icon="pi pi-arrow-right"
-                  iconPos="right"
-                  (onClick)="activateCallback(3)"
-                />
-              </div>
-            </div>
-          </ng-template>
-        </p-step-panel>
-
-        <p-step-panel [value]="3">
           <ng-template #content let-activateCallback="activateCallback">
             <div class="form-group bg-grey">
               <div class="form-group_header">
@@ -469,7 +316,6 @@
                   />
                 </div>
               </div>
-
               <p-autoComplete
                 [(ngModel)]="searchInput"
                 [ngModelOptions]="{ standalone: true }"
@@ -478,7 +324,7 @@
                 optionLabel="name"
                 [dropdown]="true"
                 (onSelect)="onItemSelect($event)"
-                placeholder="Search for item, then add"
+                placeholder="Add Item"
               >
                 <ng-template let-item pTemplate="item">
                   <div class="auto-complete-dropdown">
@@ -647,14 +493,14 @@
                   label="Back"
                   icon="pi pi-arrow-left"
                   iconPos="left"
-                  (onClick)="activateCallback(2)"
+                  (onClick)="activateCallback(1)"
                 />
               </div>
               <div class="cta">
                 <p-button
                   label="Submit SO"
                   size="large"
-                  (onClick)="onSubmit(orderForm)"
+                  (onClick)="onSubmit(invoiceForm)"
                 />
               </div>
             </div>

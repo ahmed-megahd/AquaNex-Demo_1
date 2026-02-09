@@ -24,6 +24,13 @@ import { AddVesselComponent } from './features/vessels/add-vessel/add-vessel.com
 import { ViewVesselComponent } from './features/vessels/view-vessel/view-vessel.component';
 import { SupplierInvoices } from './features/invoices/supplier/supplier-invoices/supplier-invoices.component';
 import { SupplierInvoiceCreateComponent } from './features/invoices/supplier/supplier-invoice-create/supplier-invoice-create.component';
+import { SupplierInvoiceViewComponent } from './features/invoices/supplier/supplier-invoice-view/supplier-invoice-view.component';
+import { InvoicePrintPageComponent } from './features/invoices/invoice-print-page/invoice-print-page';
+import { PoComparisonComponent } from './features/purchase-orders/po-comparison/po-comparison.component';
+import { CustomerInvoiceCreateComponent } from './features/invoices/customer/customer-invoice-create/customer-invoice-create.component';
+import { CustomerInvoiceViewComponent } from './features/invoices/customer/customer-invoice-view/customer-invoice-view.component';
+import { CustomerInvoices } from './features/invoices/customer/customer-invoices/customer-invoices.component';
+import { UnderConstruction } from './under-construction/under-construction';
 
 export const routes: Routes = [
   {
@@ -32,7 +39,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'expenses',
+        redirectTo: 'overview',
         pathMatch: 'prefix',
       },
       { path: 'sales-orders', component: SalesComponent },
@@ -64,13 +71,100 @@ export const routes: Routes = [
       { path: 'purchase-orders', component: PurchasesComponent },
       { path: 'purchase-orders/create', component: CreatePurchaseComponent },
       { path: 'purchase-orders/view/:id', component: ViewPurchaseComponent },
+      { path: 'compareison-tool', component: PoComparisonComponent },
 
-      { path: 'supplier-invocies', component: SupplierInvoices },
+      { path: 'supplier-invoices', component: SupplierInvoices },
       {
-        path: 'supplier-invocies/create',
+        path: 'supplier-invoices/create',
         component: SupplierInvoiceCreateComponent,
       },
-      // { path: 'purchase-orders/view/:id', component: ViewPurchaseComponent },
+      {
+        path: 'supplier-invoices/view/:id',
+        component: SupplierInvoiceViewComponent,
+      },
+
+      { path: 'customer-invoices', component: CustomerInvoices },
+      {
+        path: 'customer-invoices/create',
+        component: CustomerInvoiceCreateComponent,
+      },
+      {
+        path: 'customer-invoices/view/:id',
+        component: CustomerInvoiceViewComponent,
+      },
+      // UNDER CONSTRUCTION ROUTES
+      {
+        path: 'overview',
+        component: UnderConstruction,
+      },
+      {
+        path: 'sales-report',
+        component: UnderConstruction,
+      },
+      {
+        path: 'payments',
+        component: UnderConstruction,
+      },
+      {
+        path: 'overview',
+        component: UnderConstruction,
+      },
+      {
+        path: 'activity',
+        component: UnderConstruction,
+      },
+      {
+        path: 'charts',
+        component: UnderConstruction,
+      },
+      {
+        path: 'purchasing-report',
+        component: UnderConstruction,
+      },
+
+      {
+        path: 'payments-cst',
+        component: UnderConstruction,
+      },
+      {
+        path: 'payments-cst',
+        component: UnderConstruction,
+      },
+      {
+        path: 'finance-summary',
+        component: UnderConstruction,
+      },
+      {
+        path: 'stock',
+        component: UnderConstruction,
+      },
+      {
+        path: 'stock-reorder',
+        component: UnderConstruction,
+      },
+      {
+        path: 'customer-analysis',
+        component: UnderConstruction,
+      },
+      {
+        path: 'purchase-history',
+        component: UnderConstruction,
+      },
+      {
+        path: 'pricing-logs',
+        component: UnderConstruction,
+      },
+      {
+        path: 'reports',
+        component: UnderConstruction,
+      },
+      {
+        path: 'users',
+        component: UnderConstruction,
+      },
+
+      // { path: '**', component: UnderConstruction },
     ],
   },
+  { path: 'print/invoice', component: InvoicePrintPageComponent },
 ];

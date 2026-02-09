@@ -20,7 +20,7 @@ import { AutoComplete } from 'primeng/autocomplete';
 import * as XLSX from 'xlsx';
 
 @Component({
-  selector: 'app-supplier-invoice-create',
+  selector: 'app-customer-invoice-create',
   imports: [
     ButtonModule,
     BreadcrumbModule,
@@ -35,12 +35,12 @@ import * as XLSX from 'xlsx';
     AutoComplete,
   ],
   standalone: true,
-  templateUrl: './supplier-invoice-create.component.html',
+  templateUrl: './customer-invoice-create.component.html',
 })
-export class SupplierInvoiceCreateComponent implements OnInit {
+export class CustomerInvoiceCreateComponent implements OnInit {
   private fb = inject(FormBuilder);
   items: MenuItem[] = [
-    { label: 'Supplier Invoices', routerLink: '/supplier-invoices' },
+    { label: 'Customer Invoices', routerLink: '/customer-invoices' },
     { label: 'New Invoice' },
   ];
 
@@ -49,12 +49,12 @@ export class SupplierInvoiceCreateComponent implements OnInit {
   searchInput: any = null;
   filteredItems: any[] = [];
 
-  suppliers = [{ name: 'B.Tech' }, { name: 'Amazon' }, { name: 'El-Modeer' }];
+  customers = [{ name: 'B.Tech' }, { name: 'Amazon' }, { name: 'El-Modeer' }];
 
-  purchaseOrders = [
-    { name: 'PO-2289101' },
-    { name: 'PO-2189201' },
-    { name: 'PO-3189201' },
+  salesOrders = [
+    { name: 'SO-2289101' },
+    { name: 'SO-2189201' },
+    { name: 'SO-3189201' },
   ];
   paymentTerms = [{ name: 'Net 30' }, { name: 'Net 60' }, { name: 'Net 90' }];
   currencys = [{ name: 'USD' }, { name: 'Egyptian Pounds - LE' }];
@@ -73,32 +73,21 @@ export class SupplierInvoiceCreateComponent implements OnInit {
       price: 3,
     },
     { name: 'Apple', unit: 'kg', price: 3 },
-    { name: 'Apple', unit: 'kg', price: 3 },
-    { name: 'Apple', unit: 'kg', price: 3 },
-    { name: 'Apple', unit: 'kg', price: 3 },
-    { name: 'Apple', unit: 'kg', price: 3 },
-    { name: 'Apple', unit: 'kg', price: 3 },
-    { name: 'Apple', unit: 'kg', price: 3 },
-    { name: 'Apple', unit: 'kg', price: 3 },
-    { name: 'Apple', unit: 'kg', price: 3 },
-    { name: 'Apple', unit: 'kg', price: 3 },
-    { name: 'Apple', unit: 'kg', price: 3 },
-    { name: 'Apple', unit: 'kg', price: 3 },
-    { name: 'Apple', unit: 'kg', price: 3 },
-    { name: 'Apple', unit: 'kg', price: 3 },
     { name: 'Banana', unit: 'bunch', price: 5 },
     { name: 'Orange', unit: 'kg', price: 4 },
   ];
 
   invoiceForm = this.fb.group({
-    supplier: ['', Validators.required],
-    supplierInvoice: ['', Validators.required],
+    customer: ['', Validators.required],
+    vessel: ['', Validators.required], //new
+    IMO: ['', Validators.required], //new
+    quotationNo: ['', Validators.required],
+    invoiceAddress: ['', Validators.required],
     creationDate: ['', Validators.required],
     dueDate: ['', Validators.required],
-    purchaseOrders: ['', Validators.required],
+    salesOrder: ['', Validators.required],
     paymentTerms: ['', Validators.required],
     currency: ['', Validators.required],
-    invoiceAddress: ['', Validators.required],
     items: this.fb.array([]),
     // summary
     netPrice: [0],

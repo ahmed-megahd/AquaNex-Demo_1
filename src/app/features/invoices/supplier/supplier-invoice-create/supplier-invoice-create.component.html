@@ -1,1 +1,478 @@
-<p>supplier-invoice-create works!</p>
+<p-breadcrumb [home]="home" [model]="items" />
+<div class="main-content_top">
+  <div class="title-container">
+    <p class="page-title">Create New Invoice</p>
+  </div>
+
+  <div class="cta">
+    <p-button
+      label="Save as Draft"
+      size="large"
+      type="button"
+      (onClick)="onSubmit(invoiceForm)"
+    />
+  </div>
+</div>
+
+<div class="main-content_form">
+  <form action="#" class="form" [formGroup]="invoiceForm">
+    <p-stepper [value]="1" class="basis-[50rem]" [linear]="true">
+      <p-step-list>
+        <p-step [value]="1"
+          ><p class="step-no">Step 1</p>
+          <p class="step-title">General Info</p></p-step
+        >
+
+        <p-step [value]="2"
+          ><p class="step-no">Step 2</p>
+          <p class="step-title">Items Info</p></p-step
+        >
+      </p-step-list>
+
+      <p-step-panels>
+        <p-step-panel [value]="1">
+          <ng-template #content let-activateCallback="activateCallback">
+            <div class="form-row">
+              <div class="form-group bg-grey">
+                <div class="form-group_header">
+                  <p class="form-group_title">Supplier Info</p>
+                  <p class="form-group_desc">
+                    Enter your company`s information, This information are not
+                    visible to clients and specific to company
+                  </p>
+                </div>
+                <div class="form-inputs">
+                  <app-form-field
+                    label="Supplier"
+                    [control]="invoiceForm.get('supplier')"
+                  >
+                    <p-select
+                      appendTo="body"
+                      [options]="suppliers"
+                      formControlName="supplier"
+                      name="supplier"
+                      id="supplier"
+                      placeholder="Select from suppliers menu"
+                      optionLabel="name"
+                      display="chip"
+                    />
+                  </app-form-field>
+                </div>
+
+                <div class="form-inputs">
+                  <app-form-field
+                    label="Supplier Invoice Number"
+                    [control]="invoiceForm.get('supplierInvoice')"
+                  >
+                    <input
+                      placeholder="Enter Customer Invoice Number"
+                      class="p-inputtext"
+                      pSize="large"
+                      pInputText
+                      formControlName="supplierInvoice"
+                      name="supplierInvoice"
+                      id="supplierInvoice"
+                      aria-describedby="username-help"
+                    />
+                  </app-form-field>
+                </div>
+
+                <div class="form-inputs">
+                  <app-form-field
+                    label="Supplier Billing Address"
+                    [control]="invoiceForm.get('invoiceAddress')"
+                  >
+                    <input
+                      placeholder="Enter Billing Address"
+                      class="p-inputtext"
+                      pSize="large"
+                      pInputText
+                      formControlName="invoiceAddress"
+                      name="invoiceAddress"
+                      id="invoiceAddress"
+                      aria-describedby="username-help"
+                    />
+                  </app-form-field>
+                </div>
+
+                <div class="form-inputs">
+                  <app-form-field
+                    label="Currency"
+                    [control]="invoiceForm.get('currency')"
+                  >
+                    <p-select
+                      appendTo="body"
+                      [options]="currencys"
+                      formControlName="currency"
+                      name="currency"
+                      id="currency"
+                      optionLabel="name"
+                      display="chip"
+                    />
+                  </app-form-field>
+                </div>
+              </div>
+              <div class="form-group bg-grey">
+                <div class="form-group_header">
+                  <p class="form-group_title">Order Info</p>
+                  <p class="form-group_desc">
+                    Enter your order related info, Both statuses are
+                    automatically selected to their default for first time
+                  </p>
+                </div>
+                <div class="form-inputs">
+                  <app-form-field
+                    label="Creation Date"
+                    [control]="invoiceForm.get('creationDate')"
+                  >
+                    <p-datepicker
+                      size="large"
+                      [iconDisplay]="'input'"
+                      [showIcon]="true"
+                      formControlName="creationDate"
+                      name="creationDate"
+                      id="creationDate"
+                    />
+                  </app-form-field>
+                </div>
+
+                <div class="form-inputs">
+                  <app-form-field
+                    label="Linked Purchase Orders"
+                    [control]="invoiceForm.get('purchaseOrders')"
+                  >
+                    <p-multiselect
+                      appendTo="body"
+                      [options]="purchaseOrders"
+                      formControlName="purchaseOrders"
+                      name="purchaseOrders"
+                      id="purchaseOrders"
+                      optionLabel="name"
+                      display="chip"
+                      placeholder="Check all purchase orders related to the SO"
+                    />
+                  </app-form-field>
+                </div>
+
+                <div class="form-inputs">
+                  <app-form-field
+                    label="Payment Terms"
+                    [control]="invoiceForm.get('paymentTerms')"
+                  >
+                    <p-select
+                      appendTo="body"
+                      [options]="paymentTerms"
+                      formControlName="paymentTerms"
+                      name="paymentTerms"
+                      id="paymentTerms"
+                      optionLabel="name"
+                      display="chip"
+                    />
+                  </app-form-field>
+                </div>
+
+                <div class="form-inputs">
+                  <app-form-field
+                    label="Due Date"
+                    [control]="invoiceForm.get('dueDate')"
+                  >
+                    <p-datepicker
+                      size="large"
+                      [iconDisplay]="'input'"
+                      [showIcon]="true"
+                      formControlName="dueDate"
+                      name="dueDate"
+                      id="dueDate"
+                    />
+                  </app-form-field>
+                </div>
+
+                <!-- <div class="form-inputs">
+                  <app-form-field
+                    label="SO Status"
+                    [control]="invoiceForm.get('salesStatus')"
+                  >
+                    <p-multiselect
+                      appendTo="body"
+                      [options]="salesStatus"
+                      formControlName="salesStatus"
+                      name="salesStatus"
+                      id="salesStatus"
+                      optionLabel="name"
+                      display="chip"
+                      placeholder="Draft"
+                      readonly="true"
+                    />
+                  </app-form-field>
+                  <app-form-field
+                    label="Payment Status"
+                    [control]="invoiceForm.get('paymentStatus')"
+                  >
+                    <p-multiselect
+                      appendTo="body"
+                      [options]="paymentStatus"
+                      formControlName="paymentStatus"
+                      name="paymentStatus"
+                      id="paymentStatus"
+                      optionLabel="name"
+                      display="chip"
+                      placeholder="Un-paid"
+                      readonly="true"
+                    />
+                  </app-form-field>
+                </div> -->
+              </div>
+            </div>
+            <div class="cta-container">
+              <div class="cta"></div>
+              <div class="cta">
+                <p-button
+                  size="large"
+                  label="Next"
+                  icon="pi pi-arrow-right"
+                  iconPos="right"
+                  (onClick)="activateCallback(2)"
+                />
+              </div>
+            </div>
+          </ng-template>
+        </p-step-panel>
+
+        <p-step-panel [value]="2">
+          <ng-template #content let-activateCallback="activateCallback">
+            <div class="form-group bg-grey">
+              <div class="form-group_header">
+                <p class="form-group_title">Items Mapping</p>
+                <p class="form-group_desc">
+                  Enter all items required for this order, use the below search
+                  item feature to easily add items, or upload them automatically
+                </p>
+              </div>
+
+              <div class="cta-container">
+                <div class="cta-del ml-auto">
+                  <button
+                    pButton
+                    severity="danger"
+                    outlined
+                    type="button"
+                    label="Reset Items"
+                    icon="pi pi-trash"
+                    size="large"
+                    (click)="resetItems()"
+                  ></button>
+                </div>
+
+                <div class="cta">
+                  <button
+                    pButton
+                    type="button"
+                    label="Import Items"
+                    icon="pi pi-upload"
+                    size="large"
+                    (click)="fileInput.click()"
+                  ></button>
+
+                  <input
+                    #fileInput
+                    type="file"
+                    accept=".xlsx,.xls"
+                    hidden
+                    (change)="onExcelImport($event)"
+                  />
+                </div>
+              </div>
+              <p-autoComplete
+                [(ngModel)]="searchInput"
+                [ngModelOptions]="{ standalone: true }"
+                [suggestions]="filteredItems"
+                (completeMethod)="searchItems($event)"
+                optionLabel="name"
+                [dropdown]="true"
+                (onSelect)="onItemSelect($event)"
+                placeholder="Add Item"
+              >
+                <ng-template let-item pTemplate="item">
+                  <div class="auto-complete-dropdown">
+                    <span>{{ item.name }}</span>
+                    <small> ({{ item.unit }}, ${{ item.price }}) </small>
+                    <span class="auto-complete-desc">{{
+                      item.description
+                    }}</span>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+
+              <!-- dynamic-table.component.html -->
+              <p-table [value]="orderItems.controls">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>Item Name</th>
+                    <th>Description</th>
+                    <th>Unit</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Total</th>
+                    <th></th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-row let-rowIndex="rowIndex">
+                  <tr [formGroup]="row">
+                    <td>
+                      <input
+                        formControlName="item"
+                        name="item"
+                        type="text"
+                        class="p-inputtext p-component"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        formControlName="description"
+                        name="description"
+                        type="text"
+                        class="p-inputtext p-component"
+                        readonly
+                      />
+                    </td>
+                    <td>
+                      <input
+                        formControlName="unit"
+                        name="unit"
+                        type="text"
+                        class="p-inputtext p-component"
+                        readonly
+                      />
+                    </td>
+                    <td>
+                      <input
+                        formControlName="quantity"
+                        name="quantity"
+                        type="number"
+                        class="p-inputtext p-component"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        formControlName="price"
+                        name="price"
+                        type="number"
+                        class="p-inputtext p-component"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        formControlName="totalPrice"
+                        readonly
+                        name="totalPrice"
+                        type="number"
+                        class="p-inputtext p-component"
+                        readonly
+                      />
+                    </td>
+
+                    <td>
+                      <button
+                        size="large"
+                        pButton
+                        icon="pi pi-trash"
+                        (click)="removeItemRow(rowIndex)"
+                        class="p-button-danger"
+                        type="button"
+                      ></button>
+                    </td>
+                  </tr>
+                </ng-template>
+
+                <ng-template pTemplate="emptymessage">
+                  <tr>
+                    <td colspan="9" class="text-center text-muted">
+                      No items added yet. Import from Excel or add items
+                      manually.
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+
+              <div class="order-summary">
+                <div class="summary-row">
+                  <label>Net Price:</label>
+                  <input
+                    class="p-inputtext"
+                    formControlName="netPrice"
+                    type="number"
+                    readonly
+                  />
+                </div>
+
+                <div class="summary-row">
+                  <label>Discount:</label>
+                  <input
+                    class="p-inputtext"
+                    formControlName="discount"
+                    type="number"
+                  />
+                </div>
+
+                <div class="summary-row">
+                  <label>Delivery Cost:</label>
+                  <input
+                    class="p-inputtext"
+                    formControlName="deliveryCost"
+                    type="number"
+                  />
+                </div>
+
+                <div class="summary-row">
+                  <label>Additional Costs:</label>
+                  <input
+                    class="p-inputtext"
+                    formControlName="additionalCost"
+                    type="number"
+                  />
+                </div>
+
+                <div class="summary-row">
+                  <label>VAT / Tax %:</label>
+                  <input
+                    class="p-inputtext"
+                    formControlName="vat"
+                    type="number"
+                  />
+                </div>
+
+                <div class="summary-row total">
+                  <label>Total:</label>
+                  <input
+                    class="p-inputtext"
+                    formControlName="totalPrice"
+                    type="number"
+                    readonly
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="cta-container">
+              <div class="cta">
+                <p-button
+                  size="large"
+                  label="Back"
+                  icon="pi pi-arrow-left"
+                  iconPos="left"
+                  (onClick)="activateCallback(1)"
+                />
+              </div>
+              <div class="cta">
+                <p-button
+                  label="Submit SO"
+                  size="large"
+                  (onClick)="onSubmit(invoiceForm)"
+                />
+              </div>
+            </div>
+          </ng-template>
+        </p-step-panel>
+      </p-step-panels>
+    </p-stepper>
+  </form>
+</div>

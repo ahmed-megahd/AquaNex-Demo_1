@@ -1,7 +1,7 @@
 <p-breadcrumb [home]="home" [model]="items" />
 <div class="main-content_top">
   <div class="title-container">
-    <p class="page-title">Supplier Invoices center</p>
+    <p class="page-title">Customer Invoices center</p>
   </div>
 
   <div class="cta">
@@ -29,27 +29,6 @@
         [showIcon]="true"
       />
     </div>
-
-    <!-- <div class="search-input-item">
-      <p-datepicker
-        placeholder="Delivery Date"
-        size="large"
-        [(ngModel)]="rangeDates"
-        selectionMode="range"
-        [iconDisplay]="'input'"
-        [showIcon]="true"
-      />
-    </div> -->
-    <!-- 
-    <div class="search-input-item">
-      <p-multiselect
-        [options]="salesOrderStatus"
-        [(ngModel)]="selectedSalesStatus"
-        placeholder="Select Sales Order Status"
-        optionLabel="name"
-        display="chip"
-      />
-    </div> -->
 
     <div class="search-input-item">
       <p-multiselect
@@ -110,9 +89,9 @@
         [columns]="columns"
         [value]="filteredInvoices"
         [globalFilterFields]="[
-          'supplierInvoice',
-          'linkedPO',
-          'supplier',
+          'quotationNo',
+          'linkedSO',
+          'customer',
           'status',
           'amount'
         ]"

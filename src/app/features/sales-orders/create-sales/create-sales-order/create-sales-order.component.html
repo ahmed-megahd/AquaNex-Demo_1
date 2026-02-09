@@ -494,6 +494,41 @@
                   item feature to easily add items, or upload them automatically
                 </p>
               </div>
+
+              <div class="cta-container">
+                <div class="cta-del ml-auto">
+                  <button
+                    pButton
+                    severity="danger"
+                    outlined
+                    type="button"
+                    label="Reset Items"
+                    icon="pi pi-trash"
+                    size="large"
+                    (click)="resetItems()"
+                  ></button>
+                </div>
+
+                <div class="cta">
+                  <button
+                    pButton
+                    type="button"
+                    label="Import Items"
+                    icon="pi pi-upload"
+                    size="large"
+                    (click)="fileInput.click()"
+                  ></button>
+
+                  <input
+                    #fileInput
+                    type="file"
+                    accept=".xlsx,.xls"
+                    hidden
+                    (change)="onExcelImport($event)"
+                  />
+                </div>
+              </div>
+
               <p-autoComplete
                 [(ngModel)]="searchInput"
                 [ngModelOptions]="{ standalone: true }"
@@ -502,7 +537,7 @@
                 optionLabel="name"
                 [dropdown]="true"
                 (onSelect)="onItemSelect($event)"
-                placeholder="Add Item"
+                placeholder="Search for item, then add"
               >
                 <ng-template let-item pTemplate="item">
                   <div class="auto-complete-dropdown">
@@ -515,6 +550,18 @@
                 </ng-template>
               </p-autoComplete>
 
+              <app-form-field
+                label="General Margin"
+                [control]="orderForm.get('generalMargin')"
+              >
+                <input
+                  class="p-inputtext"
+                  type="number"
+                  formControlName="generalMargin"
+                  placeholder="Apply to all items"
+                />
+              </app-form-field>
+
               <!-- dynamic-table.component.html -->
               <p-table [value]="orderItems.controls">
                 <ng-template pTemplate="header">
@@ -524,7 +571,9 @@
                     <th>Unit</th>
                     <th>Quantity</th>
                     <th>Unit Price</th>
+                    <th>Margin %</th>
                     <th>Total</th>
+                    <th>Profit</th>
                     <th></th>
                   </tr>
                 </ng-template>
@@ -574,6 +623,27 @@
                     </td>
                     <td>
                       <input
+                        type="number"
+                        class="p-inputtext"
+                        formControlName="itemMargin"
+                        placeholder="Auto"
+                        [ngClass]="{
+                          overridden: row.get('isMarginOverridden')?.value
+                        }"
+                      />
+
+                      <button
+                        *ngIf="row.get('isMarginOverridden')?.value"
+                        pButton
+                        icon="pi pi-refresh"
+                        class="p-button-text p-button-sm"
+                        type="button"
+                        (click)="resetItemMargin(row)"
+                        title="Reset to general margin"
+                      ></button>
+                    </td>
+                    <td>
+                      <input
                         formControlName="totalPrice"
                         readonly
                         name="totalPrice"
@@ -581,6 +651,9 @@
                         class="p-inputtext p-component"
                         readonly
                       />
+                    </td>
+                    <td>
+                      {{ row.get("profit")?.value | number : "1.2-2" }}
                     </td>
 
                     <td>
@@ -592,6 +665,14 @@
                         class="p-button-danger"
                         type="button"
                       ></button>
+                    </td>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                  <tr>
+                    <td colspan="9" class="text-center text-muted">
+                      No items added yet. Import from Excel or add items
+                      manually.
                     </td>
                   </tr>
                 </ng-template>
@@ -655,6 +736,39 @@
                 </div>
               </div>
             </div>
+
+            <div class="form-group-view-line form-view">
+              <div class="form-info-row">
+                <div class="form-info">
+                  <p class="form-data">Base Items Cost</p>
+                  <p class="form-title-view">{{ baseTotal }}</p>
+                </div>
+              </div>
+
+              <div class="form-info-row">
+                <div class="form-info">
+                  <p class="form-data">Selling Items Total</p>
+                  <p class="form-title-view">{{ sellingTotal }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="form-group-view-line form-view">
+              <div class="form-info-row">
+                <div class="form-info">
+                  <p class="form-data">Gross Profit</p>
+                  <p class="form-title-view">
+                    {{ grossProfit }}
+                  </p>
+                </div>
+              </div>
+
+              <div class="form-info-row">
+                <div class="form-info">
+                  <p class="form-data">Net Profit</p>
+                  <p class="form-title-view">{{ netProfit }}</p>
+                </div>
+              </div>
+            </div>
             <div class="cta-container">
               <div class="cta">
                 <p-button
@@ -677,239 +791,5 @@
         </p-step-panel>
       </p-step-panels>
     </p-stepper>
-
-    <!-- <div class="cta cta-table">
-                <button
-                  pButton
-                  size="large"
-                  icon="pi pi-plus"
-                  (click)="addItemRow()"
-                  label="Add Item"
-                  type="button"
-                ></button>
-              </div> -->
-
-    <!-- <div class="form-group">
-      <div class="form-group_title">General Info</div>
-      <div class="form-inputs">
-        <app-form-field
-          label="Assigned Employee"
-          [control]="orderForm.get('assignedEmployee')"
-        >
-          <p-multiselect
-          appendTo="body"
-            [options]="assignedEmployees"
-            formControlName="assignedEmployee"
-            optionLabel="name"
-            display="chip"
-          />
-        </app-form-field>
-
-        <app-form-field
-          label="Creation Date"
-          [control]="orderForm.get('creationDate')"
-        >
-          <p-datepicker
-            size="large"
-            [iconDisplay]="'input'"
-            [showIcon]="true"
-            formControlName="creationDate"
-          />
-        </app-form-field>
-      </div>
-
-      <div class="form-inputs">
-        <app-form-field
-          label="SO Category"
-          [control]="orderForm.get('salesOrderCategory')"
-        >
-          <p-multiselect
-          appendTo="body"
-            [options]="salesOrderCategory"
-            formControlName="salesOrderCategory"
-            optionLabel="name"
-            display="chip"
-          />
-        </app-form-field>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <div class="form-group_title">Order Info</div>
-      <div class="form-inputs">
-        <app-form-field
-          label="Quotation Number"
-          [control]="orderForm.get('quoteNumber')"
-        >
-          <input
-            class="p-inputtext"
-            pSize="large"
-            pInputText
-            formControlName="quoteNumber"
-            aria-describedby="username-help"
-          />
-        </app-form-field>
-      </div>
-
-      <div class="form-inputs">
-        <app-form-field
-          label="Linked Purchase Orders"
-          [control]="orderForm.get('purchaseOrders')"
-        >
-          <p-multiselect
-          appendTo="body"
-            [options]="purchaseOrders"
-            formControlName="purchaseOrders"
-            optionLabel="name"
-            display="chip"
-          />
-        </app-form-field>
-      </div>
-
-      <div class="form-inputs">
-        <app-form-field
-          label="SO Status"
-          [control]="orderForm.get('salesStatus')"
-        >
-          <p-multiselect
-          appendTo="body"
-            [options]="salesStatus"
-            formControlName="salesStatus"
-            optionLabel="name"
-            display="chip"
-          />
-        </app-form-field>
-        <app-form-field
-          label="Payment Status"
-          [control]="orderForm.get('paymentStatus')"
-        >
-          <p-multiselect
-          appendTo="body"
-            [options]="paymentStatus"
-            formControlName="paymentStatus"
-            optionLabel="name"
-            display="chip"
-          />
-        </app-form-field>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="form-group_title">Order Info</div>
-      <div class="form-inputs">
-        <app-form-field
-          label="Quotation Number"
-          [control]="orderForm.get('quoteNumber')"
-        >
-          <input
-            class="p-inputtext"
-            pSize="large"
-            pInputText
-            formControlName="quoteNumber"
-            aria-describedby="username-help"
-          />
-        </app-form-field>
-      </div>
-
-      <div class="form-inputs">
-        <app-form-field
-          label="Linked Purchase Orders"
-          [control]="orderForm.get('purchaseOrders')"
-        >
-          <p-multiselect
-          appendTo="body"
-            [options]="purchaseOrders"
-            formControlName="purchaseOrders"
-            optionLabel="name"
-            display="chip"
-          />
-        </app-form-field>
-      </div>
-
-      <div class="form-inputs">
-        <app-form-field
-          label="SO Status"
-          [control]="orderForm.get('salesStatus')"
-        >
-          <p-multiselect
-          appendTo="body"
-            [options]="salesStatus"
-            formControlName="salesStatus"
-            optionLabel="name"
-            display="chip"
-          />
-        </app-form-field>
-        <app-form-field
-          label="Payment Status"
-          [control]="orderForm.get('paymentStatus')"
-        >
-          <p-multiselect
-          appendTo="body"
-            [options]="paymentStatus"
-            formControlName="paymentStatus"
-            optionLabel="name"
-            display="chip"
-          />
-        </app-form-field>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="form-group_title">Order Info</div>
-      <div class="form-inputs">
-        <app-form-field
-          label="Quotation Number"
-          [control]="orderForm.get('quoteNumber')"
-        >
-          <input
-            class="p-inputtext"
-            pSize="large"
-            pInputText
-            formControlName="quoteNumber"
-            aria-describedby="username-help"
-          />
-        </app-form-field>
-      </div>
-
-      <div class="form-inputs">
-        <app-form-field
-          label="Linked Purchase Orders"
-          [control]="orderForm.get('purchaseOrders')"
-        >
-          <p-multiselect
-          appendTo="body"
-            [options]="purchaseOrders"
-            formControlName="purchaseOrders"
-            optionLabel="name"
-            display="chip"
-          />
-        </app-form-field>
-      </div>
-
-      <div class="form-inputs">
-        <app-form-field
-          label="SO Status"
-          [control]="orderForm.get('salesStatus')"
-        >
-          <p-multiselect
-          appendTo="body"
-            [options]="salesStatus"
-            formControlName="salesStatus"
-            optionLabel="name"
-            display="chip"
-          />
-        </app-form-field>
-        <app-form-field
-          label="Payment Status"
-          [control]="orderForm.get('paymentStatus')"
-        >
-          <p-multiselect
-          appendTo="body"
-            [options]="paymentStatus"
-            formControlName="paymentStatus"
-            optionLabel="name"
-            display="chip"
-          />
-        </app-form-field>
-      </div>
-    </div> -->
   </form>
 </div>

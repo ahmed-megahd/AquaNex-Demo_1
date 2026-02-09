@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable, OnInit } from '@angular/core';
 
 import { catchError, Observable, of, retry, throwError } from 'rxjs';
-import { FirestoreService } from '../../shared/services/firestore.service';
+// import { FirestoreService } from '../../shared/services/firestore.service';
 
 // src/app/domain/product.ts
 // export interface Product {
@@ -35,20 +35,20 @@ export interface SalesOrder {
 export class SalesService {
   // private salesEntryURL = '';
   // private httpClient = inject(HttpClient);
-  private firestoreService = inject(FirestoreService);
+  // private firestoreService = inject(FirestoreService);
   private collectionName = 'salesOrders';
 
   // getAllSalesOrders(): Observable<any[]> {
   //   return this.firestoreService.getItems('salesOrder');
   // }
 
-  getAllSalesOrders(): Observable<any[]> {
-    return this.firestoreService.getItems(this.collectionName);
-  }
+  // getAllSalesOrders(): Observable<any[]> {
+  //   return this.firestoreService.getItems(this.collectionName);
+  // }
 
-  addSaleOrder(salesOrder: {}) {
-    this.firestoreService.addItem('salesOrders', salesOrder);
-  }
+  // addSaleOrder(salesOrder: {}) {
+  //   this.firestoreService.addItem('salesOrders', salesOrder);
+  // }
 
   getProducts() {
     return of([
