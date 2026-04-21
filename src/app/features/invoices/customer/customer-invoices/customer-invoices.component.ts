@@ -48,12 +48,12 @@ export class CustomerInvoices implements OnInit {
 
   //Table columns
   columns = [
-    { field: 'id', header: 'ID' },
-    { field: 'customer', header: 'Customer' },
-    { field: 'vessel', header: 'Vessel' },
-    { field: 'quotationNo', header: 'Quotation #' },
-    { field: 'linkedSO', header: 'Linked SO' },
+    { field: 'id', header: 'Invoice #' },
     { field: 'date', header: 'Date' },
+    { field: 'customer', header: 'Customer' },
+    // { field: 'vessel', header: 'Vessel' },
+    // { field: 'quotationNo', header: 'Quotation #' },
+    { field: 'linkedSO', header: 'Order Ref' },
     { field: 'dueDate', header: 'Due Date' },
     { field: 'amount', header: 'Amount' },
     { field: 'status', header: 'Status' },
@@ -116,11 +116,11 @@ export class CustomerInvoices implements OnInit {
 
     const creationFrom = this.datePipe.transform(
       this.creationDate?.[0],
-      'MM/dd/yyyy'
+      'MM/dd/yyyy',
     );
     const creationTo = this.datePipe.transform(
       this.creationDate?.[1],
-      'MM/dd/yyyy'
+      'MM/dd/yyyy',
     );
 
     console.log('Creation:', creationFrom, creationTo);
@@ -135,7 +135,7 @@ export class CustomerInvoices implements OnInit {
       this.filteredInvoices = [...this.invoices];
     } else {
       this.filteredInvoices = this.invoices.filter(
-        (order) => order.status === status
+        (order) => order.status === status,
       );
     }
   }

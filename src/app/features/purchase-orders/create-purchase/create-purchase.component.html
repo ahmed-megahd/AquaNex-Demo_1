@@ -18,18 +18,9 @@
   <form action="#" class="form" [formGroup]="orderForm">
     <p-stepper [value]="1" class="basis-[50rem]" [linear]="true">
       <p-step-list>
-        <p-step [value]="1"
-          ><p class="step-no">Step 1</p>
-          <p class="step-title">General Info</p></p-step
-        >
-        <p-step [value]="2"
-          ><p class="step-no">Step 2</p>
-          <p class="step-title">Supplier Info</p></p-step
-        >
-        <p-step [value]="3"
-          ><p class="step-no">Step 3</p>
-          <p class="step-title">Items Info</p></p-step
-        >
+        <p-step [value]="1"><p class="step-title">General Info</p></p-step>
+        <p-step [value]="2"><p class="step-title">Supplier Info</p></p-step>
+        <p-step [value]="3"><p class="step-title">Items Info</p></p-step>
       </p-step-list>
 
       <p-step-panels>
@@ -177,7 +168,7 @@
 
         <p-step-panel [value]="2">
           <ng-template #content let-activateCallback="activateCallback">
-            <div class="form-row mb-1">
+            <div class="form-row mb-2">
               <!-- VESSEL INFO -->
               <div class="form-group bg-grey">
                 <div class="form-group_header">

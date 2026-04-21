@@ -57,15 +57,16 @@ export class CustomerInvoiceCreateComponent implements OnInit {
     { name: 'SO-3189201' },
   ];
   paymentTerms = [{ name: 'Net 30' }, { name: 'Net 60' }, { name: 'Net 90' }];
-  currencys = [{ name: 'USD' }, { name: 'Egyptian Pounds - LE' }];
+
+  currencys = [
+    { name: 'USD - US Dollar' },
+    { name: 'EUR - Euro' },
+    { name: 'GBP - British Pound' },
+    { name: 'LE - Egyptian Pounds' },
+    { name: 'AED - UAE Dirham' },
+  ];
 
   itemOptions = [
-    {
-      name: 'Apple',
-      description: 'A 1Kg of fresh red apples',
-      unit: 'kg',
-      price: 3,
-    },
     {
       name: 'Apple',
       description: 'A 1Kg of fresh red apples',
@@ -83,12 +84,14 @@ export class CustomerInvoiceCreateComponent implements OnInit {
     IMO: ['', Validators.required], //new
     quotationNo: ['', Validators.required],
     invoiceAddress: ['', Validators.required],
-    creationDate: ['', Validators.required],
+    salesRep: [''],
+    invoiceDate: [new Date(), Validators.required],
     dueDate: ['', Validators.required],
     salesOrder: ['', Validators.required],
     paymentTerms: ['', Validators.required],
     currency: ['', Validators.required],
     items: this.fb.array([]),
+    remarks: [''],
     // summary
     netPrice: [0],
     discount: [0],
@@ -104,17 +107,6 @@ export class CustomerInvoiceCreateComponent implements OnInit {
       this.updateSummary();
     });
   }
-
-  // createItem(): FormGroup {
-  //   return this.fb.group({
-  //     item: [''],
-  //     description: [''],
-  //     quantity: [1, Validators.required],
-  //     price: [''],
-  //     totalPrice: [''],
-  //     unit: [{ value: '', disabled: true }],
-  //   });
-  // }
 
   onSubmit(formGroup: FormGroup) {
     // this.invoiceForm.get('paymentStatus')?.setValue('Un-paid');
@@ -147,7 +139,7 @@ export class CustomerInvoiceCreateComponent implements OnInit {
         netPrice: this.roundMoney(subtotal),
         totalPrice: this.roundMoney(total),
       },
-      { emitEvent: false } // prevent infinite loop
+      { emitEvent: false }, // prevent infinite loop
     );
   }
 
@@ -160,49 +152,9 @@ export class CustomerInvoiceCreateComponent implements OnInit {
     this.filteredItems = this.itemOptions.filter(
       (item) =>
         item.name.toLowerCase().includes(query) &&
-        !this.orderItems.value.some((row: any) => row.item === item.name)
+        !this.orderItems.value.some((row: any) => row.item === item.name),
     );
   }
-
-  // onItemSelect(event: any) {
-  //   const selectedItem = event;
-
-  //   // Create the new item group
-  //   const itemGroup = this.fb.group({
-  //     item: [selectedItem.value.name],
-  //     description: [selectedItem.value.description],
-  //     unit: [selectedItem.value.unit],
-  //     quantity: [1, Validators.required],
-  //     price: [selectedItem.value.price],
-  //     totalPrice: [selectedItem.value.price * 1],
-  //   });
-
-  //   itemGroup.get('quantity')?.valueChanges.subscribe((qty) => {
-  //     const price = itemGroup.get('price')?.value || 0;
-  //     itemGroup.get('totalPrice')?.setValue(price * qty!, { emitEvent: false });
-  //   });
-
-  //   itemGroup.get('price')?.valueChanges.subscribe((price) => {
-  //     const qty = itemGroup.get('quantity')?.value || 0;
-  //     itemGroup.get('totalPrice')?.setValue(price * qty, { emitEvent: false });
-  //   });
-
-  //   const itemsArray = this.orderItems;
-
-  //   // Check if first row is empty (item field is not filled)
-  //   if (itemsArray.length === 0) {
-  //     itemsArray.push(itemGroup);
-  //   } else {
-  //     const firstItem = itemsArray.at(0).get('item')?.value;
-  //     if (!firstItem) {
-  //       itemsArray.setControl(0, itemGroup);
-  //     } else {
-  //       itemsArray.push(itemGroup);
-  //     }
-  //   }
-
-  //   this.searchInput = '';
-  // }
 
   onItemSelect(event: any): void {
     const item = event.value;
@@ -221,6 +173,7 @@ export class CustomerInvoiceCreateComponent implements OnInit {
   private buildItemRow(data?: any): FormGroup {
     const row = this.fb.group({
       item: [data?.item || ''],
+      itemIMBA: [data?.itemIMBA || ''],
       description: [data?.description || ''],
       unit: [{ value: data?.unit || '', disabled: true }],
       quantity: [data?.quantity ?? 1, Validators.required],
@@ -254,10 +207,6 @@ export class CustomerInvoiceCreateComponent implements OnInit {
       .get('totalPrice')
       ?.setValue(this.roundMoney(basePrice * qty), { emitEvent: false });
   }
-
-  // addItemRow(): void {
-  //   this.orderItems.push(this.createItem());
-  // }
 
   removeItemRow(index: number): void {
     this.orderItems.removeAt(index);
@@ -300,6 +249,8 @@ export class CustomerInvoiceCreateComponent implements OnInit {
     rows.forEach((rowData) => {
       const row = this.buildItemRow({
         item: rowData.item,
+
+        itemIMBA: rowData.itemIMBA,
         description: rowData.description,
         unit: rowData.unit,
         quantity: Number(rowData.quantity) || 1,

@@ -11,6 +11,19 @@ import {
 } from '../../invoice-document/invoice-document.component';
 import { InvoicePrintStore } from '../../invoice-print-store';
 import { Router } from '@angular/router';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { TimelineModule } from 'primeng/timeline';
+import { CommonModule } from '@angular/common';
+
+export interface AuditEvent {
+  actor: string;
+  action: string;
+  target?: string;
+  field?: string;
+  fromValue?: string;
+  toValue?: string;
+  date: string;
+}
 
 @Component({
   selector: 'app-customer-invoice-view',
@@ -22,6 +35,9 @@ import { Router } from '@angular/router';
     DataTableComponent,
     TabsModule,
     InvoiceDocumentComponent,
+    ProgressBarModule,
+    TimelineModule,
+    CommonModule,
   ],
   templateUrl: './customer-invoice-view.component.html',
 })
@@ -37,6 +53,7 @@ export class CustomerInvoiceViewComponent {
 
   itemsColumns = [
     { field: 'itemName', header: 'Item Name' },
+    { field: 'itemIMBA', header: 'IMBA' },
     { field: 'description', header: 'Description' },
     { field: 'unit', header: 'Unit' },
     { field: 'unitPrice', header: 'Unit Price' },
@@ -47,6 +64,7 @@ export class CustomerInvoiceViewComponent {
   itemsOrders: any[] = [
     {
       itemName: 'iphone 17',
+      itemIMBA: '112117',
       description: 'New iphone from Amazon',
       unit: 'piece',
       unitPrice: '1000',
@@ -56,6 +74,7 @@ export class CustomerInvoiceViewComponent {
 
     {
       itemName: 'HP pro book',
+      itemIMBA: '998009',
       description: 'A Windows 11 pro, 256SSD with 13.1inch laptop ',
       unit: 'piece',
       unitPrice: '2000',
@@ -65,6 +84,7 @@ export class CustomerInvoiceViewComponent {
 
     {
       itemName: 'Tomato pack',
+      itemIMBA: '112233',
       description: 'A 10kg tomato pack, sealed',
       unit: 'pack',
       unitPrice: '100',
@@ -74,12 +94,10 @@ export class CustomerInvoiceViewComponent {
   ];
 
   paymentsColumns = [
-    { field: 'ID', header: 'ID' },
-    { field: 'date', header: 'Date' },
-    { field: 'amount', header: 'Amount' },
+    { field: 'ID', header: 'Payment ID' },
+    { field: 'date', header: 'Payment Date' },
+    { field: 'amount', header: 'Paid Amount' },
     { field: 'method', header: 'Method' },
-    // { field: 'quantity', header: 'Quantity' },
-    // { field: 'total', header: 'Total' },
   ];
 
   payments: any[] = [
@@ -316,9 +334,33 @@ export class CustomerInvoiceViewComponent {
     const url = this.router.serializeUrl(
       this.router.createUrlTree(['/print/invoice'], {
         queryParams: { type: 'customer' },
-      })
+      }),
     );
 
     window.open(url, '_blank');
   }
+
+  //Audit
+  auditEvents: AuditEvent[] = [
+    {
+      actor: 'Sayed Shalaby',
+      action: 'created',
+      target: 'CST-INV-001-001',
+      date: '26/03/2026',
+    },
+    {
+      actor: 'Admin - Ismail Noos',
+      action: 'approved',
+      target: 'CST-INV-001-001',
+      date: '27/03/2026',
+    },
+    {
+      actor: 'Sayed Shalaby',
+      action: 'changed',
+      field: 'Status',
+      fromValue: 'Un-paid',
+      toValue: 'Paid',
+      date: '26/03/2026',
+    },
+  ];
 }

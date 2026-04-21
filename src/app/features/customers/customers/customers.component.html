@@ -14,51 +14,51 @@
   </div>
 </div>
 
-<div class="main-content_center">
-  <div class="search-header">
-    <p>Searching Options based on your insights</p>
+<div class="search-inputs width-10">
+  <div class="search-input-item">
+    <p-multiselect
+      [options]="customerType"
+      [(ngModel)]="selectedCustomerType"
+      placeholder=" Customer Type"
+      optionLabel="name"
+      display="chip"
+    />
   </div>
-  <div class="search-inputs">
-    <div class="search-input-item">
-      <p-multiselect
-        [options]="customerType"
-        [(ngModel)]="selectedCustomerType"
-        placeholder="Select Customer Type"
-        optionLabel="name"
-        display="chip"
-      />
-    </div>
 
-    <div class="search-input-item">
-      <p-multiselect
-        [options]="customerStatus"
-        [(ngModel)]="selectedCustomerStatus"
-        placeholder="Select Customer Status"
-        optionLabel="name"
-        display="chip"
-      />
-    </div>
-    <div class="search-input-item">
-      <p-multiselect
-        [options]="customerCountry"
-        [(ngModel)]="selectedCustomerCountry"
-        placeholder="Select Customer Reg Country"
-        optionLabel="name"
-        display="chip"
-      />
-    </div>
-    <div class="search-input-item">
-      <p-multiselect
-        [options]="accountManager"
-        [(ngModel)]="selectedAccountManager"
-        placeholder="Select Account Manager"
-        optionLabel="name"
-        display="chip"
-      />
-    </div>
-    <div class="cta">
-      <p-button icon="pi pi-search" size="large" (onClick)="onSearch()" />
-    </div>
+  <div class="search-input-item">
+    <p-multiselect
+      [options]="customerStatus"
+      [(ngModel)]="selectedCustomerStatus"
+      placeholder=" Customer Status"
+      optionLabel="name"
+      display="chip"
+    />
+  </div>
+  <div class="search-input-item">
+    <p-multiselect
+      [options]="customerCountry"
+      [(ngModel)]="selectedCustomerCountry"
+      placeholder=" Customer Reg Country"
+      optionLabel="name"
+      display="chip"
+    />
+  </div>
+  <div class="search-input-item">
+    <p-multiselect
+      [options]="accountManager"
+      [(ngModel)]="selectedAccountManager"
+      placeholder="Account Manager"
+      optionLabel="name"
+      display="chip"
+    />
+  </div>
+  <div class="cta">
+    <p-button
+      outlined="true"
+      icon="pi pi-search"
+      size="large"
+      (onClick)="onSearch()"
+    />
   </div>
 </div>
 
@@ -66,28 +66,23 @@
   <div class="analysis-box">
     <div class="analysis-card">
       <p class="card-title">
-        <i class="pi pi-box total-orders"></i> total Customers
+        <i class="pi pi-circle-fill"></i> total Customers
       </p>
       <p class="card-data">48</p>
     </div>
     <div class="analysis-card">
       <p class="card-title">
-        <i class="pi pi-check-circle total-closed"></i>total invoices
+        <i class="pi pi-circle-fill form-data-closed-txt"></i> active Customers
       </p>
-      <p class="card-data">20,190 USD</p>
+      <p class="card-data form-data-closed-txt">38</p>
     </div>
     <div class="analysis-card">
       <p class="card-title">
-        <i class="pi pi-hourglass total-in-progress"></i>Outstanding Balanace
+        <i class="pi pi-circle-fill form-data-pending-txt"></i>Outstanding
+        Balanace
       </p>
-      <p class="card-data">1800 USD</p>
+      <p class="card-data form-data-pending-txt">$1,800</p>
     </div>
-    <!-- <div class="analysis-card">
-      <p class="card-title">
-        <i class="pi pi-money-bill total-invoiced"></i>top supplier
-      </p>
-      <p class="card-data">B.Tech</p>
-    </div> -->
   </div>
 </div>
 
@@ -95,21 +90,23 @@
   <p-tabs>
     <p-tablist>
       @for (tab of tabs; track tab.value) {
-      <p-tab [value]="tab.value" (click)="onTabChange(tab.value)">
-        {{ tab.title }}
-      </p-tab>
+        <p-tab [value]="tab.value" (click)="onTabChange(tab.value)">
+          {{ tab.title }}
+        </p-tab>
       }
     </p-tablist>
   </p-tabs>
-  <app-data-table
-    [columns]="columns"
-    [value]="filteredCustomers"
-    [globalFilterFields]="['name']"
-    [selectionMode]="'multiple'"
-    [exportable]="true"
-    (onView)="onViewCustomer($event)"
-    (onEdit)="handleEdit($event)"
-    (onDelete)="handleDelete($event)"
-    (onDeleteSelected)="handleBulkDelete($event)"
-  />
+  <div class="form-view pt-0 pb-0">
+    <app-data-table
+      [columns]="columns"
+      [value]="filteredCustomers"
+      [globalFilterFields]="['name']"
+      [selectionMode]="'multiple'"
+      [exportable]="true"
+      (onView)="onViewCustomer($event)"
+      (onEdit)="handleEdit($event)"
+      (onDelete)="handleDelete($event)"
+      (onDeleteSelected)="handleBulkDelete($event)"
+    />
+  </div>
 </div>

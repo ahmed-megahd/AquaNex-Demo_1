@@ -66,11 +66,11 @@ export class SalesComponent implements OnInit {
   columns = [
     { field: 'orderNumber', header: 'ID' },
     { field: 'employee', header: 'Employee' },
-    { field: 'customer', header: 'CST/IMO' },
+    { field: 'customer', header: 'CST/VESSEL' },
     { field: 'deliveryDate', header: 'Delivery Date' },
     { field: 'items', header: 'Items' },
     { field: 'total', header: 'Total Amount' },
-    { field: 'status', header: 'Status' },
+    { field: 'status', header: 'Order Status' },
     { field: 'paymentStatus', header: 'Payment Status' },
   ];
 
@@ -81,22 +81,6 @@ export class SalesComponent implements OnInit {
   constructor(private datePipe: DatePipe) {}
 
   ngOnInit() {
-    // this.subscription = this.salesService.getAllSalesOrders().subscribe({
-    //   next: (data) => {
-    //     console.log('Fetched sales orders:', data);
-    //     this.salesOrders = data;
-    //     this.loading = false;
-    //   },
-    //   error: (err) => {
-    //     console.error('Error fetching sales orders:', err);
-    //     this.error = 'Failed to load sales orders';
-    //     this.loading = false;
-    //   },
-    // });
-
-    // this.salesService.addSaleOrder({ assignedEmployee: 'Mohamed' });
-
-    // console.log(this.orders$);
     this.salesService.getProducts().subscribe((data) => {
       this.orders = data;
       this.filteredOrders = [...this.orders];
@@ -149,20 +133,20 @@ export class SalesComponent implements OnInit {
 
     const creationFrom = this.datePipe.transform(
       this.creationDate?.[0],
-      'MM/dd/yyyy'
+      'MM/dd/yyyy',
     );
     const creationTo = this.datePipe.transform(
       this.creationDate?.[1],
-      'MM/dd/yyyy'
+      'MM/dd/yyyy',
     );
 
     const deliveryFrom = this.datePipe.transform(
       this.rangeDates?.[0],
-      'MM/dd/yyyy'
+      'MM/dd/yyyy',
     );
     const deliveryTo = this.datePipe.transform(
       this.rangeDates?.[1],
-      'MM/dd/yyyy'
+      'MM/dd/yyyy',
     );
 
     console.log('Creation:', creationFrom, creationTo);
@@ -176,7 +160,7 @@ export class SalesComponent implements OnInit {
       this.filteredOrders = [...this.orders];
     } else {
       this.filteredOrders = this.orders.filter(
-        (order) => order.status === status
+        (order) => order.status === status,
       );
     }
   }
@@ -185,221 +169,4 @@ export class SalesComponent implements OnInit {
     console.log(order.id);
     this.router.navigate(['sales-order/view', order.id]);
   }
-
-  // //table
-  // productDialog: boolean = false;
-
-  // products!: Product[];
-
-  // product!: Product;
-
-  // selectedProducts!: Product[] | null;
-
-  // submitted: boolean = false;
-
-  // statuses!: any[];
-
-  // @ViewChild('dt') dt!: Table;
-
-  // cols!: Column[];
-
-  // exportColumns!: ExportColumn[];
-
-  // constructor(
-  //   private productService: ProductService,
-  //   private messageService: MessageService,
-  //   private confirmationService: ConfirmationService,
-  //   private cd: ChangeDetectorRef
-  // ) {
-  //   this.cities = [
-  //     { name: 'New York', code: 'NY' },
-  //     { name: 'Rome', code: 'RM' },
-  //     { name: 'London', code: 'LDN' },
-  //     { name: 'Istanbul', code: 'IST' },
-  //     { name: 'Paris', code: 'PRS' },
-  //   ];
-
-  //   this.paymentStatus = [
-  //     { name: 'Unpaid' },
-  //     { name: 'Partially Paid' },
-  //     { name: 'Paid' },
-  //   ];
-  // }
-
-  // onGlobalFilter(event: Event): void {
-  //   const input = event.target as HTMLInputElement;
-  //   const value = input.value || '';
-  //   this.dt.filterGlobal(value, 'contains');
-  // }
-
-  // exportCSV() {
-  //   this.dt.exportCSV();
-  // }
-
-  // ngOnInit() {
-  //   this.loadDemoData();
-  // }
-
-  // loadDemoData() {
-  //   this.productService.getProducts().subscribe((data) => {
-  //     this.products = data;
-  //     this.cd.markForCheck();
-  //   });
-
-  //   this.statuses = [
-  //     { label: 'INSTOCK', value: 'instock' },
-  //     { label: 'LOWSTOCK', value: 'lowstock' },
-  //     { label: 'OUTOFSTOCK', value: 'outofstock' },
-  //   ];
-
-  //   this.cols = [
-  //     { field: 'code', header: 'Code', customExportHeader: 'Product Code' },
-  //     { field: 'name', header: 'Name' },
-  //     { field: 'image', header: 'Image' },
-  //     { field: 'price', header: 'Price' },
-  //     { field: 'category', header: 'Category' },
-  //   ];
-
-  //   this.exportColumns = this.cols.map((col) => ({
-  //     title: col.header,
-  //     dataKey: col.field,
-  //   }));
-  // }
-
-  // openNew() {
-  //   this.product = {};
-  //   this.submitted = false;
-  //   this.productDialog = true;
-  // }
-
-  // editProduct(product: Product) {
-  //   this.product = { ...product };
-  //   this.productDialog = true;
-  // }
-
-  // deleteSelectedProducts() {
-  //   this.confirmationService.confirm({
-  //     message: 'Are you sure you want to delete the selected products?',
-  //     header: 'Confirm',
-  //     icon: 'pi pi-exclamation-triangle',
-  //     rejectButtonProps: {
-  //       label: 'No',
-  //       severity: 'secondary',
-  //       variant: 'text',
-  //     },
-  //     acceptButtonProps: {
-  //       severity: 'danger',
-  //       label: 'Yes',
-  //     },
-  //     accept: () => {
-  //       this.products = this.products.filter(
-  //         (val) => !this.selectedProducts?.includes(val)
-  //       );
-  //       this.selectedProducts = null;
-  //       this.messageService.add({
-  //         severity: 'success',
-  //         summary: 'Successful',
-  //         detail: 'Products Deleted',
-  //         life: 3000,
-  //       });
-  //     },
-  //   });
-  // }
-
-  // hideDialog() {
-  //   this.productDialog = false;
-  //   this.submitted = false;
-  // }
-
-  // deleteProduct(product: Product) {
-  //   this.confirmationService.confirm({
-  //     message: 'Are you sure you want to delete ' + product.name + '?',
-  //     header: 'Confirm',
-  //     icon: 'pi pi-exclamation-triangle',
-  //     rejectButtonProps: {
-  //       label: 'No',
-  //       severity: 'secondary',
-  //       variant: 'text',
-  //     },
-  //     acceptButtonProps: {
-  //       severity: 'danger',
-  //       label: 'Yes',
-  //     },
-  //     accept: () => {
-  //       this.products = this.products.filter((val) => val.id !== product.id);
-  //       this.product = {};
-  //       this.messageService.add({
-  //         severity: 'success',
-  //         summary: 'Successful',
-  //         detail: 'Product Deleted',
-  //         life: 3000,
-  //       });
-  //     },
-  //   });
-  // }
-
-  // findIndexById(id: string): number {
-  //   let index = -1;
-  //   for (let i = 0; i < this.products.length; i++) {
-  //     if (this.products[i].id === id) {
-  //       index = i;
-  //       break;
-  //     }
-  //   }
-
-  //   return index;
-  // }
-
-  // createId(): string {
-  //   let id = '';
-  //   var chars =
-  //     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  //   for (var i = 0; i < 5; i++) {
-  //     id += chars.charAt(Math.floor(Math.random() * chars.length));
-  //   }
-  //   return id;
-  // }
-
-  // getSeverity(status: string) {
-  //   switch (status) {
-  //     case 'INSTOCK':
-  //       return 'success';
-  //     case 'LOWSTOCK':
-  //       return 'warn';
-  //     case 'OUTOFSTOCK':
-  //       return 'danger';
-  //     default:
-  //       return 'unknown';
-  //   }
-  // }
-
-  // saveProduct() {
-  //   this.submitted = true;
-
-  //   if (this.product.name?.trim()) {
-  //     if (this.product.id) {
-  //       this.products[this.findIndexById(this.product.id)] = this.product;
-  //       this.messageService.add({
-  //         severity: 'success',
-  //         summary: 'Successful',
-  //         detail: 'Product Updated',
-  //         life: 3000,
-  //       });
-  //     } else {
-  //       this.product.id = this.createId();
-  //       // this.product.image = 'product-placeholder.svg';
-  //       this.products.push(this.product);
-  //       this.messageService.add({
-  //         severity: 'success',
-  //         summary: 'Successful',
-  //         detail: 'Product Created',
-  //         life: 3000,
-  //       });
-  //     }
-
-  //     this.products = [...this.products];
-  //     this.productDialog = false;
-  //     this.product = {};
-  //   }
-  // }
 }

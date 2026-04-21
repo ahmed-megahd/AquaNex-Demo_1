@@ -27,7 +27,7 @@ export class VesselsComponent implements OnInit {
   private router = inject(Router);
   private vesselsService = inject(VesselsService);
 
-  items: MenuItem[] = [{ label: 'Customers', routerLink: '/customers' }];
+  items: MenuItem[] = [{ label: 'Vessels', routerLink: '/vessels' }];
   home: MenuItem = { icon: 'pi pi-home', routerLink: '/' };
 
   //Filtering properties
@@ -45,15 +45,17 @@ export class VesselsComponent implements OnInit {
 
   tabs: { title: string; value: string }[] = [];
 
+  // Vessel Name | IMO | Type | Flag | Owner | Manager | Status | Next Dry Dock | Last Order
+
   columns = [
     { field: 'ID', header: 'ID' },
     { field: 'name', header: 'Vessel' },
     { field: 'IMO', header: 'IMO' },
     { field: 'type', header: 'Type' },
-    { field: 'customer', header: 'Owner/Operator' },
-    { field: 'totalSOs', header: 'Total Orders' },
-    { field: 'totalInvoices', header: 'Total Invoices' },
-    { field: 'outstandingBalance', header: 'Outstanding Balance' },
+    { field: 'owner', header: 'Owner' },
+    { field: 'manager', header: 'Manager' },
+    { field: 'nextDryDock', header: 'Next Dry Dock' },
+    { field: 'lastOrder', header: 'Last Order' },
     { field: 'status', header: 'Status' },
   ];
 
@@ -82,7 +84,7 @@ export class VesselsComponent implements OnInit {
       { name: 'All', value: 'All' },
       { name: 'Unpaid', value: 'Unpaid' },
       { name: 'Paid', value: 'Paid' },
-      { name: 'OverPaid', value: 'Overpaid' },
+      { name: 'Overdue', value: 'Overdue' },
     ];
 
     this.tabs = [
@@ -106,7 +108,7 @@ export class VesselsComponent implements OnInit {
       this.filteredVessels = [...this.vessels];
     } else {
       this.filteredVessels = this.vessels.filter(
-        (vessel) => vessel.status === status
+        (vessel) => vessel.status === status,
       );
     }
   }

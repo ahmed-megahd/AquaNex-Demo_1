@@ -11,6 +11,14 @@ import { FormFieldComponent } from '../../../shared/components/form-input/form-f
 import { MultiSelectModule } from 'primeng/multiselect';
 import { SelectModule } from 'primeng/select';
 import { MenuItem } from 'primeng/api';
+import {
+  COUNTRIES,
+  PORTS,
+  TRADEROUTES,
+  VESSELSTATUS,
+  VESSELTYPE,
+} from '../../../shared/constants/maritime.constants';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
   selector: 'app-add-vessel',
@@ -21,12 +29,18 @@ import { MenuItem } from 'primeng/api';
     FormFieldComponent,
     MultiSelectModule,
     SelectModule,
+    DatePickerModule,
   ],
   standalone: true,
   templateUrl: './add-vessel.component.html',
 })
 export class AddVesselComponent {
   private fb = inject(FormBuilder);
+  countries = COUNTRIES;
+  type = VESSELTYPE;
+  status = VESSELSTATUS;
+  ports = PORTS;
+  tradeRoutes = TRADEROUTES;
 
   items: MenuItem[] = [
     { label: 'Vessels', routerLink: '/vessels' },
@@ -37,29 +51,27 @@ export class AddVesselComponent {
 
   vesselForm = this.fb.group({
     name: ['', Validators.required],
-    IMO: [, Validators.required],
     type: ['', Validators.required],
-    flag: ['', Validators.required],
-    tag: ['', Validators.required],
+    IMO: [, Validators.required],
+    MMSI: [],
+    callSign: [''],
+    flag: [''],
+    grossTonage: [''],
+
+    status: ['', Validators.required],
+    homePort: [''],
+    currentPort: [''],
+    tradeRoute: [''],
+    dryDockDate: [''],
+
     owner: ['', Validators.required],
     manager: ['', Validators.required],
     email: ['', Validators.required],
-    phone: [, Validators.required],
+    phone: [,],
     captainName: [''],
     captainPhone: [,],
     captainEmail: [''],
   });
-
-  type = [
-    { name: 'Other', value: 'Other' },
-    { name: 'Cargo', value: 'Cargo' },
-    { name: 'Container', value: 'Container' },
-    { name: 'Tanker', value: 'Tanker' },
-    { name: 'BulkCarrier', value: 'Bulk Carrier' },
-    { name: 'Offshore', value: 'Offshore' },
-    { name: 'Naval', value: 'Naval' },
-    { name: 'Yacht', value: 'Yacht' },
-  ];
 
   owners = [
     { name: 'MSC', value: 'MSC' },

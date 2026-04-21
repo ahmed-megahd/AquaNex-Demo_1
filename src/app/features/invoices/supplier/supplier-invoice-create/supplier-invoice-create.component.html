@@ -18,15 +18,9 @@
   <form action="#" class="form" [formGroup]="invoiceForm">
     <p-stepper [value]="1" class="basis-[50rem]" [linear]="true">
       <p-step-list>
-        <p-step [value]="1"
-          ><p class="step-no">Step 1</p>
-          <p class="step-title">General Info</p></p-step
-        >
+        <p-step [value]="1"> <p class="step-title">General Info</p></p-step>
 
-        <p-step [value]="2"
-          ><p class="step-no">Step 2</p>
-          <p class="step-title">Items Info</p></p-step
-        >
+        <p-step [value]="2"><p class="step-title">Items Info</p></p-step>
       </p-step-list>
 
       <p-step-panels>

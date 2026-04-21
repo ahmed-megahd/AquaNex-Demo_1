@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ButtonModule } from 'primeng/button';
 import { FormFieldComponent } from '../../../shared/components/form-input/form-field/form-field.component';
@@ -14,6 +14,13 @@ import { SelectModule } from 'primeng/select';
 import { MenuItem } from 'primeng/api';
 import { StepperModule } from 'primeng/stepper';
 import { DatePickerModule } from 'primeng/datepicker';
+import { InputNumberModule } from 'primeng/inputnumber';
+import {
+  COUNTRIES,
+  CURRENCIES,
+  EGYPTPORTS,
+  PORTS,
+} from '../../../shared/constants/maritime.constants';
 
 @Component({
   selector: 'app-create-customer',
@@ -28,18 +35,25 @@ import { DatePickerModule } from 'primeng/datepicker';
     SelectModule,
     StepperModule,
     DatePickerModule,
+    InputNumberModule,
   ],
   templateUrl: './create-customer.component.html',
-  styleUrl: './create-customer.component.css',
 })
 export class CreateCustomerComponent {
   private fb = inject(FormBuilder);
+
+  countries = COUNTRIES;
+  ports = PORTS;
+  egyptPorts = EGYPTPORTS;
+  currencies = CURRENCIES;
+
   items: MenuItem[] = [
     { label: 'Customers', routerLink: '/customers' },
     { label: 'Create Sales Order' },
   ];
 
   home: MenuItem = { icon: 'pi pi-home', routerLink: '/' };
+  type = [{ name: 'Ship Owner' }, { name: 'Ship Manager' }];
 
   assignedEmployees = [
     { name: 'Mostafa Mahmoud' },
@@ -47,11 +61,23 @@ export class CreateCustomerComponent {
     { name: 'Mohamed Gabalawy' },
   ];
 
-  type = [{ name: 'Ship Owner' }, { name: 'Ship Manager' }];
+  customerStatus = [
+    { name: 'Active', code: 'ACTIVE' },
+    { name: 'Inactive', code: 'INACTIVE' },
+    { name: 'Prospect', code: 'PROSPECT' },
+    { name: 'On Hold', code: 'ON_HOLD' },
+    { name: 'Blacklisted', code: 'BLACKLISTED' },
+  ];
 
-  regCountry = [{ name: 'Panama' }, { name: 'China' }];
-
-  countries = [{ name: 'Germany' }, { name: 'England' }];
+  source = [
+    { name: 'Direct Sales' },
+    { name: 'Agent / Broker' },
+    { name: 'Referral' },
+    { name: 'Trade Exhibition' },
+    { name: 'Online / Website' },
+    { name: 'Tender / Bid' },
+    { name: 'Returning Customer' },
+  ];
 
   paymentTerms = [{ name: 'Net 30' }, { name: 'Net 60' }, { name: 'Net 90' }];
   paymentMethods = [
@@ -59,12 +85,6 @@ export class CreateCustomerComponent {
     { name: 'Bank Transfer' },
     { name: 'Credit Card' },
     { name: 'Cheque' },
-  ];
-  currencys = [
-    { name: 'USD - United States Dollar' },
-    { name: 'EURO' },
-    { name: 'Pounds' },
-    { name: 'LE - Egyptian Pounds' },
   ];
 
   timeZones = [
@@ -74,16 +94,31 @@ export class CreateCustomerComponent {
     { name: '+4:00' },
   ];
 
+  groupedPorts = Object.entries(
+    this.ports.reduce(
+      (acc, port) => {
+        (acc[port.region] ??= []).push({
+          name: `${port.name} (${port.code})`,
+          code: port.code,
+        });
+        return acc;
+      },
+      {} as Record<string, { name: string; code: string }[]>,
+    ),
+  ).map(([region, ports]) => ({ region, ports }));
+
   cstForm = this.fb.group({
     name: ['', Validators.required],
     type: ['', Validators.required],
-    regCountry: ['', Validators.required],
-    vat: ['', Validators.required],
+    regCountry: [''],
+    vat: [''],
     address: ['', Validators.required],
     city: [''],
-    country: ['', Validators.required],
+    country: [''],
     website: [''],
     timeZone: [''],
+    operationPort: [''],
+    deliveryPort: [''],
 
     contact: ['', Validators.required],
     title: [''],
@@ -92,11 +127,16 @@ export class CreateCustomerComponent {
 
     pyTerms: ['', Validators.required],
     pyMethod: ['', Validators.required],
-    currency: ['', Validators.required],
+    currency: [''],
     billingAddress: ['', Validators.required],
+    creditLimit: [],
 
     accountManager: ['', Validators.required],
-    cstAge: [''],
+    cstAge: ['', Validators.required],
+    source: [''],
+    status: ['', Validators.required],
+
+    notes: [''],
   });
 
   onSubmit(formGroup: FormGroup) {

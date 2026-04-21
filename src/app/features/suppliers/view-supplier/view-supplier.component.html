@@ -1,7 +1,12 @@
 <p-breadcrumb [home]="home" [model]="items" />
-<div class="main-content_top main-content_top-view">
+<div class="main-content_top">
   <div class="title-container">
-    <p class="page-title">B Tech</p>
+    <div class="page-title">
+      B Tech
+      <p class="form-data form-data-closed white-text fn-18 min-width">
+        Active
+      </p>
+    </div>
 
     <p class="page-subtitle">Supplier #SU-119-221</p>
     <div class="title-row">
@@ -28,166 +33,821 @@
 </div>
 
 <div class="main-content_form">
-  <div class="form-row-content">
-    <div class="form-column">
-      <div class="form form-inner-col form-view">
-        <div class="form-group form-group-view mb-0">
-          <div class="form-group_header form-group_header-view">
-            <i class="pi pi-user"></i>
-            <p class="form-group_title">Supplier information</p>
-          </div>
-
-          <div class="form-info-column width-10">
-            <p class="form-title-view width-5">System ID :</p>
-            <p class="form-data form-data-col form-data-imp">SU-119-221</p>
-          </div>
-
-          <div class="form-info-column width-10">
-            <p class="form-title-view width-5">Supplier :</p>
-            <p class="form-data form-data-col form-data-imp">B Tech Corp.</p>
-          </div>
-
-          <div class="form-info-column width-10">
-            <p class="form-title-view width-5">Address :</p>
-            <p class="form-data form-data-col">
-              <i class="pi pi-map-marker"></i>
-              12 El-nozha st, Madinat Nasr, Cairo
-            </p>
-          </div>
-
-          <div class="form-info-column width-10">
-            <p class="form-title-view width-5">Email :</p>
-            <p class="form-data form-data-col">
-              B.technologystore&#64;gmail.com
-            </p>
-          </div>
-
-          <div class="form-info-column width-10">
-            <p class="form-title-view width-5">Phone :</p>
-            <p class="form-data form-data-imp form-data-col">
-              <i class="pi pi-phone"></i>0129992032
-            </p>
-          </div>
-          <div class="form-info-column width-10">
-            <p class="form-title-view width-5">Category :</p>
-            <p class="form-data form-data-col">Deck & Engine, Bonded</p>
-          </div>
+  <div class="form-group_header mt-2">
+    <p class="form-group_title">Basic Information</p>
+  </div>
+  <div class="form bg-grey no-border">
+    <div class="form-group-view-line pl-2">
+      <div class="form-info-row">
+        <div class="form-info">
+          <p class="form-data">Type</p>
+          <p class="form-title-view bb pb-1">Manufacturer</p>
         </div>
       </div>
 
-      <div class="form form-inner-col form-view">
-        <div class="form-group form-group-view mb-0">
-          <div class="form-group_header form-group_header-view">
-            <i class="pi pi-credit-card"></i>
-            <p class="form-group_title">Payment information</p>
-          </div>
+      <div class="form-info-row">
+        <div class="form-info">
+          <p class="form-data">Supplier Since</p>
+          <p class="form-title-view bb pb-1">24/10/2020</p>
+        </div>
+      </div>
 
-          <div class="form-info-column width-10">
-            <p class="form-title-view width-5">Payment Terms :</p>
-            <p class="form-data form-data-col">Net 30</p>
-          </div>
-
-          <div class="form-info-column width-10">
-            <p class="form-title-view width-5">Payment Method :</p>
-            <p class="form-data form-data-col">Bank Transfer</p>
-          </div>
-
-          <div class="form-info-column width-10">
-            <p class="form-title-view width-5">Billing Address :</p>
-            <p class="form-data form-data-col">
-              12 El-nozha st, Madinat Nasr, Cairo
-            </p>
-          </div>
+      <div class="form-info-row">
+        <div class="form-info">
+          <p class="form-data">Website</p>
+          <p class="form-title-view bb pb-1">-</p>
         </div>
       </div>
     </div>
-    <div class="form form-view">
-      <div class="form-row">
-        <div class="form-group form-group-view mb-0">
-          <div class="form-group_header form-group_header-view">
-            <i class="pi pi-wave-pulse"></i>
-            <p class="form-group_title">Supplier Analysis</p>
-          </div>
-
-          <div class="form-info-row form-info-row-imp width-10">
-            <div class="form-info mb-0 rb">
-              <p class="form-title-view">Total Purchased Items</p>
-              <p class="form-data fn-18">199</p>
-            </div>
-            <div class="form-info mb-0">
-              <p class="form-title-view">Top Item</p>
-              <p class="form-data fn-18">Energizer Battery</p>
-            </div>
-          </div>
-          <div class="form-info-row form-info-row-imp mb-8 width-10">
-            <div class="form-info mb-0 rb">
-              <p class="form-title-view">Total POs Value</p>
-              <p class="form-data fn-18">1100 LE</p>
-            </div>
-            <div class="form-info mb-0 rb">
-              <p class="form-title-view">Total Payments Made</p>
-              <p class="form-data fn-18">900 LE</p>
-            </div>
-            <div class="form-info mb-0">
-              <p class="form-title-view">Total Remaining</p>
-              <p class="form-data form-data-pending br-6 white-text fn-18">
-                200 LE
-              </p>
-            </div>
-          </div>
-
-          <div class="form-group_header form-group_header-view mt-4 mb-0">
-            <i class="pi pi-shopping-bag"></i>
-            <!-- <p class="form-group_title">Item Purchase History</p> -->
-            <p class="form-group_title">Supplier Item Mapping</p>
-          </div>
-
-          <app-data-table
-            [columns]="purchaseHistoryColumns"
-            [value]="purchaseHistoryOrders"
-            [globalFilterFields]="['name']"
-            [selectionMode]="'multiple'"
-            [exportable]="true"
-          />
-
-          <div class="form-group_header form-group_header-view mt-4 mb-0">
-            <i class="pi pi-sitemap"></i>
-            <p class="form-group_title">Purchase Orders</p>
-          </div>
-
-          <app-data-table
-            [columns]="purchaseColumns"
-            [value]="purchaseOrders"
-            [globalFilterFields]="['ID']"
-            [selectionMode]="'multiple'"
-            [exportable]="true"
-          />
-          <div class="form-group_header form-group_header-view mt-4 mb-0">
-            <i class="pi pi-dollar"></i>
-            <p class="form-group_title">Invoices</p>
-          </div>
-
-          <app-data-table
-            [columns]="invoicesColumns"
-            [value]="supplierInvoices"
-            [globalFilterFields]="['itemName']"
-            [selectionMode]="'multiple'"
-            [exportable]="true"
-          />
-
-          <div class="form-group_header form-group_header-view mt-4 mb-0">
-            <i class="pi pi-verified"></i>
-            <p class="form-group_title">Payments History</p>
-          </div>
-
-          <app-data-table
-            [columns]="paymentsColumn"
-            [value]="payments"
-            [globalFilterFields]="['itemName']"
-            [selectionMode]="'multiple'"
-            [exportable]="true"
-          />
+  </div>
+  <div class="form bg-grey no-border mt-2">
+    <div class="form-group-view-line pl-2">
+      <div class="form-info-row">
+        <div class="form-info">
+          <p class="form-data">Address</p>
+          <p class="form-title-view bb pb-1">21, El-shohda ST., Suez, Egypt</p>
         </div>
+      </div>
+      <div class="form-info-row">
+        <div class="form-info">
+          <p class="form-data">Phone</p>
+          <p class="form-title-view bb pb-1">+201129100298</p>
+        </div>
+      </div>
+
+      <div class="form-info-row">
+        <div class="form-info">
+          <p class="form-data">Email</p>
+          <p class="form-title-view bb pb-1">B.techstores&#64;btech.com.eg</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form bg-grey no-border mt-2">
+    <div class="form-group-view-line pl-2">
+      <div class="form-info-row">
+        <div class="form-info">
+          <p class="form-data">City</p>
+          <p class="form-title-view bb pb-1">Suez</p>
+        </div>
+      </div>
+
+      <div class="form-info-row">
+        <div class="form-info">
+          <p class="form-data">Country</p>
+          <p class="form-title-view bb pb-1">Egypt</p>
+        </div>
+      </div>
+
+      <div class="form-info-row">
+        <!-- <div class="form-info">
+          <p class="form-data">City</p>
+          <p class="form-title-view">Suez</p>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+  <div class="form form-view mt-4">
+    <div class="form-row">
+      <div class="form-group form-group-view mb-0">
+        <p-tabs class="p-tabs-view" value="0">
+          <p-tablist class="p-tablist-tab-list-view">
+            <p-tab value="0"><i class="pi pi-chart-bar"></i>Insights</p-tab>
+            <p-tab value="1"><i class="pi pi-flag"></i>Items</p-tab>
+            <p-tab value="2"
+              ><i class="pi pi-barcode"></i>Purchase Orders</p-tab
+            >
+            <p-tab value="3"><i class="pi pi-dollar"></i>Invoices</p-tab>
+            <p-tab value="4"><i class="pi pi-credit-card"></i>Payment</p-tab>
+          </p-tablist>
+          <p-tabpanels>
+            <p-tabpanel value="0">
+              <div class="form no-border">
+                <div class="analysis-box mt-2 bg-grey mb-1">
+                  <div class="analysis-card">
+                    <p class="card-title">Total Purchased Value</p>
+                    <p class="card-data">45000 LE</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>
+                      Total confirmed purchases
+                    </p>
+                  </div>
+                  <div class="analysis-card">
+                    <p class="card-title">Total Purchase Orders</p>
+                    <p class="card-data">50</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>
+                      Total closed deals
+                    </p>
+                  </div>
+
+                  <div class="analysis-card">
+                    <p class="card-title">Outstanding payables</p>
+                    <p class="card-data form-data-danger">14000 LE</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>Includes partial and
+                      overdue payments
+                    </p>
+                  </div>
+
+                  <div class="analysis-card">
+                    <p class="card-title">Avg Lead Time</p>
+                    <p class="card-data">12 days</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>Considering all
+                      deliveries
+                    </p>
+                  </div>
+                </div>
+
+                <div class="form-row-content">
+                  <div class="form-view border width-5 bg-grey br-6">
+                    <div class="form-group_header no-border mb-3">
+                      <p class="form-group_title">Payables Status</p>
+                    </div>
+
+                    <div class="form-row-content">
+                      <p-chart
+                        type="doughnut"
+                        [data]="dataInvoicesStatus"
+                        [options]="optionsInvoicesStatus"
+                      />
+                      <div class="form bg-grey no-border">
+                        <div class="form-group-view-line">
+                          <div class="form-info-column mb-0 bb pb-1">
+                            <p class="form-title-view form-data-closed-txt">
+                              Paid
+                            </p>
+                            <p class="form-data form-data-closed-txt">223</p>
+                            <p class="form-title-view">22000 LE</p>
+                          </div>
+                        </div>
+                        <div class="form-group-view-line">
+                          <div class="form-info-column mb-0 bb pb-1">
+                            <p class="form-title-view form-data-pending-txt">
+                              Pending
+                            </p>
+                            <p class="form-data form-data-pending-txt">23</p>
+                            <p class="form-title-view">3100 LE</p>
+                          </div>
+                        </div>
+                        <div class="form-group-view-line">
+                          <div class="form-info-column mb-0 bb pb-1">
+                            <p class="form-title-view form-data-danger">
+                              Overdue
+                            </p>
+                            <p class="form-data form-data-danger">3</p>
+                            <p class="form-title-view">1200 LE</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-view border width-5 bg-grey br-6">
+                    <div class="form-group_header no-border mb-3">
+                      <p class="form-group_title">Aging Summary</p>
+                    </div>
+
+                    <p-table [value]="agingBuckets">
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th>BUCKET</th>
+                          <th class="text-right">AMOUNT</th>
+                          <th class="text-right">SHARE</th>
+                          <th class="text-right">INVOICES</th>
+                        </tr>
+                      </ng-template>
+
+                      <ng-template pTemplate="body" let-row>
+                        <tr>
+                          <!-- Bucket with Indicator -->
+                          <td>
+                            <div class="bucket-cell">
+                              <span
+                                class="bucket-indicator"
+                                [ngClass]="row.severity"
+                              ></span>
+                              {{ row.bucket }}
+                            </div>
+                          </td>
+
+                          <!-- Amount -->
+                          <td class="text-right">
+                            {{ row.amount | currency }}
+                          </td>
+
+                          <!-- Percentage with mini bar -->
+                          <td class="text-right">
+                            <div class="percentage-wrapper">
+                              <div class="mini-bar">
+                                <div
+                                  class="mini-bar-fill"
+                                  [style.width.%]="row.percentage"
+                                  [ngClass]="row.severity"
+                                ></div>
+                              </div>
+                              {{ row.percentage }}%
+                            </div>
+                          </td>
+
+                          <!-- Invoice Count -->
+                          <td class="text-right">
+                            {{ row.invoiceCount }}
+                          </td>
+                        </tr>
+                      </ng-template>
+
+                      <!-- Footer Row -->
+                      <ng-template pTemplate="footer">
+                        <tr class="total-row">
+                          <td>Total</td>
+                          <td class="text-right">
+                            {{ totalAmount | currency }}
+                          </td>
+                          <td class="text-right">100%</td>
+                          <td class="text-right">{{ totalInvoices }}</td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                  </div>
+                </div>
+
+                <div class="form-view bg-grey border br-6 mt-1 mb-1">
+                  <div class="form-group_header no-border mb-3">
+                    <p class="form-group_title">Purchases vs. Payments</p>
+                  </div>
+                  <p-chart
+                    type="line"
+                    [data]="dataPurchasePaymentsTrend"
+                    [options]="optionsPurchasePaymentsTrend"
+                  />
+                </div>
+
+                <div class="form-row-content">
+                  <!-- PRICE STABILITY INDICATOR -->
+                  <div class="form-view border width-5 bg-grey br-6">
+                    <div class="form-group_header no-border mb-3">
+                      <p class="form-group_title">
+                        Price Stability - Top 3 Items
+                      </p>
+                    </div>
+
+                    <div class="form">
+                      <div class="form-group-view-line form-view-1">
+                        <div class="form-info width-5">
+                          <p class="form-title-view">Marine Diesel Oil</p>
+                          <div class="form-row-content mt-1">
+                            <div class="form-info-row">
+                              <p class="form-data-sm">
+                                Last:
+                                <span class="form-title-view form-title-view-sm"
+                                  >221 LE</span
+                                >
+                              </p>
+                            </div>
+                            <div class="form-info-row">
+                              <p class="form-data-sm">
+                                Avg:
+                                <span class="form-title-view form-title-view-sm"
+                                  >221 LE</span
+                                >
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-data min-width pl-1 bg-grey">0 %</div>
+                      </div>
+                    </div>
+                    <div class="form">
+                      <div class="form-group-view-line form-view-1">
+                        <div class="form-info width-5">
+                          <p class="form-title-view">Hydraulic Filters</p>
+                          <div class="form-row-content mt-1">
+                            <div class="form-info-row">
+                              <p class="form-data-sm">
+                                Last:
+                                <span class="form-title-view form-title-view-sm"
+                                  >124 LE</span
+                                >
+                              </p>
+                            </div>
+                            <div class="form-info-row">
+                              <p class="form-data-sm">
+                                Avg:
+                                <span class="form-title-view form-title-view-sm"
+                                  >135 LE</span
+                                >
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-data min-width pl-1 total-danger">
+                          13.3 %
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form">
+                      <div class="form-group-view-line form-view-1">
+                        <div class="form-info width-5">
+                          <p class="form-title-view">Safety Helmets</p>
+                          <div class="form-row-content mt-1">
+                            <div class="form-info-row">
+                              <p class="form-data-sm">
+                                Last:
+                                <span class="form-title-view form-title-view-sm"
+                                  >2211 LE</span
+                                >
+                              </p>
+                            </div>
+                            <div class="form-info-row">
+                              <p class="form-data-sm">
+                                Avg:
+                                <span class="form-title-view form-title-view-sm"
+                                  >2219 LE</span
+                                >
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-data min-width pl-1 total-closed">
+                          0.4 %
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- lEAD tIME PERFORMANCE -->
+                  <div class="form-view border width-5 bg-grey br-6">
+                    <div class="form-group_header no-border mb-3">
+                      <p class="form-group_title">Lead Time Performance</p>
+                    </div>
+
+                    <div class="form-row-content">
+                      <div class="form">
+                        <div class="main-content_form form-view-1">
+                          <i class="pi pi-clock form-data-imp"></i>
+                          <p
+                            class="form-title-view fn-18 center-text mt-1 mb-sm"
+                          >
+                            12 days
+                          </p>
+                          <p class="form-data-sm">Avg Lead Time</p>
+                        </div>
+                      </div>
+                      <div class="form">
+                        <div class="main-content_form form-view-1">
+                          <i class="pi pi-check-circle form-data-imp"></i>
+                          <p
+                            class="form-title-view fn-18 center-text mt-1 mb-sm"
+                          >
+                            90 %
+                          </p>
+                          <p class="form-data-sm">On Time Delivery</p>
+                        </div>
+                      </div>
+                      <div class="form">
+                        <div class="main-content_form form-view-1">
+                          <i
+                            class="pi pi-exclamation-triangle form-data-imp"
+                          ></i>
+                          <p
+                            class="form-title-view fn-18 center-text mt-1 mb-sm"
+                          >
+                            2 days
+                          </p>
+                          <p class="form-data-sm">Late Deliveries</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <p class="card-title">Recent Deliveries</p>
+
+                    <p-table [value]="recentDeliveries">
+                      <ng-template pTemplate="body" let-row>
+                        <tr>
+                          <!-- Bucket with Indicator -->
+                          <td>
+                            <p class="form-title-view-sm">
+                              {{ row.PO }}
+                            </p>
+                          </td>
+
+                          <!-- Agreed Delivery Date -->
+                          <td class="text-right">
+                            <p class="form-data-sm">
+                              {{ row.deliveryDate }}
+                            </p>
+                          </td>
+
+                          <!-- Actual Delivery Date -->
+                          <td class="text-right">
+                            <p class="form-data-sm">
+                              {{ row.actualDelivery }}
+                            </p>
+                          </td>
+
+                          <!-- Status Indicator -->
+                          <td class="text-right">
+                            <div class="bucket-cell">
+                              <span
+                                class="bucket-indicator"
+                                [ngClass]="getSeverity(row.status)"
+                              ></span>
+                              <p class="form-title-view-sm">
+                                {{ row.status }}
+                              </p>
+                            </div>
+                          </td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                  </div>
+                  <!-- DEPENDENCY RISK -->
+                  <div class="form-view border width-5 bg-grey br-6">
+                    <div class="form-group_header no-border mb-3">
+                      <p class="form-group_title">Dependency Risk</p>
+                    </div>
+
+                    <div class="card-title">
+                      <i class="pi pi-exclamation-circle total-closed"></i>
+                      <div class="form-info">
+                        <p class="form-title-view form-title-view-sm">
+                          Low Risk
+                        </p>
+                        <p class="form-data-sm mt-1">
+                          This supplier represents
+                          <span class="form-title-view form-title-view-sm"
+                            >14.2 %
+                          </span>
+                          of total PO value
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="form-group-view-line">
+                      <p class="form-data-sm">Supplier Share</p>
+                      <p class="form-title-view form-title-view-sm min-width">
+                        110K / 550K
+                      </p>
+                    </div>
+
+                    <p-progressbar class="mt-1" [value]="14.2" />
+
+                    <div class="form form-view-1 mt-2">
+                      <p class="form-data-sm">
+                        <span class="form-title-view form-title-view-sm"
+                          >Recommendation:</span
+                        >
+                        Consider diversifying procurement across multiple
+                        suppliers to reduce single-vendor dependency risk.
+                      </p>
+                    </div>
+                    <!--
+                    <div class="form-view pt-0">
+                      <div class="form">
+                        <div class="form-row-content">
+                          <p class="form-data">asdasd</p>
+                          <p class="form-title-view">asdasd</p>
+                        </div>
+                      </div>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+            </p-tabpanel>
+            <p-tabpanel value="1">
+              <div class="form no-border">
+                <div class="analysis-box mt-2 bg-grey">
+                  <div class="analysis-card">
+                    <p class="card-title">Total Items</p>
+                    <p class="card-data">475</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>
+                      Total items purchased
+                    </p>
+                  </div>
+                  <div class="analysis-card">
+                    <p class="card-title">Top Item</p>
+                    <p class="card-data">Wireless Charger</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>
+                      Ranked by count
+                    </p>
+                  </div>
+                  <div class="analysis-card">
+                    <p class="card-title">Top Item</p>
+                    <p class="card-data">Iphone 17 pro max</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>
+                      Ranked by value
+                    </p>
+                  </div>
+
+                  <div class="analysis-card">
+                    <p class="card-title">Lowest Item</p>
+                    <p class="card-data">USB Storage</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>
+                      Ranked by count
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <app-data-table
+                [columns]="purchaseHistoryColumns"
+                [value]="purchaseHistoryOrders"
+                [globalFilterFields]="['name']"
+                [selectionMode]="'multiple'"
+                [exportable]="true"
+              />
+            </p-tabpanel>
+
+            <p-tabpanel value="2">
+              <div class="form no-border">
+                <div class="analysis-box mt-2 bg-grey">
+                  <div class="analysis-card">
+                    <p class="card-title">Total Orders</p>
+                    <p class="card-data">105</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>
+                      Total orders issued to suppler
+                    </p>
+                  </div>
+                  <div class="analysis-card">
+                    <p class="card-title">Open Orders</p>
+                    <p class="card-data">25</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>
+                      Orders being prepared
+                    </p>
+                  </div>
+                  <div class="analysis-card">
+                    <p class="card-title">Cancelled Orders</p>
+                    <p class="card-data">5</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>
+                      Orders cancelled in offer stage
+                    </p>
+                  </div>
+                  <div class="analysis-card">
+                    <p class="card-title">Closed Orders</p>
+                    <p class="card-data">85</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>
+                      Orders completely paid and closed
+                    </p>
+                  </div>
+                </div>
+                <div class="form-view bg-grey border br-6 mt-1 mb-1">
+                  <div class="form-group_header no-border mb-3">
+                    <p class="form-group_title">Orders Over Time</p>
+                  </div>
+                  <p-chart
+                    type="line"
+                    [data]="dataOrdersTime"
+                    [options]="optionsOrdersTime"
+                  />
+                </div>
+              </div>
+              <app-data-table
+                [columns]="purchaseColumns"
+                [value]="purchaseOrders"
+                [globalFilterFields]="['itemName']"
+                [selectionMode]="'multiple'"
+                [exportable]="true"
+              />
+            </p-tabpanel>
+
+            <p-tabpanel value="3">
+              <!-- <div class="form no-border">
+                <div class="analysis-box mt-2 bg-grey">
+                  <div class="analysis-card">
+                    <p class="card-title">Total Invoices</p>
+                    <p class="card-data">95</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>
+                      Total invoices issued to supplier
+                    </p>
+                  </div>
+                  <div class="analysis-card">
+                    <p class="card-title">Overdue</p>
+                    <p class="card-data form-data-danger">25</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>
+                      Check urgently with customer
+                    </p>
+                  </div>
+                  <div class="analysis-card">
+                    <p class="card-title">Paid</p>
+                    <p class="card-data form-data-closed-txt">75</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>
+                      Check payments tab
+                    </p>
+                  </div>
+                  <div class="analysis-card">
+                    <p class="card-title">Pending</p>
+                    <p class="card-data form-data-pending-txt">15</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>
+                      Invoices partially paid
+                    </p>
+                  </div>
+
+                  <div class="analysis-card">
+                    <p class="card-title">Outstanding Balance</p>
+                    <p class="card-data form-data-pending-txt">1500</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>
+                      Overdue and pending invoices amount
+                    </p>
+                  </div>
+                </div>
+              </div> -->
+              <app-data-table
+                [columns]="invoicesColumns"
+                [value]="supplierInvoices"
+                [globalFilterFields]="['itemName']"
+                [selectionMode]="'multiple'"
+                [exportable]="true"
+              />
+            </p-tabpanel>
+
+            <p-tabpanel value="4">
+              <div class="form no-border">
+                <div class="form-row">
+                  <div class="form-group form-group-view mb-0">
+                    <div class="form-group-view-line">
+                      <div class="form-info-row">
+                        <div class="form-info-column">
+                          <p class="form-title-view">Payment Terms</p>
+                          <p class="form-data">Net 30</p>
+                        </div>
+                      </div>
+
+                      <div class="form-info-row">
+                        <div class="form-info-column">
+                          <p class="form-title-view">Preferred Currency</p>
+                          <p class="form-data">Egyptian Pounds</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group-view-line">
+                      <div class="form-info-row">
+                        <div class="form-info-column">
+                          <p class="form-title-view">Payment Method</p>
+                          <p class="form-data">Bank Transfer</p>
+                        </div>
+                      </div>
+
+                      <div class="form-info-row">
+                        <div class="form-info-column">
+                          <p class="form-title-view">Tax ID</p>
+                          <p class="form-data">00910298892</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group-view-line">
+                      <div class="form-info-row">
+                        <div class="form-info-column">
+                          <p class="form-title-view width-5">Billing Address</p>
+                          <p class="form-data">21 Suez, Egypt</p>
+                        </div>
+                      </div>
+
+                      <div class="form-info-row"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form no-border">
+                <div class="form-row">
+                  <div class="form-group form-group-view mb-0">
+                    <div class="form-group_header mt-2">
+                      <p class="form-group_title">Bank Details</p>
+                    </div>
+                    <div class="form-group-view-line">
+                      <div class="form-info-row">
+                        <div class="form-info-column">
+                          <p class="form-title-view">Bank Account Name</p>
+                          <p class="form-data">B Tech Commercial</p>
+                        </div>
+                      </div>
+
+                      <div class="form-info-row">
+                        <div class="form-info-column">
+                          <p class="form-title-view">Bank Name</p>
+                          <p class="form-data">Emirates National Bank (NBD)</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group-view-line">
+                      <div class="form-info-row">
+                        <div class="form-info-column">
+                          <p class="form-title-view">Account Number</p>
+                          <p class="form-data">999810089986098097</p>
+                        </div>
+                      </div>
+
+                      <div class="form-info-row">
+                        <div class="form-info-column">
+                          <p class="form-title-view">IBAN</p>
+                          <p class="form-data">+90-00910298892</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group-view-line">
+                      <div class="form-info-row">
+                        <div class="form-info-column">
+                          <p class="form-title-view">SWIFT Code</p>
+                          <p class="form-data">1128100899860313127</p>
+                        </div>
+                      </div>
+
+                      <div class="form-info-row">
+                        <div class="form-info-column">
+                          <p class="form-title-view">Bank Country</p>
+                          <p class="form-data">Egypt</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group-view-line">
+                      <div class="form-info-row">
+                        <div class="form-info-column">
+                          <p class="form-title-view">Currency of Account</p>
+                          <p class="form-data">Egyptian Pound (LE)</p>
+                        </div>
+                      </div>
+
+                      <div class="form-info-row"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="form no-border">
+                <div class="analysis-box mt-2 bg-grey">
+                  <div class="analysis-card">
+                    <p class="card-title">Total Payments</p>
+                    <p class="card-data">95</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>
+                      Total payments to supplier
+                    </p>
+                  </div>
+                  <div class="analysis-card">
+                    <p class="card-title">Overdue</p>
+                    <p class="card-data form-data-danger">25</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>
+                      Check urgently with customer
+                    </p>
+                  </div>
+                  <div class="analysis-card">
+                    <p class="card-title">Paid</p>
+                    <p class="card-data form-data-closed-txt">75</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>
+                      Check payments tab
+                    </p>
+                  </div>
+                  <div class="analysis-card">
+                    <p class="card-title">Pending</p>
+                    <p class="card-data form-data-pending-txt">15</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>
+                      Invoices partially paid
+                    </p>
+                  </div>
+
+                  <div class="analysis-card">
+                    <p class="card-title">Outstanding Balance</p>
+                    <p class="card-data form-data-pending-txt">1500</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>
+                      Overdue and pending invoices amount
+                    </p>
+                  </div>
+                </div>
+              </div> -->
+              <app-data-table
+                [columns]="paymentsColumn"
+                [value]="payments"
+                [globalFilterFields]="['itemName']"
+                [selectionMode]="'multiple'"
+                [exportable]="true"
+              />
+            </p-tabpanel>
+          </p-tabpanels>
+        </p-tabs>
       </div>
     </div>
   </div>

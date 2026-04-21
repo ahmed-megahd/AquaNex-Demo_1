@@ -1,15 +1,21 @@
 <p-breadcrumb [home]="home" [model]="items" />
-<div class="main-content_top main-content_top-view">
+<div class="main-content_top">
   <div class="title-container">
-    <p class="page-title">Engine Gear 12</p>
+    <div class="page-title">
+      Engine Gear 12
+      <p class="form-data form-data-closed white-text fn-18 min-width">
+        Active
+      </p>
+    </div>
 
     <p class="page-subtitle">Item #ITEM-119-221</p>
-    <div class="title-row">
+
+    <!-- <div class="title-row">
       <p class="title-subitem">
         <i class="pi pi-bars"></i>
         Deck & Engine
       </p>
-    </div>
+    </div> -->
   </div>
 
   <div class="cta-container cta-container-view">
@@ -28,111 +34,278 @@
 </div>
 
 <div class="main-content_form">
+  <div class="form-group_header mt-2">
+    <p class="form-group_title">Item Information</p>
+  </div>
   <div class="form-row-content">
-    <div class="form-column">
-      <div class="form form-inner-col form-view">
-        <div class="form-group form-group-view mb-0">
-          <div class="form-group_header form-group_header-view">
-            <i class="pi pi-box"></i>
-            <p class="form-group_title">Item information</p>
+    <div class="form bg-grey no-border">
+      <div class="form bg-grey no-border">
+        <div class="form-group-view-line pl-2">
+          <div class="form-info-row">
+            <div class="form-info">
+              <p class="form-data">Unit</p>
+              <p class="form-title-view bb pb-1">Piece</p>
+            </div>
+          </div>
+          <div class="form-info-row">
+            <div class="form-info">
+              <p class="form-data">Category</p>
+              <p class="form-title-view bb pb-1">Deck & Engine</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form bg-grey no-border mt-4">
+        <div class="form-group-view-line pl-2">
+          <div class="form-info-row">
+            <div class="form-info">
+              <p class="form-data">IMBA Code</p>
+              <p class="form-title-view bb pb-1">241020</p>
+            </div>
           </div>
 
-          <div class="form-info-column width-10">
-            <p class="form-title-view width-5">System ID :</p>
-            <p class="form-data form-data-col">ITEM-119-221</p>
+          <div class="form-info-row">
+            <div class="form-info">
+              <p class="form-data">Preferred Supplier</p>
+              <p class="form-title-view bb pb-1">Bosh LTD</p>
+            </div>
           </div>
+        </div>
+      </div>
 
-          <div class="form-info-column width-10">
-            <p class="form-title-view width-5">Name :</p>
-            <p class="form-data form-data-col">
-              <i class="pi pi-info-circle"></i> Engine Gear 12
-            </p>
-          </div>
-
-          <div class="form-info-column width-10">
-            <p class="form-title-view width-5">Description :</p>
-            <p class="form-data form-data-col">
-              An engine gear, 12.2inch, used for automatic gearbox at deck
-              engine part 00121
-            </p>
-          </div>
-
-          <div class="form-info-column width-10">
-            <p class="form-title-view width-5">IMBA Code :</p>
-            <p class="form-data form-data-imp form-data-col">3411928</p>
-          </div>
-
-          <div class="form-info-column width-10">
-            <p class="form-title-view width-5">Unit of Measure :</p>
-            <p class="form-data form-data-imp form-data-col">Piece</p>
-          </div>
-          <div class="form-info-column width-10">
-            <p class="form-title-view width-5">Category :</p>
-            <p class="form-data form-data-col">Deck & Engine</p>
+      <div class="form bg-grey no-border mt-4">
+        <div class="form-group-view-line pl-2">
+          <div class="form-info-row">
+            <div class="form-info">
+              <p class="form-data">Description</p>
+              <p class="form-title-view bb pb-1 width-10">
+                An engine gear, 12.2inch, used for automatic gearbox at deck
+                engine part 00121
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="form form-view">
-      <div class="form-row">
-        <div class="form-group form-group-view mb-0">
-          <div class="form-group_header form-group_header-view">
-            <i class="pi pi-wave-pulse"></i>
-            <p class="form-group_title">Item Insights</p>
-          </div>
 
-          <div class="form-info-row form-info-row-imp width-10 mb-8">
-            <div class="form-info rb mb-0">
-              <p class="form-title-view">Default Supplier</p>
-              <p class="form-data fn-18 form-data-danger">Boch Corp.</p>
-            </div>
-            <div class="form-info rb mb-0">
-              <p class="form-title-view">Quantity Sold</p>
-              <p class="form-data fn-18">11</p>
-            </div>
-            <div class="form-info mb-0">
-              <p class="form-title-view">Last Purchase Price</p>
-              <p class="form-data fn-18">1100 USD</p>
-            </div>
-          </div>
+    <img src="anna-evans-xi7cdugI5qs-unsplash.jpg" alt="" />
+  </div>
 
-          <div class="form-group_header form-group_header-view mt-4 mb-0">
-            <i class="pi pi-shopping-bag"></i>
-            <p class="form-group_title">Item Purchase History</p>
-          </div>
+  <div class="form form-view mt-2">
+    <div class="form-row">
+      <div class="form-group form-group-view mb-0">
+        <p-tabs class="p-tabs-view" value="0">
+          <p-tablist class="p-tablist-tab-list-view">
+            <p-tab value="0"><i class="pi pi-chart-bar"></i>Insights</p-tab>
+            <p-tab value="1"><i class="pi pi-users"></i>Suppliers</p-tab>
+            <p-tab value="2"
+              ><i class="pi pi-shopping-cart"></i>Purchase Orders</p-tab
+            >
+            <p-tab value="3"
+              ><i class="pi pi-shopping-bag"></i>Sales Orders</p-tab
+            >
+          </p-tablist>
 
-          <app-data-table
-            [columns]="purchaseHistoryColumns"
-            [value]="purchaseHistoryOrders"
-            [globalFilterFields]="['itemName']"
-            [selectionMode]="'multiple'"
-            [exportable]="true"
-          />
-          <div class="form-group_header form-group_header-view mt-4 mb-0">
-            <i class="pi pi-sitemap"></i>
-            <p class="form-group_title">Suppliers List</p>
-          </div>
+          <p-tabpanels>
+            <p-tabpanel value="0">
+              <div class="form no-border">
+                <div class="analysis-box mt-2 bg-grey mb-1">
+                  <div class="analysis-card">
+                    <p class="card-title">Total Orders</p>
+                    <p class="card-data">45</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>
+                      Total from closed orders
+                    </p>
+                  </div>
+                  <div class="analysis-card">
+                    <p class="card-title">Total Quantity</p>
+                    <p class="card-data">500</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>
+                      Quantity calculated after confirmation
+                    </p>
+                  </div>
+                  <div class="analysis-card">
+                    <p class="card-title">Last Price</p>
+                    <p class="card-data">25</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>
+                      Last confirmed purchasing price
+                    </p>
+                  </div>
+                  <div class="analysis-card">
+                    <p class="card-title">Last Ordered</p>
+                    <p class="card-data">14/10/2026</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>
+                      Only confirmed orders
+                    </p>
+                  </div>
+                </div>
+                <div class="form-row-content mb-1">
+                  <div class="form-view border width-5 bg-grey br-6">
+                    <div class="form-group_header no-border mb-3">
+                      <p class="form-group_title">Usage Over Time</p>
+                    </div>
 
-          <app-data-table
-            [columns]="supplierColumns"
-            [value]="supplierOrders"
-            [globalFilterFields]="['itemName']"
-            [selectionMode]="'multiple'"
-            [exportable]="true"
-          />
-          <div class="form-group_header form-group_header-view mt-4 mb-0">
-            <i class="pi pi-shopping-cart"></i>
-            <p class="form-group_title">Item Sales Orders</p>
-          </div>
+                    <p-chart
+                      type="bar"
+                      [data]="dataUsage"
+                      [options]="optionsUsage"
+                    />
+                  </div>
+                  <div class="form-view border width-5 bg-grey br-6">
+                    <div class="form-group_header no-border mb-3">
+                      <p class="form-group_title">Purhcase Price History</p>
+                    </div>
 
-          <app-data-table
-            [columns]="salesOrdersColumns"
-            [value]="salesOrders"
-            [globalFilterFields]="['itemName']"
-            [selectionMode]="'multiple'"
-            [exportable]="true"
-          />
-        </div>
+                    <p-chart
+                      type="bar"
+                      [data]="dataPrice"
+                      [options]="optionsPrice"
+                    />
+                  </div>
+                </div>
+
+                <div class="form-row-content">
+                  <div class="form-view border width-5 bg-grey br-6">
+                    <div class="form-group_header no-border mb-3">
+                      <p class="form-group_title">Suppliers Distribution</p>
+                    </div>
+
+                    <div class="form-row-content">
+                      <p-chart
+                        type="doughnut"
+                        [data]="dataSuppliers"
+                        [options]="optionsSuppliers"
+                      />
+                      <div class="form bg-grey no-border">
+                        <div class="form-group-view-line">
+                          <div class="form-info-column mb-0 bb pb-1">
+                            <p class="form-title-view">Boch</p>
+                            <p class="form-data">22</p>
+                            <p class="form-title-view">22000 LE</p>
+                          </div>
+                        </div>
+                        <div class="form-group-view-line">
+                          <div class="form-info-column mb-0 bb pb-1">
+                            <p class="form-title-view">Black & Decker</p>
+                            <p class="form-data">12</p>
+                            <p class="form-title-view">31000 LE</p>
+                          </div>
+                        </div>
+                        <div class="form-group-view-line">
+                          <div class="form-info-column mb-0 bb pb-1">
+                            <p class="form-title-view">Siemens</p>
+                            <p class="form-data">9</p>
+                            <p class="form-title-view">1200 LE</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-view border width-5 bg-grey br-6">
+                    <div class="form-group_header no-border mb-3">
+                      <p class="form-group_title">Usage Scope</p>
+                    </div>
+
+                    <div class="card-title">
+                      <i class="pi pi-exclamation-circle total-closed"></i>
+                      <div class="form-info">
+                        <p class="form-title-view form-title-view-sm">
+                          Vessels
+                        </p>
+                        <p class="form-data-sm mt-1">
+                          This item is ordered by
+                          <span class="form-title-view form-title-view-sm"
+                            >14
+                          </span>
+                          vessels
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="form-group-view-line">
+                      <p class="form-data-sm">Vessels Share</p>
+                      <p class="form-title-view form-title-view-sm min-width">
+                        14 / 55
+                      </p>
+                    </div>
+
+                    <p-progressbar class="mt-1" [value]="14" />
+
+                    <div class="card-title mt-4">
+                      <i class="pi pi-exclamation-circle total-closed"></i>
+                      <div class="form-info">
+                        <p class="form-title-view form-title-view-sm">
+                          Sales Orders
+                        </p>
+                        <p class="form-data-sm mt-1">
+                          This item is purchased in
+                          <span class="form-title-view form-title-view-sm"
+                            >50%
+                          </span>
+                          of total sales orders
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="form-group-view-line">
+                      <p class="form-data-sm">Sales Share</p>
+                      <p class="form-title-view form-title-view-sm min-width">
+                        100 / 200
+                      </p>
+                    </div>
+
+                    <p-progressbar class="mt-1" [value]="50" />
+
+                    <div class="form form-view-1 mt-2">
+                      <p class="form-data-sm">
+                        <span class="form-title-view form-title-view-sm"
+                          >Recommendation:</span
+                        >
+                        Consider buying more stock for price stability and cost
+                        reduction purposes
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </p-tabpanel>
+            <p-tabpanel value="1">
+              <app-data-table
+                [columns]="supplierColumns"
+                [value]="supplierOrders"
+                [globalFilterFields]="['itemName']"
+                [selectionMode]="'multiple'"
+                [exportable]="true"
+              />
+            </p-tabpanel>
+
+            <p-tabpanel value="2">
+              <app-data-table
+                [columns]="purchaseHistoryColumns"
+                [value]="purchaseHistoryOrders"
+                [globalFilterFields]="['itemName']"
+                [selectionMode]="'multiple'"
+                [exportable]="true"
+              />
+            </p-tabpanel>
+
+            <p-tabpanel value="3">
+              <app-data-table
+                [columns]="salesOrdersColumns"
+                [value]="salesOrders"
+                [globalFilterFields]="['itemName']"
+                [selectionMode]="'multiple'"
+                [exportable]="true"
+              />
+            </p-tabpanel>
+          </p-tabpanels>
+        </p-tabs>
       </div>
     </div>
   </div>

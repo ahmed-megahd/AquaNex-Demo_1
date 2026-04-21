@@ -1,7 +1,7 @@
 <p-breadcrumb [home]="home" [model]="items" />
 <div class="main-content_top">
   <div class="title-container">
-    <p class="page-title">Create New Sales Order</p>
+    <p class="page-title">New Sales Order</p>
   </div>
 
   <div class="cta">
@@ -15,35 +15,24 @@
 </div>
 
 <div class="main-content_form">
-  <!-- <p class="form-title">Sales Order</p> -->
-
   <form action="#" class="form" [formGroup]="orderForm">
     <p-stepper [value]="1" class="basis-[50rem]" [linear]="true">
       <p-step-list>
-        <p-step [value]="1"
-          ><p class="step-no">Step 1</p>
-          <p class="step-title">General Info</p></p-step
-        >
-        <p-step [value]="2"
-          ><p class="step-no">Step 2</p>
-          <p class="step-title">Customer Info</p></p-step
-        >
-        <p-step [value]="3"
-          ><p class="step-no">Step 3</p>
-          <p class="step-title">Items Info</p></p-step
-        >
+        <p-step [value]="1"><p class="step-title">General Info</p></p-step>
+        <p-step [value]="2"><p class="step-title">Customer Info</p></p-step>
+        <p-step [value]="3"><p class="step-title">Items Info</p></p-step>
       </p-step-list>
 
       <p-step-panels>
         <p-step-panel [value]="1">
           <ng-template #content let-activateCallback="activateCallback">
             <div class="form-row">
-              <div class="form-group bg-grey">
+              <div class="form-group bg-grey border">
                 <div class="form-group_header">
-                  <p class="form-group_title">Internal Info</p>
+                  <p class="form-group_title">Internal Details</p>
                   <p class="form-group_desc">
-                    Enter your company`s information, This information are not
-                    visible to clients and specific to company
+                    Enter your company`s information, This information is not
+                    visible to clients but specific to company
                   </p>
                 </div>
                 <div class="form-inputs">
@@ -62,7 +51,9 @@
                       display="chip"
                     />
                   </app-form-field>
+                </div>
 
+                <div class="form-inputs">
                   <app-form-field
                     label="Creation Date"
                     [control]="orderForm.get('creationDate')"
@@ -86,21 +77,21 @@
                     <p-multiselect
                       appendTo="body"
                       [options]="salesOrderCategory"
+                      placeholder="e.g. Provision, Bonded, ..."
                       formControlName="salesOrderCategory"
                       name="salesOrderCategory"
                       id="salesOrderCategory"
                       optionLabel="name"
-                      display="chip"
                     />
                   </app-form-field>
                 </div>
               </div>
-              <div class="form-group bg-grey">
+              <div class="form-group bg-grey border">
                 <div class="form-group_header">
-                  <p class="form-group_title">Order Info</p>
+                  <p class="form-group_title">Order Details</p>
                   <p class="form-group_desc">
-                    Enter your order related info, Both statuses are
-                    automatically selected to their default for first time
+                    Both statuses are automatically assigned to default for
+                    first time
                   </p>
                 </div>
                 <div class="form-inputs">
@@ -141,7 +132,7 @@
 
                 <div class="form-inputs">
                   <app-form-field
-                    label="SO Status"
+                    label="Order Status"
                     [control]="orderForm.get('salesStatus')"
                   >
                     <p-multiselect
@@ -152,7 +143,7 @@
                       id="salesStatus"
                       optionLabel="name"
                       display="chip"
-                      placeholder="Draft"
+                      placeholder="Draft / Issued"
                       readonly="true"
                     />
                   </app-form-field>
@@ -194,9 +185,9 @@
           <ng-template #content let-activateCallback="activateCallback">
             <div class="form-row mb-1">
               <!-- VESSEL INFO -->
-              <div class="form-group bg-grey">
+              <div class="form-group bg-grey border">
                 <div class="form-group_header">
-                  <p class="form-group_title">Vessel Info</p>
+                  <p class="form-group_title">Customer Details</p>
                   <p class="form-group_desc">
                     Enter all required client data, All ship manager info are
                     automatically filled upon selection
@@ -216,7 +207,7 @@
                       formControlName="shipManager"
                       name="shipManager"
                       optionLabel="name"
-                      placeholder="Select ship Manager/Owner"
+                      placeholder="Select vessel manager / owner"
                       display="chip"
                     />
                   </app-form-field>
@@ -228,6 +219,7 @@
                     [control]="orderForm.get('compAddress')"
                   >
                     <input
+                      placeholder="Auto-populated"
                       class="p-inputtext"
                       pSize="large"
                       pInputText
@@ -242,12 +234,12 @@
                     [control]="orderForm.get('contactPerson')"
                   >
                     <input
+                      placeholder="Auto-populated"
                       class="p-inputtext"
                       pSize="large"
                       pInputText
                       formControlName="contactPerson"
                       name="contactPerson"
-                      placeholder="Enter contact name"
                       aria-describedby="username-help"
                     />
                   </app-form-field>
@@ -259,6 +251,7 @@
                     [control]="orderForm.get('contactEmail')"
                   >
                     <input
+                      placeholder="Auto-populated"
                       class="p-inputtext"
                       pSize="large"
                       pInputText
@@ -272,6 +265,7 @@
                     [control]="orderForm.get('contactPhone')"
                   >
                     <input
+                      placeholder="Auto-populated"
                       class="p-inputtext"
                       pSize="large"
                       pInputText
@@ -315,9 +309,9 @@
 
             <div class="form-row">
               <!-- PAYMENT INFO -->
-              <div class="form-group bg-grey">
+              <div class="form-group bg-grey border">
                 <div class="form-group_header">
-                  <p class="form-group_title">Payment Info</p>
+                  <p class="form-group_title">Payment Information</p>
                   <p class="form-group_desc">
                     Fill in all agreed payment conditions as in order
                   </p>
@@ -329,6 +323,7 @@
                     [control]="orderForm.get('paymentTerms')"
                   >
                     <p-select
+                      placeholder="e.g. Net 30"
                       appendTo="body"
                       [options]="paymentTerms"
                       formControlName="paymentTerms"
@@ -346,6 +341,7 @@
                   >
                     <p-select
                       appendTo="body"
+                      placeholder="e.g. Bank Transfer"
                       [options]="paymentMethods"
                       formControlName="paymentMethod"
                       name="paymentMethods"
@@ -375,6 +371,7 @@
                     [control]="orderForm.get('currency')"
                   >
                     <p-select
+                      placeholder="e.g. USD"
                       appendTo="body"
                       [options]="currencys"
                       formControlName="currency"
@@ -387,9 +384,9 @@
               </div>
 
               <!-- DELIVERY INFO -->
-              <div class="form-group bg-grey">
+              <div class="form-group bg-grey border">
                 <div class="form-group_header">
-                  <p class="form-group_title">Delivery Info</p>
+                  <p class="form-group_title">Delivery Information</p>
                   <p class="form-group_desc">
                     Enter all delivery related data, then issue a delivery note
                     after SO completion
@@ -402,6 +399,7 @@
                     [control]="orderForm.get('deliveryDate')"
                   >
                     <p-datepicker
+                      placeholder="Delivery Date"
                       size="large"
                       [iconDisplay]="'input'"
                       [showIcon]="true"
@@ -418,6 +416,7 @@
                   >
                     <p-select
                       appendTo="body"
+                      placeholder="e.g. Onboard Delivery"
                       [options]="deliveryMethods"
                       formControlName="deliveryMethod"
                       name="deliveryMethod"
@@ -433,6 +432,7 @@
                     [control]="orderForm.get('deliveryAddress')"
                   >
                     <input
+                      placeholder="e.g. Suez Port"
                       class="p-inputtext"
                       pSize="large"
                       pInputText
@@ -449,6 +449,7 @@
                     [control]="orderForm.get('deliveryCity')"
                   >
                     <p-select
+                      placeholder="Suez"
                       appendTo="body"
                       [options]="cities"
                       formControlName="deliveryCity"
@@ -486,7 +487,7 @@
 
         <p-step-panel [value]="3">
           <ng-template #content let-activateCallback="activateCallback">
-            <div class="form-group bg-grey">
+            <div class="form-group bg-grey border">
               <div class="form-group_header">
                 <p class="form-group_title">Items Mapping</p>
                 <p class="form-group_desc">
@@ -495,7 +496,7 @@
                 </p>
               </div>
 
-              <div class="cta-container">
+              <div class="cta-container pt-0">
                 <div class="cta-del ml-auto">
                   <button
                     pButton
@@ -537,7 +538,7 @@
                 optionLabel="name"
                 [dropdown]="true"
                 (onSelect)="onItemSelect($event)"
-                placeholder="Search for item, then add"
+                placeholder="Search for an item, then add it"
               >
                 <ng-template let-item pTemplate="item">
                   <div class="auto-complete-dropdown">
@@ -555,10 +556,11 @@
                 [control]="orderForm.get('generalMargin')"
               >
                 <input
-                  class="p-inputtext"
+                  class="p-inputtext width-5"
                   type="number"
                   formControlName="generalMargin"
-                  placeholder="Apply to all items"
+                  name="generalMargin"
+                  placeholder="Apply profit margin to all items"
                 />
               </app-form-field>
 
@@ -567,6 +569,7 @@
                 <ng-template pTemplate="header">
                   <tr>
                     <th>Item Name</th>
+                    <th>IMBA Code</th>
                     <th>Description</th>
                     <th>Unit</th>
                     <th>Quantity</th>
@@ -585,6 +588,15 @@
                         name="item"
                         type="text"
                         class="p-inputtext p-component"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        formControlName="itemIMBA"
+                        name="itemIMBA"
+                        type="text"
+                        class="p-inputtext p-component"
+                        readonly
                       />
                     </td>
                     <td>
@@ -621,14 +633,14 @@
                         class="p-inputtext p-component"
                       />
                     </td>
-                    <td>
+                    <td class="cta-container">
                       <input
                         type="number"
                         class="p-inputtext"
                         formControlName="itemMargin"
                         placeholder="Auto"
                         [ngClass]="{
-                          overridden: row.get('isMarginOverridden')?.value
+                          overridden: row.get('isMarginOverridden')?.value,
                         }"
                       />
 
@@ -652,8 +664,13 @@
                         readonly
                       />
                     </td>
-                    <td>
-                      {{ row.get("profit")?.value | number : "1.2-2" }}
+                    <td class="text-right">
+                      <span [class.positive]="row.get('itemProfit')?.value > 0">
+                        {{
+                          row.get("itemProfit")?.value
+                            | currency: "USD" : "symbol" : "1.2-2"
+                        }}
+                      </span>
                     </td>
 
                     <td>
@@ -680,92 +697,133 @@
 
               <div class="order-summary">
                 <div class="summary-row">
-                  <label>Net Price:</label>
+                  <label for="netPrice">Net Price:</label>
                   <input
                     class="p-inputtext"
                     formControlName="netPrice"
+                    id="netPrice"
                     type="number"
                     readonly
                   />
                 </div>
 
                 <div class="summary-row">
-                  <label>Discount:</label>
+                  <label for="discount">Discount:</label>
                   <input
                     class="p-inputtext"
                     formControlName="discount"
+                    id="discount"
                     type="number"
                   />
                 </div>
 
                 <div class="summary-row">
-                  <label>Delivery Cost:</label>
+                  <label for="deliveryCost">Delivery Cost:</label>
                   <input
                     class="p-inputtext"
                     formControlName="deliveryCost"
+                    id="deliveryCost"
                     type="number"
                   />
                 </div>
 
                 <div class="summary-row">
-                  <label>Additional Costs:</label>
+                  <label for="additionalCost">Additional Costs:</label>
                   <input
                     class="p-inputtext"
                     formControlName="additionalCost"
+                    id="additionalCost"
                     type="number"
                   />
                 </div>
 
                 <div class="summary-row">
-                  <label>VAT / Tax %:</label>
+                  <label for="vat">VAT / Tax %:</label>
                   <input
                     class="p-inputtext"
                     formControlName="vat"
+                    id="vat"
                     type="number"
                   />
                 </div>
 
                 <div class="summary-row total">
-                  <label>Total:</label>
+                  <label for="totalPrice">Total:</label>
                   <input
-                    class="p-inputtext"
+                    class="p-inputtext no-border no-shadow"
                     formControlName="totalPrice"
+                    id="totalPrice"
                     type="number"
                     readonly
                   />
                 </div>
               </div>
             </div>
+            <div class="form-row mt-1">
+              <div class="form-group bg-grey border">
+                <div class="form-group_header">
+                  <p class="form-group_title">Remarks / Notes</p>
+                </div>
 
-            <div class="form-group-view-line form-view">
-              <div class="form-info-row">
-                <div class="form-info">
-                  <p class="form-data">Base Items Cost</p>
-                  <p class="form-title-view">{{ baseTotal }}</p>
+                <div class="form-inputs">
+                  <app-form-field
+                    label="Internal Description"
+                    [control]="orderForm.get('notes')"
+                  >
+                    <textarea
+                      placeholder="Notes about this Invoice..."
+                      class="p-inputtext"
+                      formControlName="notes"
+                      name="notes"
+                      id="notes"
+                      rows="5"
+                    ></textarea>
+                  </app-form-field>
                 </div>
               </div>
-
-              <div class="form-info-row">
-                <div class="form-info">
-                  <p class="form-data">Selling Items Total</p>
-                  <p class="form-title-view">{{ sellingTotal }}</p>
+              <div class="form-group border">
+                <div class="form-group_header">
+                  <p class="form-group_title">Order Profit Analysis</p>
                 </div>
-              </div>
-            </div>
-            <div class="form-group-view-line form-view">
-              <div class="form-info-row">
-                <div class="form-info">
-                  <p class="form-data">Gross Profit</p>
-                  <p class="form-title-view">
-                    {{ grossProfit }}
-                  </p>
-                </div>
-              </div>
+                <div
+                  class="form-group-view-line border br-6 form-view-1 bg-grey"
+                >
+                  <div class="form-info-row">
+                    <div class="form-info">
+                      <p class="form-data">Base Items Cost</p>
+                      <p class="card-data">$ {{ baseTotal }}</p>
+                    </div>
+                  </div>
 
-              <div class="form-info-row">
-                <div class="form-info">
-                  <p class="form-data">Net Profit</p>
-                  <p class="form-title-view">{{ netProfit }}</p>
+                  <div class="form-info-row">
+                    <div class="form-info">
+                      <p class="form-data">Selling Items Total</p>
+                      <p class="card-data">$ {{ sellingTotal }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="form-group-view-line border br-6 form-view-1 bg-grey mt-1 mb-1"
+                >
+                  <div class="form-info-row">
+                    <div class="form-info">
+                      <p class="form-data">Gross Profit</p>
+                      <p class="card-data">$ {{ grossProfit }}</p>
+                    </div>
+                  </div>
+
+                  <div class="form-info-row">
+                    <div class="form-info">
+                      <p class="form-data">Net Profit</p>
+                      <p
+                        [class.form-data-closed-txt]="netProfit > 0"
+                        class="card-data"
+                      >
+                        $ {{ netProfit }}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

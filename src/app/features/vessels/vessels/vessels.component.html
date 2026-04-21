@@ -14,64 +14,63 @@
   </div>
 </div>
 
-<div class="main-content_center">
-  <div class="search-header">
-    <p>Searching Options based on your insights</p>
+<div class="search-inputs width-10">
+  <div class="search-input-item">
+    <p-multiselect
+      [options]="vesselType"
+      [(ngModel)]="selectedVesselType"
+      placeholder="Vessel Type"
+      optionLabel="name"
+      display="chip"
+    />
   </div>
-  <div class="search-inputs">
-    <div class="search-input-item">
-      <p-multiselect
-        [options]="vesselType"
-        [(ngModel)]="selectedVesselType"
-        placeholder="Select Vessel Type"
-        optionLabel="name"
-        display="chip"
-      />
-    </div>
 
-    <div class="search-input-item">
-      <p-multiselect
-        [options]="vesselStatus"
-        [(ngModel)]="selectedVesselStatus"
-        placeholder="Select Vessel Status"
-        optionLabel="name"
-        display="chip"
-      />
-    </div>
-    <div class="search-input-item">
-      <p-multiselect
-        [options]="hasOutstanding"
-        [(ngModel)]="selectedHasOutstanding"
-        placeholder="Select Payment Status"
-        optionLabel="name"
-        display="chip"
-      />
-    </div>
-    <div class="cta">
-      <p-button icon="pi pi-search" size="large" (onClick)="onSearch()" />
-    </div>
+  <div class="search-input-item">
+    <p-multiselect
+      [options]="vesselStatus"
+      [(ngModel)]="selectedVesselStatus"
+      placeholder="Vessel Status"
+      optionLabel="name"
+      display="chip"
+    />
+  </div>
+  <div class="search-input-item">
+    <p-multiselect
+      [options]="hasOutstanding"
+      [(ngModel)]="selectedHasOutstanding"
+      placeholder="Payment Status"
+      optionLabel="name"
+      display="chip"
+    />
+  </div>
+  <div class="cta">
+    <p-button
+      outlined="true"
+      icon="pi pi-search"
+      size="large"
+      (onClick)="onSearch()"
+    />
   </div>
 </div>
 
 <div class="main-content_bottom">
   <div class="analysis-box">
     <div class="analysis-card">
-      <p class="card-title">
-        <i class="pi pi-box total-orders"></i> total ships
-      </p>
+      <p class="card-title"><i class="pi pi-circle-fill"></i> total ships</p>
       <p class="card-data">48</p>
     </div>
     <div class="analysis-card">
       <p class="card-title">
-        <i class="pi pi-check-circle total-closed"></i>Active ships
+        <i class="pi pi-circle-fill form-data-closed-txt"></i>Active Vessels
       </p>
       <p class="card-data">29</p>
     </div>
     <div class="analysis-card">
       <p class="card-title">
-        <i class="pi pi-hourglass total-in-progress"></i>Outstanding Balanace
+        <i class="pi pi-circle-fill form-data-pending-txt"></i>Outstanding
+        Balanace
       </p>
-      <p class="card-data">1800 USD</p>
+      <p class="card-data">$1800</p>
     </div>
     <!-- <div class="analysis-card">
       <p class="card-title">
@@ -86,21 +85,23 @@
   <p-tabs>
     <p-tablist>
       @for (tab of tabs; track tab.value) {
-      <p-tab [value]="tab.value" (click)="onTabChange(tab.value)">
-        {{ tab.title }}
-      </p-tab>
+        <p-tab [value]="tab.value" (click)="onTabChange(tab.value)">
+          {{ tab.title }}
+        </p-tab>
       }
     </p-tablist>
   </p-tabs>
-  <app-data-table
-    [columns]="columns"
-    [value]="filteredVessels"
-    [globalFilterFields]="['name', 'IMO']"
-    [selectionMode]="'multiple'"
-    [exportable]="true"
-    (onView)="onViewVessel($event)"
-    (onEdit)="handleEdit($event)"
-    (onDelete)="handleDelete($event)"
-    (onDeleteSelected)="handleBulkDelete($event)"
-  />
+  <div class="form-view pt-0 pb-0">
+    <app-data-table
+      [columns]="columns"
+      [value]="filteredVessels"
+      [globalFilterFields]="['name', 'IMO', 'owner', 'manager', 'nextDryDock']"
+      [selectionMode]="'multiple'"
+      [exportable]="true"
+      (onView)="onViewVessel($event)"
+      (onEdit)="handleEdit($event)"
+      (onDelete)="handleDelete($event)"
+      (onDeleteSelected)="handleBulkDelete($event)"
+    />
+  </div>
 </div>

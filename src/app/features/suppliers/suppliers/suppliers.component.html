@@ -77,21 +77,23 @@
   <p-tabs>
     <p-tablist>
       @for (tab of tabs; track tab.value) {
-      <p-tab [value]="tab.value" (click)="onTabChange(tab.value)">
-        {{ tab.title }}
-      </p-tab>
+        <p-tab [value]="tab.value" (click)="onTabChange(tab.value)">
+          {{ tab.title }}
+        </p-tab>
       }
     </p-tablist>
   </p-tabs>
-  <app-data-table
-    [columns]="columns"
-    [value]="filteredSuppliers"
-    [globalFilterFields]="['orderNumber', 'customer', 'status']"
-    [selectionMode]="'multiple'"
-    [exportable]="true"
-    (onView)="onViewSupplier($event)"
-    (onEdit)="handleEdit($event)"
-    (onDelete)="handleDelete($event)"
-    (onDeleteSelected)="handleBulkDelete($event)"
-  />
+  <div class="form-view">
+    <app-data-table
+      [columns]="columns"
+      [value]="filteredSuppliers"
+      [globalFilterFields]="['orderNumber', 'customer', 'status']"
+      [selectionMode]="'multiple'"
+      [exportable]="true"
+      (onView)="onViewSupplier($event)"
+      (onEdit)="handleEdit($event)"
+      (onDelete)="handleDelete($event)"
+      (onDeleteSelected)="handleBulkDelete($event)"
+    />
+  </div>
 </div>

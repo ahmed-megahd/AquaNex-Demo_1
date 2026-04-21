@@ -1,12 +1,12 @@
 <p-breadcrumb [home]="home" [model]="items" />
 <div class="main-content_top">
   <div class="title-container">
-    <p class="page-title">Items center</p>
+    <p class="page-title">Customer Payments</p>
   </div>
 
   <div class="cta">
     <p-button
-      label="Add New Item"
+      label="Record Payment"
       icon="pi pi-plus"
       size="large"
       (onClick)="openNew()"
@@ -21,9 +21,9 @@
   <div class="search-inputs">
     <div class="search-input-item">
       <p-datepicker
-        placeholder="Pick Purchase Date"
+        placeholder="Creation Date"
         size="large"
-        [(ngModel)]="selectedPurchaseDate"
+        [(ngModel)]="creationDate"
         selectionMode="range"
         [iconDisplay]="'input'"
         [showIcon]="true"
@@ -32,9 +32,9 @@
 
     <div class="search-input-item">
       <p-multiselect
-        [options]="categoryOptions"
-        [(ngModel)]="selectedCategory"
-        placeholder="Select Item Category"
+        [options]="paymentMethodOptions"
+        [(ngModel)]="paymentMethod"
+        placeholder="Payment Method"
         optionLabel="name"
         display="chip"
       />
@@ -49,48 +49,32 @@
   <div class="analysis-box">
     <div class="analysis-card">
       <p class="card-title">
-        <i class="pi pi-box total-orders"></i> total items
+        <i class="pi pi-check-circle total-closed"></i> total received
       </p>
-      <p class="card-data">4811</p>
+      <p class="card-data">$48112</p>
     </div>
     <div class="analysis-card">
       <p class="card-title">
-        <i class="pi pi-check-circle total-closed"></i>top purchased item
+        <i class="pi pi-hourglass form-data-pending"></i>pending payables
       </p>
-      <p class="card-data">Green Apple</p>
+      <p class="card-data">$2290</p>
     </div>
     <div class="analysis-card">
       <p class="card-title">
-        <i class="pi pi-bars total-in-progress"></i>top category
+        <i class="pi pi-calendar-times total-in-progress"></i>today
       </p>
-      <p class="card-data">Provision</p>
+      <p class="card-data">$18099</p>
     </div>
-    <!-- <div class="analysis-card">
-      <p class="card-title">
-        <i class="pi pi-money-bill total-invoiced"></i>top vendor
-      </p>
-      <p class="card-data fn-18">El-Hussieny</p>
-    </div> -->
   </div>
-
   <div class="card">
-    <!-- <p-tabs>
-      <p-tablist>
-        @for (tab of tabs; track tab.value) {
-        <p-tab [value]="tab.value" (click)="onTabChange(tab.value)">
-          {{ tab.title }}
-        </p-tab>
-        }
-      </p-tablist>
-    </p-tabs> -->
     <div class="form-view">
       <app-data-table
         [columns]="columns"
-        [value]="itemsValue"
+        [value]="payments"
         [globalFilterFields]="['ID', 'category', 'department']"
         [selectionMode]="'multiple'"
         [exportable]="true"
-        (onView)="onViewItem($event)"
+        (onView)="onViewExpense($event)"
         (onEdit)="handleEdit($event)"
         (onDelete)="handleDelete($event)"
         (onDeleteSelected)="handleBulkDelete($event)"

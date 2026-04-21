@@ -10,10 +10,29 @@ import { DataTableComponent } from '../../../shared/components/data-table/data-t
 import { TabsModule } from 'primeng/tabs';
 import { MenuItem } from 'primeng/api';
 import { ChartModule } from 'primeng/chart';
-import { isPlatformBrowser } from '@angular/common';
+import {
+  DatePipe,
+  DecimalPipe,
+  isPlatformBrowser,
+  LowerCasePipe,
+  NgClass,
+} from '@angular/common';
+import { Customer } from '../customers.service';
+import { TableModule } from 'primeng/table';
 @Component({
   selector: 'app-view-customer',
-  imports: [Breadcrumb, Button, DataTableComponent, TabsModule, ChartModule],
+  imports: [
+    NgClass,
+    Breadcrumb,
+    Button,
+    DataTableComponent,
+    TabsModule,
+    ChartModule,
+    TableModule,
+    DatePipe,
+    DecimalPipe,
+    LowerCasePipe,
+  ],
   standalone: true,
   templateUrl: './view-customer.component.html',
 })
@@ -29,10 +48,10 @@ export class ViewCustomerComponent {
     { field: 'id', header: 'ID' },
     { field: 'name', header: 'Name' },
     { field: 'imo', header: 'IMO Number' },
-    { field: 'status', header: 'Status' },
     { field: 'type', header: 'Type' },
     { field: 'lastOrder', header: 'Last Order' },
     { field: 'orders', header: 'Orders' },
+    { field: 'status', header: 'Status' },
     // { field: 'income', header: 'incomes' },
   ];
 
@@ -40,16 +59,53 @@ export class ViewCustomerComponent {
     {
       id: 'SH-11928-110',
       name: 'Sea Wheel ',
-      imo: '2503020',
+      imo: '250302',
       status: 'Active',
       type: 'Cargo',
       lastOrder: '25/03/2022',
       orders: 12,
     },
+    {
+      id: 'SH-22928-110',
+      name: 'Nord Stream',
+      imo: '990320',
+      status: 'Active',
+      type: 'Bulk Carier',
+      lastOrder: '15/03/2022',
+      orders: 1,
+    },
+    {
+      id: 'SH-33928-110',
+      name: 'Wheel 2',
+      imo: '331392',
+      status: 'Active',
+      type: 'Cargo',
+      lastOrder: '25/03/2022',
+      orders: 22,
+    },
+    {
+      id: 'SH-41428-410',
+      name: 'Sea 12 ',
+      imo: '990309',
+      status: 'Active',
+      type: 'Cargo',
+      lastOrder: '25/03/2022',
+      orders: 6,
+    },
+    {
+      id: 'SH-11928-888',
+      name: 'lord nile ',
+      imo: '666020',
+      status: 'Active',
+      type: 'Tanker',
+      lastOrder: '25/01/2026',
+      orders: 12,
+    },
   ];
 
+  // ORDERS
   salesOrdersColumns = [
-    { field: 'id', header: ' ID' },
+    { field: 'id', header: 'SO Number' },
     { field: 'vessel', header: 'Vessel' },
     { field: 'deliveryDate', header: 'Delivery Date' },
     { field: 'status', header: 'Status' },
@@ -62,17 +118,35 @@ export class ViewCustomerComponent {
       vessel: 'Sea Wheel',
       deliveryDate: '25/03/2020',
       status: 'Closed',
-      amount: '1900 USD',
+      amount: '$1900 ',
+    },
+
+    {
+      id: 'SO-11128-110',
+      vessel: 'Lions Wheel',
+      deliveryDate: '5/03/2020',
+      status: 'Closed',
+      amount: '$2100 ',
+    },
+
+    {
+      id: 'SO-11118-110',
+      vessel: '30 North',
+      deliveryDate: '25/04/2020',
+      status: 'In-progress',
+      amount: '$11900 ',
     },
   ];
 
+  // INVOICES
   invoiceColumn = [
     { field: 'invoiceID', header: ' ID' },
-    { field: 'date', header: 'Creation Date' },
+    { field: 'salesOrder', header: 'SO Ref' },
     { field: 'vessel', header: 'Vessel' },
-    { field: 'salesOrder', header: 'Order' },
+    { field: 'date', header: 'Date' },
     { field: 'issueDate', header: ' Due Date' },
     { field: 'invoiceTotal', header: ' Total' },
+    { field: 'paidAmount', header: ' Paid' },
     { field: 'status', header: 'Status' },
   ];
 
@@ -83,32 +157,33 @@ export class ViewCustomerComponent {
       vessel: 'Sea Wheel',
       salesOrder: 'SO-1190-199',
       issueDate: '25/04/2020',
-      invoiceTotal: '1000USD',
+      invoiceTotal: '$1000',
+      paidAmount: '$800',
       status: 'Un-paid',
     },
   ];
-
+  // PAYMENTS
   paymentsColumn = [
-    { field: 'ID', header: 'ID' },
-    { field: 'vessel', header: 'Vessel' },
-    { field: 'salesOrder', header: 'Order' },
+    { field: 'ID', header: 'Payment ID' },
+    { field: 'date', header: 'Date' },
     { field: 'amount', header: 'Amount' },
-    { field: 'date', header: 'Payment Date' },
+    { field: 'method', header: 'Method' },
+    { field: 'invoiceRef', header: 'Linked Invoice' },
   ];
 
   payments: any[] = [
     {
       ID: 'DN-11928-110',
-      vessel: 'Sea Wheel',
-      salesOrder: 'SO-1109-998',
-      amount: 110,
+      invoiceRef: 'INV-1109-998',
+      amount: '$9000',
+      method: 'Bank Transfer',
       date: '25/03/2020',
     },
   ];
-
+  // DELIVERY NOTES
   deliveryNoteColumn = [
     { field: 'ID', header: 'Note ID' },
-    { field: 'date', header: 'Creation Date' },
+    { field: 'date', header: 'Date' },
     { field: 'deliveryDate', header: 'Delivery Date' },
     { field: 'address', header: 'Shipping Address' },
     { field: 'status', header: 'Status' },
@@ -144,6 +219,10 @@ export class ViewCustomerComponent {
   dataVesselsOrders: any;
   optionsVesselsOrders: any;
 
+  //Vessels Profit
+  dataVesselProfit: any;
+  optionsVesselProfit: any;
+
   //Vessels Activity Distribution
   dataVesselsActivity: any;
   optionsVesselsActivity: any;
@@ -158,165 +237,74 @@ export class ViewCustomerComponent {
   ngOnInit() {
     this.initChart();
     this.initChartBalance();
+    this.initChartVesselProfit();
     this.initChartType();
-    this.initChartVesselsRevenue();
-    this.initChartVesselsOrders();
+    this.initChartVessels();
     this.initChartVesselsActivity();
     this.initChartOrdersTime();
+
+    this.loadCustomerAlerts(this.mockCustomer);
   }
 
-  initChartBalance() {
-    if (isPlatformBrowser(this.platformId)) {
-      const documentStyle = getComputedStyle(document.documentElement);
-      const textColor = documentStyle.getPropertyValue('--p-text-color');
-      const textColorSecondary = documentStyle.getPropertyValue(
-        '--p-text-muted-color',
-      );
-      const surfaceBorder = documentStyle.getPropertyValue(
-        '--p-content-border-color',
-      );
-
-      this.dataBalance = {
-        labels: [
-          'Maersk-Landlord',
-          'British Pride',
-          'Monda Crystal',
-          'April One',
-          'Palace 4',
-        ],
-        datasets: [
-          {
-            type: 'bar', // Add this - specify it's a bar chart
-            label: 'Balance', // Changed from 'Vessels' to be more descriptive
-            backgroundColor: documentStyle.getPropertyValue('--danger-color'), // Add background color for bars
-            // borderColor: documentStyle.getPropertyValue('--p-orange-600'), // Optional border
-            borderWidth: 2,
-            barThickness: 20,
-            borderRadius: 8, // Rounded bars
-            data: [5022, 225, 1112, 438, 526],
-          },
-        ],
-      };
-
-      this.optionsBalance = {
-        indexAxis: 'y', // Horizontal bars
-        maintainAspectRatio: false,
-        aspectRatio: 0.6,
-        plugins: {
-          legend: {
-            display: false, // Usually hide legend for single dataset
-            labels: {
-              color: textColor,
-            },
-          },
-          tooltip: {
-            // callbacks: {
-            //   label: function(context) {
-            //     return '$' + context.parsed.x.toLocaleString(); // Format as currency
-            //   }
-            // }
-          },
-        },
-        scales: {
-          x: {
-            ticks: {
-              color: textColorSecondary,
-
-              font: {
-                size: 12,
-                family: 'Urbanist',
-                color: '--grey-color',
-              },
-              // callback: function(value) {
-              //   return '$' + value.toLocaleString(); // Format x-axis as currency
-              // }
-            },
-            grid: {
-              display: false, // Cleaner look for horizontal bars
-            },
-          },
-          y: {
-            ticks: {
-              color: textColorSecondary,
-              font: {
-                size: 12,
-                family: 'Urbanist',
-                color: '--grey-color',
-              },
-            },
-            grid: {
-              display: false, // Remove horizontal grid lines
-            },
-          },
-        },
-      };
-      this.cd.markForCheck();
-    }
-  }
-
+  // GROSS PROFIT & REVENUE
   initChart() {
     if (isPlatformBrowser(this.platformId)) {
       const documentStyle = getComputedStyle(document.documentElement);
-      const textColor = documentStyle.getPropertyValue('--p-text-color');
-      const textColorSecondary = documentStyle.getPropertyValue(
-        '--p-text-muted-color',
-      );
-      const surfaceBorder = documentStyle.getPropertyValue(
-        '--p-content-border-color',
-      );
+      const textColor = documentStyle.getPropertyValue('--dark-color-2');
+      const textColorSecondary = documentStyle.getPropertyValue('--grey-color');
 
       this.data = {
         labels: [
-          'January',
-          'February',
-          'March',
-          'April',
+          'Jan',
+          'Feb',
+          'Mar',
+          'Apr',
           'May',
-          'June',
-          'July',
-          'August',
-          'September',
-          'October',
-          'November',
-          'December',
+          'Jun',
+          'Jul',
+          'Aug',
+          'Sep',
+          'Oct',
+          'Nov',
+          'Dec',
         ],
         datasets: [
           {
+            type: 'bar',
+            label: 'Revenue',
+            backgroundColor: 'rgba(83, 113, 255, 0.75)',
+            data: [
+              21000, 84000, 20000, 75000, 37000, 65000, 34000, 12000, 9000,
+              22000, 0, 20000,
+            ],
+            borderColor: 'transparent',
+            borderWidth: 0,
+            barThickness: 20,
+            borderRadius: 6,
+            yAxisID: 'y1',
+            order: 2,
+          },
+          {
             type: 'line',
-            label: 'Orders',
-            borderColor: documentStyle.getPropertyValue('--p-orange-500'),
+            label: 'Gross Profit',
+            borderColor: 'rgba(26, 158, 110, 0.75)',
             borderWidth: 2,
             fill: false,
             tension: 0.4,
-            data: [50, 25, 12, 48, 56, 76, 42, 9, 22, 23, 0, 10],
-            yAxisID: 'y', // Assign to left Y-axis
-
-            // Point styling
-            pointRadius: 5, // Size of points
-            pointHoverRadius: 7, // Size when hovering
-            pointBackgroundColor:
-              documentStyle.getPropertyValue('--p-orange-500'),
+            data: [
+              5000, 22000, 6000, 19000, 9000, 17000, 8000, 3000, 2000, 5000, 0,
+              5000,
+            ],
+            yAxisID: 'y',
+            order: 1,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            pointBackgroundColor: 'rgba(26, 158, 110, 0.75)',
             pointBorderColor: '#fff',
             pointBorderWidth: 2,
             pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor:
-              documentStyle.getPropertyValue('--p-orange-500'),
-            pointStyle: 'circle', // 'circle', 'rect', 'rectRounded', 'triangle', 'star'
-          },
-          {
-            type: 'bar',
-            label: 'Revenue',
-            backgroundColor: documentStyle.getPropertyValue('--primary-color'),
-            data: [
-              21000, 84000, 24000, 75000, 37000, 65000, 34000, 12000, 9000,
-              22000, 0, 20000,
-            ], // Use realistic revenue values
-            borderColor: 'white',
-            borderWidth: 2,
-            barThickness: 20,
-            borderRadius: 8, // Rounded top corners
-
-            yAxisID: 'y1', // Assign to right Y-axis
+            pointHoverBorderColor: 'rgba(26, 158, 110, 0.75)',
+            pointStyle: 'circle',
           },
         ],
       };
@@ -329,48 +317,29 @@ export class ViewCustomerComponent {
           legend: {
             labels: {
               color: textColor,
-              font: {
-                size: 14,
-                weight: 'normal',
-                family: 'Urbanist',
-              },
-              usePointStyle: true, // Use circular points instead of rectangles
+              font: { size: 12, weight: 'normal', family: 'Urbanist' },
+              usePointStyle: true,
               pointStyle: 'circle',
-            },
-            padding: {
-              bottom: 20,
+              padding: 20,
             },
           },
-          // title: {
-          //   display: true,
-          //   text: 'Monthly Orders & Revenue',
-          //   color: textColor,
-          //   font: {
-          //     size: 18,
-          //     weight: '600',
-          //     family: 'Urbanist',
-          //   },
-          //   padding: {
-          //     top: 10,
-          //     bottom: 20,
-          //   },
-          // },
+          tooltip: {
+            callbacks: {
+              label: (context: any) => {
+                const value = context.parsed.y;
+                return ` ${context.dataset.label}: ${value.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD`;
+              },
+            },
+          },
         },
 
         scales: {
           x: {
             ticks: {
               color: textColorSecondary,
-              font: {
-                size: 12,
-                weight: '500',
-
-                family: 'Urbanist',
-              },
+              font: { size: 12, weight: '500', family: 'Urbanist' },
             },
-            grid: {
-              display: false,
-            },
+            grid: { display: false },
           },
           y: {
             type: 'linear',
@@ -378,25 +347,16 @@ export class ViewCustomerComponent {
             position: 'left',
             title: {
               display: true,
-              text: 'Orders',
-              color: textColor,
-              font: {
-                size: 14,
-                weight: '600',
-                family: 'Urbanist',
-              },
+              text: 'Gross Profit (USD)',
+              color: textColorSecondary,
+              font: { size: 11, weight: '500', family: 'Urbanist' },
             },
             ticks: {
               color: textColorSecondary,
-              font: {
-                size: 12,
-                weight: '500',
-                family: 'Urbanist',
-              },
+              font: { size: 11, weight: '500', family: 'Urbanist' },
+              callback: (value: number) => `${(value / 1000).toFixed(0)}k`,
             },
-            grid: {
-              color: '#f8f8f8',
-            },
+            grid: { color: '#f8f8f9' },
           },
           y1: {
             type: 'linear',
@@ -404,37 +364,27 @@ export class ViewCustomerComponent {
             position: 'right',
             title: {
               display: true,
-              text: 'Revenue ($)',
-              color: textColor,
-              font: {
-                size: 14,
-                weight: '600',
-                family: 'Urbanist',
-              },
+              text: 'Revenue (USD)',
+              color: textColorSecondary,
+              font: { size: 11, weight: '500', family: 'Urbanist' },
             },
             ticks: {
               color: textColorSecondary,
-              font: {
-                size: 12,
-                weight: '500',
-                family: 'Urbanist',
-              },
+              font: { size: 11, weight: '500', family: 'Urbanist' },
+              callback: (value: number) => `${(value / 1000).toFixed(0)}k`,
             },
-            grid: {
-              display: false,
-            },
+            grid: { display: false },
           },
         },
-        // Interaction options
+
         interaction: {
-          mode: 'index', // 'point', 'nearest', 'index', 'dataset', 'x', 'y'
-          intersect: false, // Show tooltip even when not hovering directly on point
+          mode: 'index',
+          intersect: false,
         },
 
-        // Animation
         animation: {
-          duration: 1000, // Animation duration in ms
-          easing: 'easeInOutQuart', // Animation easing
+          duration: 800,
+          easing: 'easeInOutQuart',
         },
       };
 
@@ -442,6 +392,175 @@ export class ViewCustomerComponent {
     }
   }
 
+  // OUTSTANDING BALANCE
+  initChartBalance() {
+    if (isPlatformBrowser(this.platformId)) {
+      const documentStyle = getComputedStyle(document.documentElement);
+      const textColorSecondary = documentStyle.getPropertyValue('--grey-color');
+
+      this.dataBalance = {
+        labels: [
+          'Maersk Landlord',
+          'British Pride',
+          'Monda Crystal',
+          'April One',
+          'Palace 4',
+        ],
+        datasets: [
+          {
+            label: 'Current',
+            backgroundColor: 'rgba(37, 99, 235, 0.75)',
+            borderWidth: 0,
+            barThickness: 20,
+            borderRadius: 6,
+            data: [3022, 125, 712, 238, 326],
+          },
+          {
+            label: 'Overdue',
+            backgroundColor: 'rgba(224, 61, 61, 0.75)',
+            borderWidth: 0,
+            barThickness: 20,
+            borderRadius: 6,
+            data: [2000, 100, 400, 200, 200],
+          },
+        ],
+      };
+
+      this.optionsBalance = {
+        indexAxis: 'y',
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: true,
+            labels: {
+              color: textColorSecondary,
+              font: { size: 12, family: 'Urbanist' },
+              usePointStyle: true,
+              pointStyle: 'circle',
+            },
+          },
+          tooltip: {
+            callbacks: {
+              label: (context: any) => {
+                const value = context.parsed.x;
+                return ` ${context.dataset.label}: ${value.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD`;
+              },
+            },
+          },
+        },
+        scales: {
+          x: {
+            stacked: true,
+            ticks: {
+              color: textColorSecondary,
+              font: { size: 12, family: 'Urbanist' },
+              callback: (value: number) => `${(value / 1000).toFixed(0)}k`,
+            },
+            grid: { display: false },
+          },
+          y: {
+            stacked: true,
+            ticks: {
+              color: textColorSecondary,
+              font: { size: 12, family: 'Urbanist' },
+            },
+            grid: { color: '#f8f8f9' },
+          },
+        },
+        animation: {
+          duration: 600,
+          easing: 'easeInOutQuart',
+        },
+      };
+
+      this.cd.markForCheck();
+    }
+  }
+
+  // PROFIT & MARGIN BY VESSEL
+  vesselProfitView: 'profit' | 'margin' = 'profit';
+
+  private vesselProfitLabels = [
+    'Maersk Landlord',
+    'British Pride',
+    'Monda Crystal',
+    'April One',
+    'Palace 4',
+  ];
+  private vesselProfitData = [18000, 12000, 8500, 5200, 3800];
+  private vesselMarginData = [28.5, 22.1, 19.4, 15.8, 12.3];
+
+  setVesselProfitView(view: 'profit' | 'margin') {
+    this.vesselProfitView = view;
+    this.initChartVesselProfit();
+  }
+
+  initChartVesselProfit() {
+    if (isPlatformBrowser(this.platformId)) {
+      const documentStyle = getComputedStyle(document.documentElement);
+      const textColorSecondary = documentStyle.getPropertyValue('--grey-color');
+
+      const isProfit = this.vesselProfitView === 'profit';
+
+      this.dataVesselProfit = {
+        labels: this.vesselProfitLabels,
+        datasets: [
+          {
+            label: isProfit ? 'Gross Profit (USD)' : 'Profit Margin (%)',
+            backgroundColor: 'rgba(26, 158, 110, 0.75)',
+            borderWidth: 0,
+            barThickness: 20,
+            borderRadius: 6,
+            data: isProfit ? this.vesselProfitData : this.vesselMarginData,
+          },
+        ],
+      };
+
+      this.optionsVesselProfit = {
+        indexAxis: 'y',
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: (context: any) => {
+                const value = context.parsed.x;
+                return isProfit
+                  ? ` ${value.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD`
+                  : ` ${value.toFixed(1)}%`;
+              },
+            },
+          },
+        },
+        scales: {
+          x: {
+            ticks: {
+              color: textColorSecondary,
+              font: { size: 12, family: 'Urbanist' },
+              callback: (value: number) =>
+                isProfit ? `${(value / 1000).toFixed(0)}k` : `${value}%`,
+            },
+            grid: { display: false },
+          },
+          y: {
+            ticks: {
+              color: textColorSecondary,
+              font: { size: 12, family: 'Urbanist' },
+            },
+            grid: { color: '#f8f8f9' },
+          },
+        },
+        animation: {
+          duration: 400,
+          easing: 'easeInOutQuart',
+        },
+      };
+
+      this.cd.markForCheck();
+    }
+  }
+
+  // SALES ORDERS OVER TIME
   initChartOrdersTime() {
     if (isPlatformBrowser(this.platformId)) {
       const documentStyle = getComputedStyle(document.documentElement);
@@ -452,40 +571,40 @@ export class ViewCustomerComponent {
 
       this.dataOrdersTime = {
         labels: [
-          'January',
-          'February',
-          'March',
-          'April',
+          'Jan',
+          'Feb',
+          'Mar',
+          'Apr',
           'May',
-          'June',
-          'July',
-          'August',
-          'September',
-          'October',
-          'November',
-          'December',
+          'Jun',
+          'Jul',
+          'Aug',
+          'Sep',
+          'Oct',
+          'Nov',
+          'Dec',
         ],
         datasets: [
           {
             type: 'line',
             label: 'Orders',
-            borderColor: documentStyle.getPropertyValue('--p-orange-500'),
+            borderColor: 'rgba(83, 113, 255, 0.75)',
             borderWidth: 2,
-            fill: false,
+            fill: true,
+
+            backgroundColor: 'rgba(83, 113, 255, 0.1)',
             tension: 0.4,
             data: [50, 25, 12, 48, 56, 76, 42, 9, 22, 23, 0, 10],
             yAxisID: 'y', // Assign to left Y-axis
 
             // Point styling
             pointRadius: 5, // Size of points
-            pointHoverRadius: 7, // Size when hovering
-            pointBackgroundColor:
-              documentStyle.getPropertyValue('--p-orange-500'),
+            pointHoverRadius: 6, // Size when hovering
+            pointBackgroundColor: 'rgba(83, 113, 255, 0.75)',
             pointBorderColor: '#fff',
             pointBorderWidth: 2,
             pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor:
-              documentStyle.getPropertyValue('--p-orange-500'),
+            pointHoverBorderColor: 'rgba(83, 113, 255, 0.75)',
             pointStyle: 'circle', // 'circle', 'rect', 'rectRounded', 'triangle', 'star'
           },
         ],
@@ -497,19 +616,7 @@ export class ViewCustomerComponent {
 
         plugins: {
           legend: {
-            labels: {
-              color: textColor,
-              font: {
-                size: 14,
-                weight: 'normal',
-                family: 'Urbanist',
-              },
-              usePointStyle: true, // Use circular points instead of rectangles
-              pointStyle: 'circle',
-            },
-            padding: {
-              bottom: 20,
-            },
+            display: false,
           },
         },
 
@@ -526,6 +633,9 @@ export class ViewCustomerComponent {
             },
             grid: {
               display: false,
+              // lineWidth: 10,
+              // offset: true,
+              // drawTicks: true,
             },
           },
           y: {
@@ -533,14 +643,14 @@ export class ViewCustomerComponent {
             display: true,
             position: 'left',
             title: {
-              display: true,
-              text: 'Orders',
-              color: textColor,
-              font: {
-                size: 14,
-                weight: '600',
-                family: 'Urbanist',
-              },
+              display: false,
+              // text: 'Orders',
+              // color: textColor,
+              // font: {
+              //   size: 12,
+              //   weight: '600',
+              //   family: 'Urbanist',
+              // },
             },
             ticks: {
               color: textColorSecondary,
@@ -550,9 +660,7 @@ export class ViewCustomerComponent {
                 family: 'Urbanist',
               },
             },
-            grid: {
-              color: '#f8f8f8',
-            },
+            grid: { color: '#f8f8f9' },
           },
         },
         // Interaction options
@@ -572,6 +680,7 @@ export class ViewCustomerComponent {
     }
   }
 
+  // VESSELS ORDERS ACTIVITY
   initChartVesselsActivity() {
     if (isPlatformBrowser(this.platformId)) {
       const documentStyle = getComputedStyle(document.documentElement);
@@ -594,32 +703,34 @@ export class ViewCustomerComponent {
           {
             type: 'bar',
             label: 'Orders',
-            backgroundColor: documentStyle.getPropertyValue('--primary-color'),
-            data: [21, 84, 24, 75, 37, 65, 34], // Use realistic revenue values
+            backgroundColor: 'rgba(83, 113, 255, 0.75)',
+            data: [21, 84, 20, 75, 37, 65, 34], // Use realistic revenue values
             borderColor: 'white',
-            borderWidth: 2,
+            borderWidth: 0,
             barThickness: 20,
-            borderRadius: 8, // Rounded top corners
+            borderRadius: 4, // Rounded top corners
           },
         ],
       };
 
       this.optionsVesselsActivity = {
+        indexAxis: 'y', // Horizontal bars
         maintainAspectRatio: false,
         aspectRatio: 0.6,
 
         plugins: {
           legend: {
-            labels: {
-              color: textColor,
-              font: {
-                size: 14,
-                weight: 'normal',
-                family: 'Urbanist',
-              },
-              usePointStyle: true, // Use circular points instead of rectangles
-              pointStyle: 'circle',
-            },
+            display: false,
+            // labels: {
+            //   color: textColor,
+            //   font: {
+            //     size: 14,
+            //     weight: 'normal',
+            //     family: 'Urbanist',
+            //   },
+            //   usePointStyle: true, // Use circular points instead of rectangles
+            //   pointStyle: 'circle',
+            // },
           },
         },
 
@@ -628,9 +739,8 @@ export class ViewCustomerComponent {
             ticks: {
               color: textColorSecondary,
               font: {
-                size: 12,
-                weight: '500',
-
+                size: 11,
+                color: '--grey-color',
                 family: 'Urbanist',
               },
             },
@@ -640,16 +750,20 @@ export class ViewCustomerComponent {
           },
 
           y: {
+            ticks: {
+              color: textColorSecondary,
+              font: {
+                size: 11,
+                family: 'Urbanist',
+                color: '--grey-color',
+              },
+            },
             grid: {
-              display: false,
+              color: '#f8f8f9',
             },
           },
         },
         // Interaction options
-        interaction: {
-          mode: 'index', // 'point', 'nearest', 'index', 'dataset', 'x', 'y'
-          intersect: false, // Show tooltip even when not hovering directly on point
-        },
 
         // Animation
         animation: {
@@ -662,10 +776,10 @@ export class ViewCustomerComponent {
     }
   }
 
+  // ORDERS CATEGORY
   initChartType() {
     if (isPlatformBrowser(this.platformId)) {
       const documentStyle = getComputedStyle(document.documentElement);
-      const textColor = documentStyle.getPropertyValue('--text-color');
 
       this.dataType = {
         labels: ['Provision', 'Bonded', 'Cabin'],
@@ -673,208 +787,320 @@ export class ViewCustomerComponent {
           {
             data: [540, 325, 702],
             backgroundColor: [
-              documentStyle.getPropertyValue('--p-cyan-500'),
-              documentStyle.getPropertyValue('--p-orange-500'),
-              documentStyle.getPropertyValue('--p-gray-500'),
+              'rgba(83, 113, 255, 0.80)',
+              'rgba(14, 158, 138, 0.80)',
+              'rgba(124, 58, 237, 0.80)',
             ],
             hoverBackgroundColor: [
-              documentStyle.getPropertyValue('--p-cyan-400'),
-              documentStyle.getPropertyValue('--p-orange-400'),
-              documentStyle.getPropertyValue('--p-gray-400'),
+              documentStyle.getPropertyValue('--primary-color-main-btn'),
+              '#0ea5c9',
+              '#8b5cf6',
             ],
+            borderWidth: 0,
+            hoverOffset: 4,
           },
         ],
       };
 
       this.optionsType = {
-        maintainAspectRatio: false, // Important for centering
+        maintainAspectRatio: false,
         aspectRatio: 1,
-        cutout: '85%',
+        cutout: '78%',
         plugins: {
-          legend: {
-            labels: {
-              usePointStyle: true,
-              color: textColor,
-              font: {
-                family: 'Urbanist',
-              },
-            },
-          },
-        },
-      };
-      this.cd.markForCheck();
-    }
-  }
-
-  initChartVesselsRevenue() {
-    if (isPlatformBrowser(this.platformId)) {
-      const documentStyle = getComputedStyle(document.documentElement);
-      const textColor = documentStyle.getPropertyValue('--p-text-color');
-      const textColorSecondary = documentStyle.getPropertyValue(
-        '--p-text-muted-color',
-      );
-      const surfaceBorder = documentStyle.getPropertyValue(
-        '--p-content-border-color',
-      );
-
-      this.dataVesselsRevenue = {
-        labels: [
-          'Maersk-Landlord',
-          'British Pride',
-          'Monda Crystal',
-          'April One',
-          'Palace 4',
-        ],
-        datasets: [
-          {
-            type: 'bar', // Add this - specify it's a bar chart
-            label: 'Revenue', // Changed from 'Vessels' to be more descriptive
-            backgroundColor: documentStyle.getPropertyValue('--success-color'), // Add background color for bars
-            // borderColor: documentStyle.getPropertyValue('--p-orange-600'), // Optional border
-            borderWidth: 2,
-            barThickness: 20,
-            borderRadius: 8, // Rounded bars
-            data: [5022, 4412, 3225, 2438, 1526],
-          },
-        ],
-      };
-
-      this.optionsVesselsRevenue = {
-        indexAxis: 'y', // Horizontal bars
-        maintainAspectRatio: false,
-        aspectRatio: 0.6,
-        plugins: {
-          legend: {
-            display: false, // Usually hide legend for single dataset
-            labels: {
-              color: textColor,
-            },
-          },
-          tooltip: {},
-        },
-        scales: {
-          x: {
-            ticks: {
-              color: textColorSecondary,
-
-              font: {
-                size: 12,
-                family: 'Urbanist',
-                color: '--grey-color',
-              },
-              // callback: function(value) {
-              //   return '$' + value.toLocaleString(); // Format x-axis as currency
-              // }
-            },
-            grid: {
-              display: false, // Cleaner look for horizontal bars
-            },
-          },
-          y: {
-            ticks: {
-              color: textColorSecondary,
-              font: {
-                size: 12,
-                family: 'Urbanist',
-                color: '--grey-color',
-              },
-            },
-            grid: {
-              display: false, // Remove horizontal grid lines
-            },
-          },
-        },
-      };
-      this.cd.markForCheck();
-    }
-  }
-
-  initChartVesselsOrders() {
-    if (isPlatformBrowser(this.platformId)) {
-      const documentStyle = getComputedStyle(document.documentElement);
-      const textColor = documentStyle.getPropertyValue('--p-text-color');
-      const textColorSecondary = documentStyle.getPropertyValue(
-        '--p-text-muted-color',
-      );
-      const surfaceBorder = documentStyle.getPropertyValue(
-        '--p-content-border-color',
-      );
-
-      this.dataVesselsOrders = {
-        labels: [
-          'Maersk-Landlord',
-          'British Pride',
-          'Monda Crystal',
-          'April One',
-          'Palace 4',
-        ],
-        datasets: [
-          {
-            type: 'bar', // Add this - specify it's a bar chart
-            label: 'Balance', // Changed from 'Vessels' to be more descriptive
-            backgroundColor: documentStyle.getPropertyValue('--primary-color'), // Add background color for bars
-            // borderColor: documentStyle.getPropertyValue('--p-orange-600'), // Optional border
-            borderWidth: 2,
-            barThickness: 20,
-            borderRadius: 8, // Rounded bars
-            data: [22, 20, 12, 8, 6],
-          },
-        ],
-      };
-
-      this.optionsVesselsOrders = {
-        indexAxis: 'y', // Horizontal bars
-        maintainAspectRatio: false,
-        aspectRatio: 0.6,
-        plugins: {
-          legend: {
-            display: false, // Usually hide legend for single dataset
-            labels: {
-              color: textColor,
-            },
-          },
+          legend: { display: false },
           tooltip: {
-            // callbacks: {
-            //   label: function(context) {
-            //     return '$' + context.parsed.x.toLocaleString(); // Format as currency
-            //   }
-            // }
+            callbacks: {
+              label: (context: any) => {
+                const total = context.dataset.data.reduce(
+                  (a: number, b: number) => a + b,
+                  0,
+                );
+                const value = context.parsed;
+                const pct = ((value / total) * 100).toFixed(1);
+                return ` ${context.label}: ${value} orders (${pct}%)`;
+              },
+            },
+          },
+        },
+        animation: {
+          duration: 600,
+          easing: 'easeInOutQuart',
+        },
+      };
+
+      this.cd.markForCheck();
+    }
+  }
+
+  getTotalOrders(): number {
+    return (
+      this.dataType?.datasets[0]?.data?.reduce(
+        (a: number, b: number) => a + b,
+        0,
+      ) ?? 0
+    );
+  }
+
+  getCategoryItems() {
+    if (!this.dataType) return [];
+    const data = this.dataType.datasets[0].data;
+    const labels = this.dataType.labels;
+    const colors = this.dataType.datasets[0].backgroundColor;
+    const total = data.reduce((a: number, b: number) => a + b, 0);
+    return labels.map((label: string, i: number) => ({
+      label,
+      value: data[i],
+      color: colors[i],
+      pct: ((data[i] / total) * 100).toFixed(1),
+    }));
+  }
+
+  // Vessels Revenue & Orders
+  vesselsView: 'revenue' | 'orders' = 'revenue';
+  dataVessels: any;
+  optionsVessels: any;
+
+  private vesselsLabels = [
+    'Maersk Landlord',
+    'British Pride',
+    'Monda Crystal',
+    'April One',
+    'Palace 4',
+  ];
+
+  private revenueData = [5022, 4412, 3225, 2038, 1526];
+  private ordersData = [22, 20, 12, 8, 6];
+
+  setVesselsView(view: 'revenue' | 'orders') {
+    this.vesselsView = view;
+    this.initChartVessels();
+  }
+
+  initChartVessels() {
+    if (isPlatformBrowser(this.platformId)) {
+      const documentStyle = getComputedStyle(document.documentElement);
+      const textColorSecondary = documentStyle.getPropertyValue('--grey-color');
+
+      const isRevenue = this.vesselsView === 'revenue';
+
+      this.dataVessels = {
+        labels: this.vesselsLabels,
+        datasets: [
+          {
+            type: 'bar',
+            label: isRevenue ? 'Revenue (USD)' : 'Orders',
+            backgroundColor: isRevenue
+              ? 'rgba(83, 113, 255, 0.75)'
+              : 'rgba(83, 113, 255, 0.75)',
+            borderWidth: 0,
+            barThickness: 20,
+            borderRadius: 6,
+            data: isRevenue ? this.revenueData : this.ordersData,
+          },
+        ],
+      };
+
+      this.optionsVessels = {
+        indexAxis: 'y',
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: (context: any) => {
+                const value = context.parsed.x;
+                return isRevenue
+                  ? ` ${value.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD`
+                  : ` ${value} orders`;
+              },
+            },
           },
         },
         scales: {
           x: {
             ticks: {
               color: textColorSecondary,
-
-              font: {
-                size: 12,
-                family: 'Urbanist',
-                color: '--grey-color',
-              },
-              // callback: function(value) {
-              //   return '$' + value.toLocaleString(); // Format x-axis as currency
-              // }
+              font: { size: 12, family: 'Urbanist' },
+              callback: (value: number) =>
+                isRevenue ? `${(value / 1000).toFixed(0)}k` : value,
             },
-            grid: {
-              display: false, // Cleaner look for horizontal bars
-            },
+            grid: { display: false },
           },
           y: {
             ticks: {
               color: textColorSecondary,
-              font: {
-                size: 12,
-                family: 'Urbanist',
-                color: '--grey-color',
-              },
+              font: { size: 12, family: 'Urbanist' },
             },
-            grid: {
-              display: false, // Remove horizontal grid lines
-            },
+            grid: { color: '#f8f8f9' },
           },
         },
+        animation: {
+          duration: 400,
+          easing: 'easeInOutQuart',
+        },
       };
+
       this.cd.markForCheck();
     }
+  }
+
+  //ALERTING LOGIC
+  customerAlerts: { severity: string; summary: string; detail: string }[] = [];
+  mockCustomer = {
+    status: 'ON_HOLD' as Customer['status'],
+    creditLimit: 100000,
+    outstandingBalance: 85000,
+    overdueBalance: 8000,
+    overdueInvoiceCount: 3,
+    billingAddress: '',
+    vat: '',
+  };
+
+  loadCustomerAlerts(customer: Partial<Customer>) {
+    this.customerAlerts = [];
+
+    if (customer.status === 'BLACKLISTED') {
+      this.customerAlerts.push({
+        severity: 'error',
+        summary: 'Blacklisted',
+        detail: 'This customer is blacklisted — new orders are not permitted',
+      });
+    }
+
+    if (customer.status === 'ON_HOLD') {
+      this.customerAlerts.push({
+        severity: 'error',
+        summary: 'On Hold',
+        detail: 'This account is on hold — new orders are blocked',
+      });
+    }
+
+    const outstanding = customer.outstandingBalance ?? 0;
+    const creditLimit = customer.creditLimit ?? 0;
+    const overdueBalance = customer.overdueBalance ?? 0;
+    const overdueCount = customer.overdueInvoiceCount ?? 0;
+
+    if (creditLimit > 0 && outstanding > creditLimit) {
+      this.customerAlerts.push({
+        severity: 'error',
+        summary: 'Credit Limit Exceeded',
+        detail: `Outstanding balance of ${outstanding.toLocaleString()} USD exceeds credit limit of ${creditLimit.toLocaleString()} USD`,
+      });
+    }
+
+    if (
+      creditLimit > 0 &&
+      outstanding > creditLimit * 0.8 &&
+      outstanding <= creditLimit
+    ) {
+      this.customerAlerts.push({
+        severity: 'warn',
+        summary: 'Credit Limit Warning',
+        detail: `Credit limit ${Math.round((outstanding / creditLimit) * 100)}% utilized — ${(creditLimit - outstanding).toLocaleString()} USD remaining`,
+      });
+    }
+
+    if (overdueBalance > 0) {
+      this.customerAlerts.push({
+        severity: 'warn',
+        summary: 'Overdue Invoices',
+        detail: `${overdueCount} overdue invoice(s) totalling ${overdueBalance.toLocaleString()} USD`,
+      });
+    }
+
+    if (!customer.billingAddress || !customer.vat) {
+      this.customerAlerts.push({
+        severity: 'info',
+        summary: 'Incomplete Profile',
+        detail:
+          'Billing address or Tax ID is missing — please complete the customer profile',
+      });
+    }
+  }
+
+  alertsExpanded = false;
+
+  upcomingDeliveries = [
+    {
+      soNumber: 'SO-2026-001',
+      vessel: 'British Landlord',
+      port: 'Port Said',
+      deliveryDate: new Date('2026-04-05'),
+      daysLeft: 7,
+      status: 'confirmed',
+    },
+    {
+      soNumber: 'SO-2026-002',
+      vessel: 'Maersk Eagle',
+      port: 'Alexandria',
+      deliveryDate: new Date('2026-04-15'),
+      daysLeft: 17,
+      status: 'progress',
+    },
+  ];
+
+  invoicesDue = [
+    {
+      invoiceNo: 'INV-2026-001',
+      amount: 12050,
+      dueDate: new Date('2026-04-03'),
+      daysLeft: 5,
+      status: 'unpaid',
+    },
+    {
+      invoiceNo: 'INV-2026-002',
+      amount: 8200,
+      dueDate: new Date('2026-04-20'),
+      daysLeft: 22,
+      status: 'partial',
+    },
+  ];
+
+  getDaysClass(days: number): string {
+    if (days <= 5) return 'days-badge--urgent';
+    if (days <= 15) return 'days-badge--warning';
+    return 'days-badge--normal';
+  }
+
+  // PAYMENT BEHAVIOUR
+  behavior = {
+    agreedTerms: 'Net 30',
+    avgDaysToPay: 42,
+    avgDelay: 12,
+    totalInvoices: 20,
+    paidOnTime: 15,
+    onTimeRate: 64,
+    lastPaymentDate: new Date('2026-03-22'),
+    lastPaymentAmount: 4500,
+  };
+
+  get paymentVerdict(): { message: string; class: string } {
+    const rate = this.behavior.onTimeRate;
+    if (rate >= 85)
+      return {
+        message: 'Reliable payer — consistently on time',
+        class: 'pb-verdict--good',
+      };
+    if (rate >= 60)
+      return {
+        message: 'Paying late on average — follow up recommended',
+        class: 'pb-verdict--warn',
+      };
+    return {
+      message: 'Poor payment history — review credit terms',
+      class: 'pb-verdict--late',
+    };
+  }
+
+  getDelayClass(days: number): string {
+    if (days <= 0) return 'text-success';
+    if (days <= 10) return 'text-warn';
+    return 'text-danger';
+  }
+
+  getRateClass(rate: number): string {
+    if (rate >= 85) return 'text-success';
+    if (rate >= 60) return 'text-warn';
+    return 'text-danger';
   }
 }

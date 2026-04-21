@@ -1,13 +1,17 @@
 <p-breadcrumb [home]="home" [model]="items" />
-<div class="main-content_top main-content_top-view">
+<div class="main-content_top">
   <div class="title-container">
     <div class="page-title">
       MAERSC
-      <p class="form-data form-data-closed white-text fn-18 min-width">
-        Active
-      </p>
+      <p class="form-data form-data-closed white-text min-width">Active</p>
     </div>
-    <p class="page-subtitle">Customer #CST-119-221</p>
+    <div class="title-row">
+      <p class="page-subtitle">CUST-119-221</p>
+      <div class="rb"></div>
+      <p class="page-subtitle">Ship Owner</p>
+      <div class="rb"></div>
+      <p class="page-subtitle">Since June 2019</p>
+    </div>
   </div>
 
   <div class="cta-container cta-container-view">
@@ -16,583 +20,501 @@
     </div>
 
     <div class="cta">
-      <p-button label="More" icon="pi pi-plus" size="large" type="button" />
+      <p-button
+        outlined="true"
+        label="More"
+        icon="pi pi-plus"
+        size="large"
+        type="button"
+      />
     </div>
     <div class="cta">
-      <p-button label="Add New Customer" size="large" type="button" />
+      <p-button label="New Order" size="large" type="button" />
     </div>
   </div>
 </div>
 
 <div class="main-content_form">
-  <div class="form bg-grey no-border no-shadow mt-2">
-    <!-- <div class="form-group_header form-group_header-view">
-      <i class="pi pi-list"></i>
-      <p class="form-group_title">Overview</p>
-    </div> -->
-    <div class="form-group-view-line">
-      <div class="form-info-row">
-        <div class="form-info">
-          <p class="form-data">Type</p>
-          <p class="form-title-view">Ship Owner</p>
+  @if (customerAlerts.length) {
+    <div class="alert-bar mt-1" [class.alert-bar--expanded]="alertsExpanded">
+      <div class="alert-bar_header" (click)="alertsExpanded = !alertsExpanded">
+        <div class="alert-bar_left">
+          <i class="pi pi-exclamation-triangle"></i>
+          <span
+            >{{ customerAlerts.length }} account alert(s) require
+            attention</span
+          >
         </div>
+        <i
+          class="pi"
+          [class.pi-chevron-down]="!alertsExpanded"
+          [class.pi-chevron-up]="alertsExpanded"
+        ></i>
       </div>
 
-      <div class="form-info-row">
-        <div class="form-info">
-          <p class="form-data">Customer Since</p>
-          <p class="form-title-view">24/10/2020</p>
-        </div>
+      @if (alertsExpanded) {
+        <ul class="alert-bar_list">
+          @for (alert of customerAlerts; track alert.summary) {
+            <li class="alert-bar_item alert-bar_item--{{ alert.severity }}">
+              <i
+                class="pi"
+                [ngClass]="{
+                  'pi-times-circle': alert.severity === 'error',
+                  'pi-exclamation-circle': alert.severity === 'warn',
+                  'pi-info-circle': alert.severity === 'info',
+                }"
+              ></i>
+              <div class="alert-bar_item-text">
+                <span class="alert-bar_item-summary">{{ alert.summary }}</span>
+                <span class="alert-bar_item-detail">{{ alert.detail }}</span>
+              </div>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  }
+
+  <div class="form form-view">
+    <div class="analysis-box">
+      <div class="analysis-card no-border pt-0 pb-0 pl-0">
+        <p class="card-title">Credit Limit <i class="pi pi-info-circle"></i></p>
+        <div class="card-data">$150,000.00</div>
       </div>
 
-      <div class="form-info-row">
-        <div class="form-info">
-          <p class="form-data">Address</p>
-          <p class="form-title-view">21, Downing st. London, England</p>
-        </div>
+      <div class="analysis-card no-border pt-0 pb-0 pl-0">
+        <p class="card-title">Remaining</p>
+        <div class="card-data form-data-pending-txt">$51,250.00</div>
       </div>
 
-      <div class="form-info-row">
-        <div class="form-info">
-          <p class="form-data">Website</p>
-          <p class="form-title-view">www.maersc.com</p>
+      <div class="analysis-card no-border pt-0 pb-0 pl-0">
+        <p class="card-title">
+          Outstanding Balance <i class="pi pi-info-circle"></i>
+        </p>
+        <div class="card-data">$98,750.00</div>
+      </div>
+      <div class="analysis-card no-border pt-0 pb-0 pl-0">
+        <p class="card-title">Overdue <i class="pi pi-info-circle"></i></p>
+        <div class="card-data form-data-danger">$12,450.00</div>
+      </div>
+    </div>
+
+    <div class="bb mt-2"></div>
+
+    <div class="form-row width-10 mt-4">
+      <div class="form no-border mb-0">
+        <div class="form-group_header">
+          <p class="form-group_title">Upcoming Deliveries</p>
+          <p class="form-group_desc">
+            Sales orders delivering within the next 30 days
+          </p>
         </div>
+        <p-table [value]="upcomingDeliveries" [rows]="5">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>SO Number</th>
+              <th>Vessel</th>
+              <th>Port</th>
+              <th>Delivery Date</th>
+              <th>Days Left</th>
+              <th>Status</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-order>
+            <tr>
+              <td>{{ order.soNumber }}</td>
+              <td>{{ order.vessel }}</td>
+              <td>{{ order.port }}</td>
+              <td>{{ order.deliveryDate | date: "dd MMM yyyy" }}</td>
+              <td>
+                <span
+                  class="days-badge"
+                  [ngClass]="getDaysClass(order.daysLeft)"
+                >
+                  {{ order.daysLeft }}d
+                </span>
+              </td>
+              <td>
+                <span
+                  class="status-badge status-badge--{{
+                    order.status | lowercase
+                  }}"
+                >
+                  {{ order.status }}
+                </span>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="6" class="form-data text-center">
+                No upcoming deliveries in the next 30 days
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+
+      <div class="form no-border mb-0">
+        <div class="form-group_header">
+          <p class="form-group_title">Invoices Due</p>
+          <p class="form-group_desc">
+            Invoices requiring collection within the next 30 days
+          </p>
+        </div>
+        <p-table [value]="invoicesDue" [rows]="5">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Invoice No</th>
+              <th>Amount</th>
+              <th>Due Date</th>
+              <th>Days Left</th>
+              <th>Status</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-invoice>
+            <tr>
+              <td>{{ invoice.invoiceNo }}</td>
+              <td>{{ invoice.amount | number: "1.2-2" }} USD</td>
+              <td>{{ invoice.dueDate | date: "dd MMM yyyy" }}</td>
+              <td>
+                <span
+                  class="days-badge"
+                  [ngClass]="getDaysClass(invoice.daysLeft)"
+                >
+                  {{ invoice.daysLeft }}d
+                </span>
+              </td>
+              <td>
+                <span
+                  class="status-badge status-badge--{{
+                    invoice.status | lowercase
+                  }}"
+                >
+                  {{ invoice.status }}
+                </span>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="5" class="form-data text-center">
+                No invoices due within the next 30 days
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
       </div>
     </div>
   </div>
-  <div class="form bg-grey no-border no-shadow mt-2">
-    <!-- <div class="form-group_header form-group_header-view">
-      <i class="pi pi-list"></i>
-      <p class="form-group_title">Overview</p>
-    </div> -->
-    <div class="form-group-view-line">
-      <div class="form-info-row">
-        <div class="form-info">
-          <p class="form-data">Account Manager</p>
-          <p class="form-title-view">Omar Hesham</p>
-        </div>
-      </div>
 
-      <div class="form-info-row">
-        <div class="form-info">
-          <p class="form-data">Country of Registeration</p>
-          <p class="form-title-view">Panama</p>
-        </div>
-      </div>
-
-      <div class="form-info-row">
-        <div class="form-info">
-          <p class="form-data">City</p>
-          <p class="form-title-view">London</p>
-        </div>
-      </div>
-
-      <div class="form-info-row">
-        <div class="form-info">
-          <p class="form-data">Country</p>
-          <p class="form-title-view">England</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="form-row-content">
-    <div class="form form-view mb-1 mt-4">
-      <p class="form-title-view">
-        <i class="pi pi-exclamation-triangle form-data-danger"></i>Overdue
-        Invoices
-      </p>
-      <p class="form-data form-data-danger">
-        This customer has 3 overdue invoices
-      </p>
-
-      <div class="cta-container cta-container-view mt-2">
-        <div class="cta">
-          <p-button label="View" size="large" type="button" />
-        </div>
-      </div>
-    </div>
-
-    <div class="form form-view mb-1 mt-4">
-      <p class="form-title-view">
-        <i class="pi pi-exclamation-triangle form-data-pending-txt"></i>Inactive
-        Vessels
-      </p>
-      <p class="form-data">3 vessels are inactive for 60+ days</p>
-
-      <div class="cta-container cta-container-view mt-2">
-        <div class="cta">
-          <p-button
-            label="Preview"
-            size="large"
-            type="button"
-            variant="outlined"
-          />
-        </div>
-      </div>
-    </div>
-
-    <div class="form form-view mb-1 mt-4">
-      <p class="form-title-view">
-        <i class="pi pi-info-circle form-data-closed-txt"></i>New Order Added
-      </p>
-      <p class="form-data">New order is created on 6/6/2025</p>
-
-      <div class="cta-container cta-container-view mt-2">
-        <div class="cta">
-          <p-button
-            label="Edit"
-            size="large"
-            type="button"
-            variant="outlined"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- <div class="form form-view">
-    <div class="form-row">
-      <div class="form-group form-group-view mb-0">
-        <div class="form-group_header form-group_header-view">
-          <i class="pi pi-file"></i>
-          <p class="form-group_title">Customer Information</p>
-        </div>
-        <div class="form-group-view-line">
-          <div class="form-info-row">
-            <div class="form-info-column">
-              <p class="form-title-view width-5">Name</p>
-              <p class="form-data">Maersc LTD.</p>
-            </div>
-          </div>
-
-          <div class="form-info-row">
-            <div class="form-info-column">
-              <p class="form-title-view width-5">Sys ID</p>
-              <p class="form-data">CST-009-1298</p>
-            </div>
-          </div>
-        </div>
-        <div class="form-group-view-line">
-          <div class="form-info-row">
-            <div class="form-info-column">
-              <p class="form-title-view width-5">Status</p>
-              <p class="form-data br-6 form-data-pending">Active</p>
-            </div>
-          </div>
-
-          <div class="form-info-row">
-            <div class="form-info-column">
-              <p class="form-title-view width-5">Customer Since</p>
-              <p class="form-data br-6">25/03/2025</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group-view-line">
-          <div class="form-info-row">
-            <div class="form-info-column">
-              <p class="form-title-view width-5">Type</p>
-              <p class="form-data">Ship Owner</p>
-            </div>
-          </div>
-
-          <div class="form-info-row">
-            <div class="form-info-column">
-              <p class="form-title-view width-5">Country of Registeration</p>
-              <p class="form-data">Germany</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group-view-line">
-          <div class="form-info-row">
-            <div class="form-info-column">
-              <p class="form-title-view width-5">Account Manager</p>
-              <p class="form-data">Bedo Rashad</p>
-            </div>
-          </div>
-          <div class="form-info-row">
-            <div class="form-info-column">
-              <p class="form-title-view width-5">Website</p>
-              <p class="form-data">www.maersc.com</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group-view-line">
-          <div class="form-info-row">
-            
-          </div>
-          <div class="form-info-row">
-            <div class="form-info-column">
-              <p class="form-title-view width-5">Address (Office)</p>
-              <p class="form-data">
-                <i class="pi pi-map-marker"></i> 21, Downing st. London, England
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group-view-line">
-          <div class="form-info-row">
-           
-          </div>
-          <div class="form-info-row">
-            <div class="form-info-column">
-              <p class="form-title-view width-5">City</p>
-              <p class="form-data">London</p>
-            </div>
-            <div class="form-info-column">
-              <p class="form-title-view width-5">Country</p>
-              <p class="form-data">England</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group-view-line">
-          <div class="form-info-row">
-            
-          </div>
-          <div class="form-info-row">
-            <div class="form-info-column">
-              <p class="form-title-view width-5">Time Zone</p>
-              <p class="form-data">+2:00</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <!-- <div class="form-row width-10">
+    @if (customerAlerts.length) {
+      @for (alert of customerAlerts; track alert.summary) {
+        <p-message closable [severity]="alert.severity" [text]="alert.detail" />
+      }
+    }
   </div> -->
-
-  <!-- <div class="form form-view"> -->
-  <!-- <div class="form-group_header form-group_header-view">
-    <i class="pi pi-wave-pulse"></i>
-    <p class="form-group_title">Key performance</p>
-  </div> -->
-
-  <!-- </div> -->
 
   <div class="form form-view">
     <div class="form-row">
       <div class="form-group form-group-view mb-0">
         <p-tabs class="p-tabs-view" value="0">
           <p-tablist class="p-tablist-tab-list-view">
-            <p-tab value="0"><i class="pi pi-chart-bar"></i>Insights</p-tab>
-            <p-tab value="1"><i class="pi pi-file"></i>Business Details</p-tab>
-            <p-tab value="2"><i class="pi pi-flag"></i>Vessels</p-tab>
-            <p-tab value="3"><i class="pi pi-barcode"></i>Sales Orders</p-tab>
-            <p-tab value="4"><i class="pi pi-dollar"></i>Invoices</p-tab>
-            <p-tab value="5"
-              ><i class="pi pi-credit-card"></i>Payments History</p-tab
-            >
-            <p-tab value="6"><i class="pi pi-box"></i>Delivery Note</p-tab>
+            <p-tab value="0"><i class="pi pi-print"></i>Overview</p-tab>
+            <p-tab value="1"><i class="pi pi-barcode"></i>Sales Orders</p-tab>
+            <p-tab value="2"><i class="pi pi-credit-card"></i>Invoices</p-tab>
+            <p-tab value="3"><i class="pi pi-receipt"></i>Payments</p-tab>
+            <p-tab value="4"><i class="pi pi-send"></i>Delivery Note</p-tab>
+            <p-tab value="5"><i class="pi pi-flag"></i>Fleet</p-tab>
+            <p-tab value="6"><i class="pi pi-chart-bar"></i>Insights</p-tab>
           </p-tablist>
+
           <p-tabpanels>
             <p-tabpanel value="0">
-              <div class="form no-border no-shadow">
-                <div class="analysis-box no-border no-shadow">
-                  <div class="analysis-card">
-                    <p class="card-title">Total Revenue</p>
-                    <p class="card-data">45000</p>
-                    <p class="form-data mt-4">
-                      <i class="pi pi-info-circle"></i>
-                      Total income from customer
-                    </p>
-                  </div>
-                  <div class="analysis-card">
-                    <p class="card-title">Gross Profit</p>
-                    <p class="card-data">5000</p>
-                    <p class="form-data mt-4">
-                      <i class="pi pi-info-circle"></i>
-                      Profit is calculated after adding margin
-                    </p>
-                  </div>
-                  <div class="analysis-card">
-                    <p class="card-title">Total Orders</p>
-                    <p class="card-data">25</p>
-                    <p class="form-data mt-4">
-                      <i class="pi pi-info-circle"></i>
-                      Only accepted orders are calculated
-                    </p>
-                  </div>
-                  <div class="analysis-card">
-                    <p class="card-title">Outstanding balance</p>
-                    <p class="card-data form-data-danger">14000</p>
-                    <p class="form-data mt-4">
-                      <i class="pi pi-info-circle"></i>Includes partial and
-                      overdue payments
-                    </p>
-                  </div>
+              <div class="form no-border">
+                <div class="form-row">
+                  <div class="form-group border">
+                    <div class="form-group_header">
+                      <p class="form-group_title">Company Profile</p>
+                    </div>
+                    <div class="form-group-view-line">
+                      <div class="form-info">
+                        <p class="form-data">Company Name</p>
+                        <p class="form-title-view">MASERSK</p>
+                      </div>
 
-                  <div class="analysis-card">
-                    <p class="card-title">Last Order Date</p>
-                    <p class="card-data">14/10/2025</p>
-                    <p class="form-data mt-4">
-                      <i class="pi pi-info-circle"></i>Last delivered order
-                    </p>
-                  </div>
-                </div>
-                <div class="form-view bg-grey br-6 mt-2 mb-1">
-                  <div
-                    class="form-group_header form-group_header-view no-border mb-3"
-                  >
-                    <p class="form-group_title">Revenue & Orders Trend</p>
-                  </div>
-                  <p-chart type="line" [data]="data" [options]="options" />
-                </div>
-                <div class="form-row-content mb-1">
-                  <div class="form-view width-5 bg-grey br-6">
-                    <div
-                      class="form-group_header form-group_header-view no-border mb-3"
-                    >
-                      <p class="form-group_title">Top 5 Vessels by Revenue</p>
+                      <div class="form-info">
+                        <p class="form-data">Customer Code</p>
+                        <p class="form-title-view">CUST-220-1190</p>
+                      </div>
                     </div>
 
-                    <p-chart
-                      type="bar"
-                      [data]="dataVesselsRevenue"
-                      [options]="optionsVesselsRevenue"
-                    />
-                  </div>
-                  <div class="form-view width-5 bg-grey br-6">
-                    <div
-                      class="form-group_header form-group_header-view no-border mb-3"
-                    >
-                      <p class="form-group_title">Top 5 Vessels by Orders</p>
+                    <div class="form-group-view-line mt-2">
+                      <div class="form-info">
+                        <p class="form-data">Type</p>
+                        <p class="form-title-view">Ship Owner</p>
+                      </div>
+
+                      <div class="form-info">
+                        <p class="form-data">Customer Since</p>
+                        <p class="form-title-view">24/10/2020</p>
+                      </div>
                     </div>
 
-                    <p-chart
-                      type="bar"
-                      [data]="dataVesselsOrders"
-                      [options]="optionsVesselsOrders"
-                    />
+                    <div class="form-group-view-line mt-2">
+                      <div class="form-info">
+                        <p class="form-data">Country of Registeration</p>
+                        <p class="form-title-view">Panama</p>
+                      </div>
+
+                      <div class="form-info">
+                        <p class="form-data">Tax ID</p>
+                        <p class="form-title-view width-10">SG-GST-201800456</p>
+                      </div>
+                    </div>
+
+                    <div class="form-group-view-line mt-2">
+                      <div class="form-info">
+                        <p class="form-data">Website</p>
+                        <p class="form-title-view">www.maersc.com</p>
+                      </div>
+
+                      <div class="form-info">
+                        <p class="form-data">Time Zone</p>
+                        <p class="form-title-view">+2:00 GMT</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group border">
+                    <div class="form-group_header">
+                      <p class="form-group_title">Address & Location</p>
+                    </div>
+
+                    <div class="form-group-view-line">
+                      <div class="form-info">
+                        <p class="form-data">Address</p>
+                        <p class="form-title-view width-10">
+                          21, Downing st. London, England
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="form-group-view-line mt-2">
+                      <div class="form-info">
+                        <p class="form-data">City</p>
+                        <p class="form-title-view">London</p>
+                      </div>
+
+                      <div class="form-info">
+                        <p class="form-data">Country</p>
+                        <p class="form-title-view">England</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div class="form-row-content">
-                  <div class="form-view width-5 bg-grey br-6">
-                    <div
-                      class="form-group_header form-group_header-view no-border mb-3"
-                    >
-                      <p class="form-group_title">Orders Type</p>
+              </div>
+
+              <div class="form-row mt-1">
+                <div class="form-group border">
+                  <div class="form-group_header">
+                    <p class="form-group_title">Primary Contact</p>
+                  </div>
+                  <div class="form-group-view-line">
+                    <div class="form-info">
+                      <p class="form-title-view">Contact Person</p>
+                      <p class="form-data">John Edwards</p>
                     </div>
 
-                    <p-chart
-                      type="doughnut"
-                      [data]="dataType"
-                      [options]="optionsType"
-                      class="w-full md:w-[30rem]"
-                    />
+                    <div class="form-info">
+                      <p class="form-title-view">Title</p>
+                      <p class="form-data">Senior Sales Specialist</p>
+                    </div>
                   </div>
-                  <div class="form-view width-5 bg-grey br-6">
-                    <div
-                      class="form-group_header form-group_header-view no-border mb-3"
-                    >
-                      <p class="form-group_title">
-                        Outstanding Balance Breakdown by Vessel
+
+                  <div class="form-group-view-line mt-2">
+                    <div class="form-info">
+                      <p class="form-title-view">Email</p>
+                      <p class="form-data">JEdwars&#64;.com</p>
+                    </div>
+
+                    <div class="form-info">
+                      <p class="form-title-view">phone</p>
+                      <p class="form-data">+90-00910298892</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group border">
+                  <div class="form-group_header">
+                    <p class="form-group_title">Maritime Operations</p>
+                  </div>
+                  <div class="form-group-view-line mt-2">
+                    <div class="form-info">
+                      <p class="form-title-view">operation ports</p>
+                      <p class="form-data">Istanbul (TRIST)</p>
+                    </div>
+
+                    <div class="form-info">
+                      <p class="form-title-view">delivery ports</p>
+                      <p class="form-data">Safaga (EGSFA)</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row mt-1">
+                <div class="form-group border">
+                  <div class="form-group_header">
+                    <p class="form-group_title">Commercial Terms</p>
+                  </div>
+                  <div class="form-group-view-line mt-2">
+                    <div class="form-info">
+                      <p class="form-title-view">Payment Terms</p>
+                      <p class="form-data">Net 30</p>
+                    </div>
+
+                    <div class="form-info">
+                      <p class="form-title-view">Preferred Currency</p>
+                      <p class="form-data">USD</p>
+                    </div>
+                  </div>
+
+                  <div class="form-group-view-line mt-2">
+                    <div class="form-info">
+                      <p class="form-title-view">Payment Method</p>
+                      <p class="form-data">Bank Transfer</p>
+                    </div>
+
+                    <div class="form-info">
+                      <p class="form-title-view">Billing Address</p>
+                      <p class="form-data width-10">
+                        21 lecister city, England
                       </p>
                     </div>
+                  </div>
 
-                    <p-chart
-                      type="bar"
-                      [data]="dataBalance"
-                      [options]="optionsBalance"
-                    />
+                  <div class="form-group-view-line mt-2">
+                    <div class="form-info">
+                      <p class="form-title-view">Credit Limit</p>
+                      <p class="form-data">$150,000.00</p>
+                    </div>
                   </div>
                 </div>
+
+                <div class="form-group border">
+                  <div class="form-group_header">
+                    <p class="form-group_title">Bank Details</p>
+                  </div>
+                  <div class="form-group-view-line mt-2">
+                    <div class="form-info">
+                      <p class="form-title-view">Account Name</p>
+                      <p class="form-data">Maersc CITI Commercials</p>
+                    </div>
+
+                    <div class="form-info">
+                      <p class="form-title-view">Bank Name</p>
+                      <p class="form-data">CITI Bank</p>
+                    </div>
+                  </div>
+
+                  <div class="form-group-view-line mt-2">
+                    <div class="form-info">
+                      <p class="form-title-view">Account Number</p>
+                      <p class="form-data">999810089986098097</p>
+                    </div>
+
+                    <div class="form-info">
+                      <p class="form-title-view">IBAN</p>
+                      <p class="form-data">+90-00910298892</p>
+                    </div>
+                  </div>
+
+                  <div class="form-group-view-line mt-2">
+                    <div class="form-info">
+                      <p class="form-title-view">SWIFT Code</p>
+                      <p class="form-data">1128100899860313127</p>
+                    </div>
+
+                    <div class="form-info">
+                      <p class="form-title-view">Bank Country</p>
+                      <p class="form-data">USA</p>
+                    </div>
+                  </div>
+
+                  <div class="form-group-view-line mt-2">
+                    <div class="form-info">
+                      <p class="form-title-view">Currency of Account</p>
+                      <p class="form-data">United States Dollar ($)</p>
+                    </div>
+
+                    <div class="form-info"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row mt-1">
+                <div class="form-group border">
+                  <div class="form-group_header">
+                    <p class="form-group_title">Account Details</p>
+                  </div>
+
+                  <div class="form-group-view-line mt-2">
+                    <div class="form-info">
+                      <p class="form-data">Created By</p>
+                      <p class="form-title-view">Omar Hesham</p>
+                    </div>
+
+                    <div class="form-info">
+                      <p class="form-data">Created Date</p>
+                      <p class="form-title-view">15/08/2025</p>
+                    </div>
+                  </div>
+
+                  <div class="form-group-view-line mt-2">
+                    <div class="form-info">
+                      <p class="form-data">Account Manager</p>
+                      <p class="form-title-view">Omar Hesham</p>
+                    </div>
+
+                    <div class="form-info">
+                      <p class="form-data">Customer Since</p>
+                      <p class="form-title-view">15/10/2025</p>
+                    </div>
+                  </div>
+                  <div class="form-group-view-line mt-2">
+                    <div class="form-info">
+                      <p class="form-title-view">Customer Source</p>
+                      <p class="form-data">Agent / Broker</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group"></div>
               </div>
             </p-tabpanel>
             <p-tabpanel value="1">
-              <div class="form no-border no-shadow">
-                <div class="form-row">
-                  <div class="form-group form-group-view mb-0">
-                    <div class="form-group-view-line">
-                      <div class="form-info-row">
-                        <div class="form-info-column">
-                          <p class="form-title-view">Payment Terms</p>
-                          <p class="form-data">Net 30</p>
-                        </div>
-                      </div>
-
-                      <div class="form-info-row">
-                        <div class="form-info-column">
-                          <p class="form-title-view">Preferred Currency</p>
-                          <p class="form-data">USD</p>
-                        </div>
-                      </div>
+              <div class="form-row">
+                <div class="width-70 form-group border br-6 pb-1">
+                  <div class="form-row">
+                    <div class="form-group_header no-border">
+                      <p class="form-group_title">Orders Over Time</p>
+                      <p class="form-group_desc">
+                        Monthly order volume trend to identify peak activity
+                        periods and demand patterns
+                      </p>
                     </div>
-
-                    <div class="form-group-view-line">
-                      <div class="form-info-row">
-                        <div class="form-info-column">
-                          <p class="form-title-view">Payment Method</p>
-                          <p class="form-data">Bank Transfer</p>
-                        </div>
-                      </div>
-
-                      <div class="form-info-row">
-                        <div class="form-info-column">
-                          <p class="form-title-view">Tax ID</p>
-                          <p class="form-data">00910298892</p>
-                        </div>
-                      </div>
+                    <div class="cta">
+                      <p-button
+                        outlined="true"
+                        label="Last 6 Months"
+                        icon="pi pi-chevron-down"
+                        iconPos="right"
+                        size="large"
+                        type="button"
+                      />
                     </div>
-
-                    <div class="form-group-view-line">
-                      <div class="form-info-row">
-                        <div class="form-info-column">
-                          <p class="form-title-view width-5">Billing Address</p>
-                          <p class="form-data">21 lecister city, England</p>
-                        </div>
-                      </div>
-
-                      <div class="form-info-row"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form no-border no-shadow">
-                <div class="form-row">
-                  <div class="form-group form-group-view mb-0">
-                    <div class="form-view">
-                      <div
-                        class="form-group_header form-group_header-view mb-0"
-                      >
-                        <i class="pi pi-users"></i>
-                        <p class="form-group_title">Main Contact</p>
-                      </div>
-                    </div>
-                    <div class="form-group-view-line">
-                      <div class="form-info-row">
-                        <div class="form-info-column">
-                          <p class="form-title-view">Name</p>
-                          <p class="form-data">John Edwards</p>
-                        </div>
-                      </div>
-
-                      <div class="form-info-row">
-                        <div class="form-info-column">
-                          <p class="form-title-view">Title</p>
-                          <p class="form-data">Senior Sales Specialist</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="form-group-view-line">
-                      <div class="form-info-row">
-                        <div class="form-info-column">
-                          <p class="form-title-view">Email</p>
-                          <p class="form-data">JEdwars&#64;.com</p>
-                        </div>
-                      </div>
-
-                      <div class="form-info-row">
-                        <div class="form-info-column">
-                          <p class="form-title-view">phone</p>
-                          <p class="form-data">+90-00910298892</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </p-tabpanel>
-
-            <p-tabpanel value="2">
-              <div class="form no-border no-shadow">
-                <div class="analysis-box no-border no-shadow">
-                  <div class="analysis-card">
-                    <p class="card-title">Total Vessels</p>
-                    <p class="card-data">45</p>
-                    <p class="form-data mt-4">
-                      <i class="pi pi-info-circle"></i>
-                      Total vessels owned by customer
-                    </p>
-                  </div>
-                  <div class="analysis-card">
-                    <p class="card-title">Active Vessels</p>
-                    <p class="card-data">35</p>
-                    <p class="form-data mt-4">
-                      <i class="pi pi-info-circle"></i>
-                      Vessels having orders in last 60 days
-                    </p>
-                  </div>
-                  <div class="analysis-card">
-                    <p class="card-title">Top Vessel</p>
-                    <p class="card-data">Maersk-Landlord</p>
-                    <p class="form-data mt-4">
-                      <i class="pi pi-info-circle"></i>
-                      Ranked by number of orders
-                    </p>
-                  </div>
-                </div>
-                <div class="form-view bg-grey br-6 mt-2 mb-1">
-                  <div
-                    class="form-group_header form-group_header-view no-border mb-3"
-                  >
-                    <p class="form-group_title">
-                      Vessels Activity Distribution
-                    </p>
-                  </div>
-                  <p-chart
-                    [data]="dataVesselsActivity"
-                    [options]="optionsVesselsActivity"
-                  />
-                </div>
-              </div>
-              <div class="form-view">
-                <app-data-table
-                  [columns]="vesselssColumns"
-                  [value]="vessels"
-                  [globalFilterFields]="['name']"
-                  [selectionMode]="'multiple'"
-                  [exportable]="true"
-                />
-              </div>
-            </p-tabpanel>
-
-            <p-tabpanel value="3">
-              <div class="form no-border no-shadow">
-                <div class="analysis-box no-border no-shadow">
-                  <div class="analysis-card">
-                    <p class="card-title">Total Orders</p>
-                    <p class="card-data">105</p>
-                    <p class="form-data mt-4">
-                      <i class="pi pi-info-circle"></i>
-                      Total orders owned by customer
-                    </p>
-                  </div>
-                  <div class="analysis-card">
-                    <p class="card-title">Open Orders</p>
-                    <p class="card-data">25</p>
-                    <p class="form-data mt-4">
-                      <i class="pi pi-info-circle"></i>
-                      Orders with in-progress status
-                    </p>
-                  </div>
-                  <div class="analysis-card">
-                    <p class="card-title">Cancelled Offers</p>
-                    <p class="card-data">5</p>
-                    <p class="form-data mt-4">
-                      <i class="pi pi-info-circle"></i>
-                      Orders cancelled in offer stage
-                    </p>
-                  </div>
-                  <div class="analysis-card">
-                    <p class="card-title">Closed Orders</p>
-                    <p class="card-data">85</p>
-                    <p class="form-data mt-4">
-                      <i class="pi pi-info-circle"></i>
-                      Orders completely paid and closed
-                    </p>
-                  </div>
-                </div>
-                <div class="form-view bg-grey br-6 mt-2 mb-1">
-                  <div
-                    class="form-group_header form-group_header-view no-border mb-3"
-                  >
-                    <p class="form-group_title">Orders Over Time</p>
                   </div>
                   <p-chart
                     type="line"
@@ -600,8 +522,69 @@
                     [options]="optionsOrdersTime"
                   />
                 </div>
+                <div class="width-30 form-group border br-6 bg-grey">
+                  <div class="form-group_header no-border">
+                    <p class="form-group_title">Orders Overview</p>
+                    <p class="form-group_desc">
+                      Aggregated order metrics providing a snapshot of overall
+                      procurement activity
+                    </p>
+                  </div>
+
+                  <p class="card-data">
+                    $98,000.00
+                    <span class="form-data">Total Sales</span>
+                  </p>
+                  <div class="analysis-box mt-2">
+                    <div class="analysis-card">
+                      <p class="card-title">
+                        <i class="pi pi-circle-fill"></i> Total
+                      </p>
+                      <p class="card-data">105</p>
+                      <p class="form-data mt-1">Orders</p>
+                    </div>
+
+                    <div class="analysis-card">
+                      <p class="card-title">
+                        <i class="pi pi-circle-fill form-data-closed-txt"></i>
+                        Closed
+                      </p>
+                      <p class="card-data form-data-closed-txt">$80,000</p>
+                      <p class="form-data mt-1">85 Orders</p>
+                    </div>
+                  </div>
+                  <div class="analysis-box mt-1">
+                    <div class="analysis-card">
+                      <p class="card-title">
+                        <i class="pi pi-circle-fill form-data-danger"></i>
+                        Cancelled
+                      </p>
+                      <p class="card-data">5</p>
+                      <p class="form-data mt-1">Orders</p>
+                    </div>
+
+                    <div class="analysis-card">
+                      <p class="card-title">
+                        <i class="pi pi-circle-fill form-data-pending-txt"></i>
+                        Open
+                      </p>
+                      <p class="card-data form-data-pending-txt">$20,000</p>
+
+                      <p class="form-data mt-1">25 Orders</p>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="form-view">
+
+              <!-- <div class="form-view border br-6 mt-1"> -->
+              <div class="form-group_header no-border mt-4">
+                <p class="form-group_title">Orders List</p>
+                <p class="form-group_desc">
+                  Complete record of all orders placed with full status and
+                  transaction details
+                </p>
+              </div>
+              <div>
                 <app-data-table
                   [columns]="salesOrdersColumns"
                   [value]="salesOrders"
@@ -610,86 +593,434 @@
                   [exportable]="true"
                 />
               </div>
+              <!-- </div> -->
             </p-tabpanel>
 
-            <p-tabpanel value="4">
-              <div class="form no-border no-shadow">
-                <div class="analysis-box no-border no-shadow">
+            <p-tabpanel value="2">
+              <div class="form no-border">
+                <div class="analysis-box">
                   <div class="analysis-card">
                     <p class="card-title">Total Invoices</p>
-                    <p class="card-data">95</p>
-                    <p class="form-data mt-4">
-                      <i class="pi pi-info-circle"></i>
-                      Total invoices issued to customer
-                    </p>
-                  </div>
-                  <div class="analysis-card">
-                    <p class="card-title">Overdue</p>
-                    <p class="card-data form-data-danger">25</p>
-                    <p class="form-data mt-4">
-                      <i class="pi pi-info-circle"></i>
-                      Check urgently with customer
+                    <p class="card-data">
+                      $95,000
+                      <span class="form-data text-right">12 Invoices</span>
                     </p>
                   </div>
                   <div class="analysis-card">
                     <p class="card-title">Paid</p>
-                    <p class="card-data form-data-closed-txt">75</p>
-                    <p class="form-data mt-4">
-                      <i class="pi pi-info-circle"></i>
-                      Check payments tab
+                    <p class="card-data form-data-closed-txt">
+                      $75,000
+                      <span class="form-data text-right">9 Invoices</span>
                     </p>
                   </div>
                   <div class="analysis-card">
-                    <p class="card-title">Pending</p>
-                    <p class="card-data form-data-pending-txt">15</p>
-                    <p class="form-data mt-4">
-                      <i class="pi pi-info-circle"></i>
-                      Invoices partially paid
+                    <p class="card-title">Overdue</p>
+                    <p class="card-data form-data-danger">
+                      $2,500
+                      <span class="form-data form-data-danger text-right"
+                        >1 Invoices</span
+                      >
                     </p>
                   </div>
 
                   <div class="analysis-card">
-                    <p class="card-title">Outstanding Balance</p>
-                    <p class="card-data form-data-pending-txt">1500</p>
-                    <p class="form-data mt-4">
-                      <i class="pi pi-info-circle"></i>
-                      Overdue and pending invoices amount
+                    <p class="card-title">Partially paid</p>
+                    <p class="card-data form-data-pending-txt">
+                      $500
+                      <span class="form-data text-right form-data-pending-txt"
+                        >2 Invoices</span
+                      >
                     </p>
                   </div>
+
+                  <!-- <div class="analysis-card">
+                    <p class="card-title">Outstanding Balance</p>
+                    <p class="card-data form-data-pending-txt">
+                      $1,500
+                      <span class="form-data text-right form-data-pending-txt"
+                        >2 Invoices</span
+                      >
+                    </p>
+                  </div> -->
+                </div>
+
+                <!-- <div class="form-group_header no-border mt-4">
+                  <p class="form-group_title">Invoices List</p>
+                </div> -->
+                <div class="mt-2">
+                  <app-data-table
+                    [columns]="invoiceColumn"
+                    [value]="invoices"
+                    [globalFilterFields]="['itemName']"
+                    [selectionMode]="'multiple'"
+                    [exportable]="true"
+                  />
                 </div>
               </div>
-              <div class="form-view pt-0">
-                <app-data-table
-                  [columns]="invoiceColumn"
-                  [value]="invoices"
-                  [globalFilterFields]="['itemName']"
-                  [selectionMode]="'multiple'"
-                  [exportable]="true"
-                />
-              </div>
+            </p-tabpanel>
+
+            <p-tabpanel value="3">
+              <app-data-table
+                [columns]="paymentsColumn"
+                [value]="payments"
+                [globalFilterFields]="['itemName']"
+                [selectionMode]="'multiple'"
+                [exportable]="true"
+              />
+            </p-tabpanel>
+
+            <p-tabpanel value="4">
+              <app-data-table
+                [columns]="deliveryNoteColumn"
+                [value]="deliveryNote"
+                [globalFilterFields]="['itemName']"
+                [selectionMode]="'multiple'"
+                [exportable]="true"
+              />
             </p-tabpanel>
 
             <p-tabpanel value="5">
-              <div class="form-view pt-0">
-                <app-data-table
-                  [columns]="paymentsColumn"
-                  [value]="payments"
-                  [globalFilterFields]="['itemName']"
-                  [selectionMode]="'multiple'"
-                  [exportable]="true"
-                />
+              <div class="form-row">
+                <div class="form no-border width-30">
+                  <!-- <div class="analysis-box mt-2 bg-grey">
+                  <div class="analysis-card">
+                    <p class="card-title">Total Vessels</p>
+                    <p class="card-data">45</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>
+                      Total vessels owned by customer
+                    </p>
+                  </div>
+                  <div class="analysis-card">
+                    <p class="card-title">Active Vessels</p>
+                    <p class="card-data">35</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>
+                      Vessels having orders in last 60 days
+                    </p>
+                  </div>
+                  <div class="analysis-card">
+                    <p class="card-title">Top Vessel</p>
+                    <p class="card-data">Maersk-Landlord</p>
+                    <p class="form-data pb-0 mt-2">
+                      <i class="pi pi-info-circle"></i>
+                      Ranked by number of orders
+                    </p>
+                  </div>
+                </div> -->
+                  <div class="form-view-1 border br-6">
+                    <div class="form-group_header form-view-1 pb-0 no-border">
+                      <p class="form-group_title">
+                        Vessels Activity Distribution
+                      </p>
+                      <p class="form-group_desc">
+                        Breakdown of order volume and revenue contribution
+                        across all active vessels in this account
+                      </p>
+                    </div>
+                    <p-chart
+                      [data]="dataVesselsActivity"
+                      [options]="optionsVesselsActivity"
+                    />
+                  </div>
+                </div>
+                <div class="width-70">
+                  <!-- <div class="form-group_header no-border">
+                    <p class="form-group_title">Vessels List</p>
+                  </div> -->
+                  <app-data-table
+                    [columns]="vesselssColumns"
+                    [value]="vessels"
+                    [globalFilterFields]="['name']"
+                    [selectionMode]="'multiple'"
+                    [exportable]="true"
+                    [showToolbar]="false"
+                    [showActions]="false"
+                  />
+                </div>
               </div>
             </p-tabpanel>
-
             <p-tabpanel value="6">
-              <div class="form-view pt-0">
-                <app-data-table
-                  [columns]="deliveryNoteColumn"
-                  [value]="deliveryNote"
-                  [globalFilterFields]="['itemName']"
-                  [selectionMode]="'multiple'"
-                  [exportable]="true"
-                />
+              <div class="form no-border">
+                <div class="analysis-box mb-1">
+                  <div class="analysis-card">
+                    <p class="card-title">
+                      <i class="pi pi-circle-fill"></i> Total Revenue
+                    </p>
+                    <p class="card-data">$45,000</p>
+                  </div>
+
+                  <div class="analysis-card">
+                    <p class="card-title">
+                      <i class="pi pi-circle-fill form-data-closed-txt"></i>
+                      Gross Profit
+                    </p>
+                    <p class="card-data form-data-closed-txt">$5,000</p>
+                  </div>
+                  <div class="analysis-card">
+                    <p class="card-title">
+                      <i class="pi pi-circle-fill"></i> Profit Margin %
+                    </p>
+                    <p class="card-data">14 %</p>
+                  </div>
+
+                  <div class="analysis-card">
+                    <p class="card-title">
+                      <i class="pi pi-circle-fill"></i> Avg Order Value
+                    </p>
+                    <p class="card-data">$2,500</p>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-view width-10 border br-6 mb-1">
+                    <div class="form-group_header no-border">
+                      <p class="form-group_title">Revenue & Profit Over Time</p>
+                      <p class="form-group_desc">
+                        Monthly comparison of invoiced revenue against gross
+                        profit to track financial performance trends
+                      </p>
+                    </div>
+                    <p-chart type="line" [data]="data" [options]="options" />
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-view border br-6 width-5">
+                    <div class="form-row">
+                      <div class="form-group_header no-border">
+                        <p class="form-group_title">Top Vessels by Activity</p>
+                        <p class="form-group_desc">
+                          Ranked view of vessels by revenue generated or orders
+                          placed to identify highest contributing assets
+                        </p>
+                      </div>
+                      <div class="chart-toggle">
+                        <button
+                          class="toggle-btn"
+                          [class.active]="vesselsView === 'revenue'"
+                          (click)="setVesselsView('revenue')"
+                        >
+                          Revenue
+                        </button>
+                        <button
+                          class="toggle-btn"
+                          [class.active]="vesselsView === 'orders'"
+                          (click)="setVesselsView('orders')"
+                        >
+                          Orders
+                        </button>
+                      </div>
+                    </div>
+
+                    <p-chart
+                      type="bar"
+                      [data]="dataVessels"
+                      [options]="optionsVessels"
+                    />
+                  </div>
+
+                  <div class="form-view border br-6 width-5">
+                    <div class="form-row">
+                      <div class="form-group_header no-border">
+                        <p class="form-group_title">Profit by Vessel</p>
+                        <p class="form-group_desc">
+                          Gross profit and margin percentage per vessel to
+                          evaluate the profitability of each asset served
+                        </p>
+                      </div>
+                      <div class="chart-toggle">
+                        <button
+                          class="toggle-btn"
+                          [class.active]="vesselProfitView === 'profit'"
+                          (click)="setVesselProfitView('profit')"
+                        >
+                          Gross Profit
+                        </button>
+                        <button
+                          class="toggle-btn"
+                          [class.active]="vesselProfitView === 'margin'"
+                          (click)="setVesselProfitView('margin')"
+                        >
+                          Margin %
+                        </button>
+                      </div>
+                    </div>
+                    <p-chart
+                      type="bar"
+                      [data]="dataVesselProfit"
+                      [options]="optionsVesselProfit"
+                    />
+                  </div>
+                </div>
+
+                <div class="form-row mt-1">
+                  <div class="form-view border br-6 width-5">
+                    <div class="form-group_header no-border">
+                      <p class="form-group_title">
+                        Outstanding Balance by Vessel
+                      </p>
+                      <p class="form-group_desc">
+                        Current and overdue balance breakdown per vessel to
+                        prioritize collection and credit risk exposure
+                      </p>
+                    </div>
+                    <p-chart
+                      type="bar"
+                      [data]="dataBalance"
+                      [options]="optionsBalance"
+                    />
+                  </div>
+                  <div class="form-view border width-5 br-6">
+                    <div class="form-group_header no-border">
+                      <p class="form-group_title">Orders Type</p>
+                      <p class="form-group_desc">
+                        Distribution of orders across supply categories to
+                        identify procurement patterns and demand focus
+                      </p>
+                    </div>
+
+                    <div class="form-view-1">
+                      <div class="donut-wrapper">
+                        <p-chart
+                          type="doughnut"
+                          [data]="dataType"
+                          [options]="optionsType"
+                        />
+                        <div class="donut-center">
+                          <p class="donut-total">{{ getTotalOrders() }}</p>
+                          <p class="donut-label">Total</p>
+                        </div>
+                      </div>
+
+                      <div class="donut-legend mt-4">
+                        @for (item of getCategoryItems(); track item.label) {
+                          <div class="donut-legend-item">
+                            <div class="donut-legend-label">
+                              <span
+                                class="donut-legend-dot"
+                                [style.background]="item.color"
+                              ></span>
+                              <p class="form-title-view">{{ item.label }}</p>
+                            </div>
+                            <div class="donut-legend-values">
+                              <p class="form-data">{{ item.value }}</p>
+                              <p class="form-data-sm">({{ item.pct }}%)</p>
+                            </div>
+                          </div>
+                        }
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-row mt-1">
+                  <div class="form form-view width-5">
+                    <div class="form-group_header">
+                      <p class="form-group_title">Payment Behavior</p>
+
+                      <p class="form-group_desc">
+                        Historical analysis of payment timing against agreed
+                        terms to assess customer reliability and risk
+                      </p>
+                    </div>
+
+                    <div class="payment-behavior">
+                      <div class="pb-verdict" [ngClass]="paymentVerdict.class">
+                        <span class="pb-verdict-dot"></span>
+                        <span class="pb-verdict-text">{{
+                          paymentVerdict.message
+                        }}</span>
+                      </div>
+
+                      <div class="form-info-column">
+                        <p class="form-title-view width-5">
+                          Agreed Payment Terms
+                        </p>
+                        <p class="form-data width-5">
+                          {{ behavior.agreedTerms }}
+                        </p>
+                      </div>
+
+                      <div class="form-info-column">
+                        <p class="form-title-view width-5">
+                          Average Days to Pay
+                        </p>
+                        <p
+                          class="form-data width-5"
+                          [ngClass]="getDelayClass(behavior.avgDaysToPay)"
+                        >
+                          {{ behavior.avgDaysToPay }} days
+                        </p>
+                      </div>
+
+                      <div class="form-info-column">
+                        <p class="form-title-view width-5">
+                          Avg Delay Beyond Terms
+                        </p>
+                        <p
+                          class="form-data width-5"
+                          [ngClass]="getDelayClass(behavior.avgDelay)"
+                        >
+                          {{ behavior.avgDelay > 0 ? "+" : ""
+                          }}{{ behavior.avgDelay }} days
+                        </p>
+                      </div>
+
+                      <div class="form-info-column">
+                        <p class="form-title-view width-5">Total Invoices</p>
+                        <p class="form-data width-5">
+                          {{ behavior.totalInvoices }}
+                        </p>
+                      </div>
+
+                      <div class="form-info-column">
+                        <p class="form-title-view width-5">Paid on Time</p>
+                        <p class="form-data width-5">
+                          {{ behavior.paidOnTime }} of
+                          {{ behavior.totalInvoices }}
+                        </p>
+                      </div>
+
+                      <div class="form-info-column">
+                        <p class="form-title-view width-5">On-Time Rate</p>
+                        <div class="pb-rate">
+                          <span
+                            class="form-data width-5"
+                            [ngClass]="getRateClass(behavior.onTimeRate)"
+                          >
+                            {{ behavior.onTimeRate }}%
+                          </span>
+                          <div class="pb-rate-bar">
+                            <div
+                              class="pb-rate-fill"
+                              [ngClass]="getRateClass(behavior.onTimeRate)"
+                              [style.width.%]="behavior.onTimeRate"
+                            ></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-info-column">
+                        <p class="form-title-view width-5">Last Payment</p>
+                        <p class="form-data width-5">
+                          {{ behavior.lastPaymentDate | date: "dd MMM yyyy" }}
+                        </p>
+                      </div>
+
+                      <div class="form-info-column">
+                        <p class="form-title-view width-5">
+                          Last Payment Amount
+                        </p>
+                        <p class="form-data width-5">
+                          {{ behavior.lastPaymentAmount | number: "1.2-2" }} USD
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-view width-5"></div>
+                </div>
               </div>
             </p-tabpanel>
           </p-tabpanels>

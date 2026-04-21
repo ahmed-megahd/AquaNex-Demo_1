@@ -70,6 +70,24 @@ export class DataTableComponent {
   exportable = input<boolean>(true);
   value = input<any[]>([]); // main data source
 
+  showToolbar = input<boolean>(true);
+  showActions = input<boolean>(true);
+  // showSearch = input<boolean>(true);
+  // showExport = input<boolean>(true);
+  // showBulkDelete = input<boolean>(true);
+
+  // FOR INVOICES ALLOCATION IN PAYMENTS
+  // In data-table.component.ts - MINIMAL
+  @Output() selectionChange = new EventEmitter<any[]>();
+
+  // Internal tracking
+  internalSelection: any[] = [];
+
+  handleSelectionChange(event: any) {
+    this.internalSelection = event;
+    this.selectionChange.emit(event);
+  }
+
   // ✅ Output events
   @Output() onView = new EventEmitter<any>();
   @Output() onEdit = new EventEmitter<any>();
@@ -98,22 +116,22 @@ export class DataTableComponent {
       fields.some((field) =>
         String(row[field] ?? '')
           .toLowerCase()
-          .includes(search)
-      )
+          .includes(search),
+      ),
     );
   });
 
   // ✅ Handlers
-  handleView(row: any) {
-    this.onView.emit(row);
-  }
-  handleEdit(row: any) {
-    this.onEdit.emit(row);
-  }
+  // handleView(row: any) {
+  //   this.onView.emit(row);
+  // }
+  // handleEdit(row: any) {
+  //   this.onEdit.emit(row);
+  // }
 
-  handleDelete(row: any) {
-    this.onDelete.emit(row);
-  }
+  // handleDelete(row: any) {
+  //   this.onDelete.emit(row);
+  // }
 
   handleDeleteSelected(rows: any[]) {
     this.onDeleteSelected.emit(rows);
@@ -124,6 +142,7 @@ export class DataTableComponent {
       case 'PAID':
       case 'DELIVERED':
       case 'CLOSED':
+      case 'ACTIVE':
         return 'success';
       case 'PARTIAL':
       case 'IN-PROGRESS':
@@ -132,6 +151,7 @@ export class DataTableComponent {
       case 'OUTOFSTOCK':
       case 'UNPAID':
       case 'UN-PAID':
+      case 'NOT-ACTIVE':
         return 'danger';
       case 'INVOICED':
         return 'info';

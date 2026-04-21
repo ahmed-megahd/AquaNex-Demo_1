@@ -1,198 +1,287 @@
 <p-breadcrumb [home]="home" [model]="items" />
-<div class="main-content_top main-content_top-view">
+<div class="main-content_top">
   <div class="title-container">
-    <p class="page-title">MAERSC-Party</p>
-    <p class="page-subtitle">Vessel #CST-119-221</p>
+    <div class="page-title">
+      MAERSC-Party
+      <p class="form-data form-data-pending white-text min-width">
+        Low Activity
+      </p>
+    </div>
+
+    <div class="title-row">
+      <p class="page-subtitle">VSL-119-221</p>
+      <div class="rb"></div>
+      <p class="page-subtitle">Bulk Carier</p>
+      <div class="rb"></div>
+      <p class="page-subtitle">South Korea</p>
+    </div>
   </div>
 
   <div class="cta-container cta-container-view">
     <div class="cta">
-      <p-button label="Edit" size="large" type="button" variant="outlined" />
+      <p-button
+        outlined="true"
+        label="Edit"
+        size="large"
+        type="button"
+        variant="outlined"
+      />
     </div>
 
     <div class="cta">
-      <p-button label="More" icon="pi pi-plus" size="large" type="button" />
+      <p-button
+        outlined="true"
+        label="More"
+        icon="pi pi-plus"
+        size="large"
+        type="button"
+      />
     </div>
     <div class="cta">
-      <p-button label="Add New Vessel" size="large" type="button" />
+      <p-button label="New Order" size="large" type="button" />
     </div>
   </div>
 </div>
 
-<div class="main-content_form">
-  <div class="analysis-box mb-1">
-    <div class="analysis-card">
-      <p class="card-title">total orders</p>
-      <p class="card-data mt-2">8</p>
-      <div class="card-context-box">
-        <p class="card-context-label">Processing :</p>
-        <p class="card-context-data total-in-progress">3</p>
-      </div>
-    </div>
-    <div class="analysis-card">
-      <p class="card-title">total revenue</p>
-      <p class="card-data mt-2">4000 USD</p>
-      <div class="card-context-box">
-        <p class="card-context-label">From :</p>
-        <p class="card-context-data total-closed">5</p>
-      </div>
-    </div>
-
-    <div class="analysis-card">
-      <p class="card-title">Outstanding Balance</p>
-      <p class="card-data mt-2">400 USD</p>
-      <div class="card-context-box">
-        <p class="card-context-label">From :</p>
-        <p class="card-context-data total-in-progress">2</p>
-      </div>
-    </div>
-
-    <div class="analysis-card">
-      <p class="card-title">Last Delivery Date</p>
-      <p class="card-data mt-2">4/4/2025</p>
-      <div class="card-context-box">
-        <p class="card-context-label">This year :</p>
-        <p class="card-context-data total-closed">3</p>
-      </div>
-    </div>
-  </div>
-
+<div class="main-content_form mt-2">
   <div class="form form-view">
-    <div class="form-row">
-      <div class="form-group form-group-view mb-0">
-        <div class="form-group_header form-group_header-view">
-          <i class="pi pi-file"></i>
-          <p class="form-group_title">Vessel Information</p>
-        </div>
-        <div class="form-group-view-line">
-          <div class="form-info-row">
-            <div class="form-info-column">
-              <p class="form-title-view width-5">Name</p>
-              <p class="form-data">Maersc-Party</p>
-            </div>
-          </div>
+    <div class="analysis-box">
+      <div class="analysis-card no-border pt-0 pb-0 pl-0">
+        <p class="card-title">
+          Total Revenue <i class="pi pi-info-circle"></i>
+        </p>
+        <div class="card-data">$150,000.00</div>
+      </div>
 
-          <div class="form-info-row">
-            <div class="form-info-column">
-              <p class="form-title-view width-5">Vessel Owner</p>
-              <p class="form-data">MAERSC</p>
-            </div>
-          </div>
-        </div>
+      <div class="analysis-card no-border pt-0 pb-0 pl-0">
+        <p class="card-title">
+          Outstanding Balance <i class="pi pi-info-circle"></i>
+        </p>
+        <div class="card-data form-data-pending-txt">$98,750.00</div>
+      </div>
 
-        <div class="form-group-view-line">
-          <div class="form-info-row">
-            <div class="form-info-column">
-              <p class="form-title-view width-5">Status</p>
-              <p class="form-data br-6 form-data-pending">Active</p>
-            </div>
-          </div>
+      <div class="analysis-card no-border pt-0 pb-0 pl-0">
+        <p class="card-title">Next Dry Dock</p>
+        <div class="card-data form-data-pending-txt">28/09/2026</div>
+      </div>
 
-          <div class="form-info-row">
-            <div class="form-info-column">
-              <p class="form-title-view width-5">Operator/Manager</p>
-              <p class="form-data br-6">Bonvoy</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group-view-line">
-          <div class="form-info-row">
-            <div class="form-info-column">
-              <p class="form-title-view width-5">Vessel Type</p>
-              <p class="form-data">Cargo</p>
-            </div>
-          </div>
-
-          <div class="form-info-row"></div>
-        </div>
-
-        <div class="form-group-view-line">
-          <div class="form-info-row">
-            <div class="form-info-column">
-              <p class="form-title-view width-5">IMO Number</p>
-              <p class="form-data">112309</p>
-            </div>
-          </div>
-          <div class="form-info-row"></div>
-        </div>
-
-        <div class="form-group-view-line">
-          <div class="form-info-row">
-            <div class="form-info-column">
-              <p class="form-title-view width-5">Country of Reg</p>
-              <p class="form-data"><i class="pi pi-map-marker"></i> Panama</p>
-            </div>
-
-            <div class="form-info-row"></div>
-          </div>
-        </div>
+      <div class="analysis-card no-border pt-0 pb-0 pl-0">
+        <p class="card-title">Total Orders</p>
+        <div class="card-data">12</div>
       </div>
     </div>
   </div>
-
   <div class="form form-view">
     <div class="form-row">
       <div class="form-group form-group-view mb-0">
         <p-tabs class="p-tabs-view" value="0">
           <p-tablist class="p-tablist-tab-list-view">
-            <p-tab value="0">Contact</p-tab>
-            <p-tab value="1">Sales Orders</p-tab>
-            <p-tab value="2">Invoices</p-tab>
-            <p-tab value="3">Purchase History</p-tab>
-            <p-tab value="4">Delivery Note</p-tab>
+            <p-tab value="0"><i class="pi pi-print"></i>Overview</p-tab>
+            <p-tab value="1"><i class="pi pi-barcode"></i>Sales Orders</p-tab>
+            <p-tab value="2"><i class="pi pi-dollar"></i>Invoices</p-tab>
+            <p-tab value="3"><i class="pi pi-send"></i>Delivery Note</p-tab>
+            <p-tab value="4"><i class="pi pi-chart-bar"></i>Analytics</p-tab>
           </p-tablist>
           <p-tabpanels>
             <p-tabpanel value="0">
-              <div class="form-group_header form-group_header-view">
-                <i class="pi pi-users"></i>
-                <p class="form-group_title">Captain Details</p>
-              </div>
-              <div class="form-group-view-line">
-                <div class="form-info-row">
-                  <div class="form-info-column">
-                    <p class="form-title-view width-5">Name</p>
-                    <p class="form-data border br-6 bg-grey pl-1 width-5">
-                      John Edwards
-                    </p>
+              <div class="form no-border">
+                <div class="form-row">
+                  <div class="form-group border">
+                    <div class="form-group_header">
+                      <p class="form-group_title">Vessel Identity</p>
+                    </div>
+                    <div class="form-group-view-line">
+                      <div class="form-info">
+                        <p class="form-data">Vessel Name</p>
+                        <p class="form-title-view">British Landlion</p>
+                      </div>
+
+                      <div class="form-info">
+                        <p class="form-data">IMO</p>
+                        <p class="form-title-view">220190</p>
+                      </div>
+                    </div>
+
+                    <div class="form-group-view-line mt-2">
+                      <div class="form-info">
+                        <p class="form-data">MMSI</p>
+                        <p class="form-title-view">023200000</p>
+                      </div>
+
+                      <div class="form-info">
+                        <p class="form-data">Call Sign</p>
+                        <p class="form-title-view">
+                          Skyhawk eight-Charlie-Papa
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="form-group-view-line mt-2">
+                      <div class="form-info">
+                        <p class="form-data">Vessel Type</p>
+                        <p class="form-title-view">Bulk Carier</p>
+                      </div>
+
+                      <div class="form-info">
+                        <p class="form-data">Flag</p>
+                        <p class="form-title-view">South Korea</p>
+                      </div>
+                    </div>
+
+                    <div class="form-group-view-line mt-2">
+                      <div class="form-info">
+                        <p class="form-data">Gross Tonnage</p>
+                        <p class="form-title-view">45000</p>
+                      </div>
+                    </div>
                   </div>
 
-                  <div class="form-info-column"></div>
+                  <div class="form-group border">
+                    <div class="form-group_header">
+                      <p class="form-group_title">Ownership</p>
+                    </div>
+
+                    <div class="form-group-view-line">
+                      <div class="form-info">
+                        <p class="form-data">Vessel Owner</p>
+                        <p class="form-title-view">MAERSC</p>
+                      </div>
+
+                      <div class="form-info">
+                        <p class="form-data">Vessel Manager</p>
+                        <p class="form-title-view">MAERSC</p>
+                      </div>
+                    </div>
+
+                    <div class="form-group-view-line mt-2">
+                      <div class="form-info">
+                        <p class="form-data">Contact Email</p>
+                        <p class="form-title-view">
+                          maersc-sales&#64;maersc.com
+                        </p>
+                      </div>
+
+                      <div class="form-info">
+                        <p class="form-data">Contact Phone</p>
+                        <p class="form-title-view">+90-0092018909</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div class="form-group-view-line">
-                <div class="form-info-row">
-                  <div class="form-info-column">
-                    <p class="form-title-view width-5">Email</p>
-                    <p class="form-data border br-6 bg-grey pl-1 width-5">
-                      JEdwars&#64;.com
-                    </p>
+              <div class="form-row mt-1">
+                <div class="form-group border">
+                  <div class="form-group_header">
+                    <p class="form-group_title">Operations</p>
+                  </div>
+                  <div class="form-group-view-line">
+                    <div class="form-info">
+                      <p class="form-title-view">Status</p>
+                      <p class="form-data form-data-pending min-width">
+                        Active
+                      </p>
+                    </div>
+
+                    <div class="form-info">
+                      <p class="form-title-view">Home Port</p>
+                      <p class="form-data">Istanbul</p>
+                    </div>
                   </div>
 
-                  <div class="form-info-column"></div>
+                  <div class="form-group-view-line mt-2">
+                    <div class="form-info">
+                      <p class="form-title-view">Current Port</p>
+                      <p class="form-data">Tripoli (Libya)</p>
+                    </div>
+
+                    <div class="form-info">
+                      <p class="form-title-view">Trade Route</p>
+                      <p class="form-data">West Africa</p>
+                    </div>
+                  </div>
+
+                  <div class="form-group-view-line mt-2">
+                    <div class="form-info">
+                      <p class="form-title-view">Next Dry Dock</p>
+                      <p class="form-data">25/03/2025</p>
+                    </div>
+                    <div class="form-info"></div>
+                  </div>
+                </div>
+
+                <div class="form-group border">
+                  <div class="form-group_header">
+                    <p class="form-group_title">Captain Details</p>
+                  </div>
+                  <div class="form-group-view-line">
+                    <div class="form-info">
+                      <p class="form-title-view">Name</p>
+                      <p class="form-data">Ismail Noos</p>
+                    </div>
+
+                    <div class="form-info"></div>
+                  </div>
+
+                  <div class="form-group-view-line mt-2">
+                    <div class="form-info">
+                      <p class="form-title-view">Email</p>
+                      <p class="form-data">noos&#64;maersc.com</p>
+                    </div>
+
+                    <div class="form-info">
+                      <p class="form-title-view">Phone</p>
+                      <p class="form-data">+90-99869969</p>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div class="form-group-view-line">
-                <div class="form-info-row">
-                  <div class="form-info-column">
-                    <p class="form-title-view width-5">phone</p>
-                    <p class="form-data border br-6 bg-grey pl-1 width-5">
-                      +90-00910298892
-                    </p>
+              <!-- Financial Summary block (total revenue, total orders, 
+               outstanding balance, last order date, last order amount) -->
+
+              <div class="form-row mt-1">
+                <div class="form-group border">
+                  <div class="form-group_header">
+                    <p class="form-group_title">Financial Summary</p>
+                  </div>
+                  <div class="form-group-view-line">
+                    <div class="form-info">
+                      <p class="form-title-view">Total Revenue</p>
+                      <p class="form-data">$30,000</p>
+                    </div>
+
+                    <div class="form-info">
+                      <p class="form-title-view">Total Order</p>
+                      <p class="form-data">24</p>
+                    </div>
                   </div>
 
-                  <div class="form-info-column"></div>
+                  <div class="form-group-view-line mt-2">
+                    <div class="form-info">
+                      <p class="form-title-view">Outstanding Balance</p>
+                      <p class="form-data">$2,000</p>
+                    </div>
+
+                    <div class="form-info">
+                      <p class="form-title-view">Last Order Date</p>
+                      <p class="form-data">28/09/2025</p>
+                    </div>
+                  </div>
+
+                  <div class="form-group-view-line mt-2">
+                    <div class="form-info">
+                      <p class="form-title-view">Last Order Amount</p>
+                      <p class="form-data">$1,000.00</p>
+                    </div>
+                  </div>
                 </div>
+
+                <div class="form-group"></div>
               </div>
             </p-tabpanel>
 
             <p-tabpanel value="1">
-              <div class="form-group_header form-group_header-view">
-                <i class="pi pi-shopping-bag"></i>
-                <p class="form-group_title">Sales Orders List</p>
-              </div>
               <app-data-table
                 [columns]="salesOrdersColumns"
                 [value]="salesOrders"
@@ -203,10 +292,6 @@
             </p-tabpanel>
 
             <p-tabpanel value="2">
-              <div class="form-group_header form-group_header-view">
-                <i class="pi pi-money-bill"></i>
-                <p class="form-group_title">Invoices List</p>
-              </div>
               <app-data-table
                 [columns]="invoiceColumn"
                 [value]="invoices"
@@ -216,11 +301,7 @@
               />
             </p-tabpanel>
 
-            <p-tabpanel value="3">
-              <div class="form-group_header form-group_header-view">
-                <i class="pi pi-dollar"></i>
-                <p class="form-group_title">Payments History</p>
-              </div>
+            <p-tabpanel value="5">
               <app-data-table
                 [columns]="purchasesColumn"
                 [value]="purchases"
@@ -230,11 +311,7 @@
               />
             </p-tabpanel>
 
-            <p-tabpanel value="4">
-              <div class="form-group_header form-group_header-view">
-                <i class="pi pi-truck"></i>
-                <p class="form-group_title">Delivery Note List</p>
-              </div>
+            <p-tabpanel value="3">
               <app-data-table
                 [columns]="deliveryNoteColumn"
                 [value]="deliveryNote"
@@ -242,6 +319,244 @@
                 [selectionMode]="'multiple'"
                 [exportable]="true"
               />
+            </p-tabpanel>
+            <p-tabpanel value="4">
+              <div class="analysis-box mb-1">
+                <div class="analysis-card">
+                  <p class="card-title">
+                    <i class="pi pi-circle-fill form-data-closed-txt"></i> Gross
+                    Profit
+                  </p>
+                  <p class="card-data">$800</p>
+                  <!-- <div class="card-context-box">
+                      <p class="card-context-label">Processing :</p>
+                      <p class="card-context-data total-in-progress">3</p>
+                    </div> -->
+                </div>
+
+                <div class="analysis-card">
+                  <p class="card-title">
+                    <i class="pi pi-circle-fill"></i> Margin %
+                  </p>
+                  <p class="card-data">$400</p>
+                  <!-- <div class="card-context-box">
+                      <p class="card-context-label">From :</p>
+                      <p class="card-context-data total-in-progress">2</p>
+                    </div> -->
+                </div>
+
+                <div class="analysis-card">
+                  <p class="card-title">
+                    <i class="pi pi-circle-fill"></i> Avg Order Value
+                  </p>
+                  <p class="card-data">$1040</p>
+                  <!-- <div class="card-context-box">
+                      <p class="card-context-label">This year :</p>
+                      <p class="card-context-data total-closed">3</p>
+                    </div> -->
+                </div>
+              </div>
+
+              <div class="form-view border br-6 mt-1 mb-1">
+                <div class="form-row">
+                  <div class="form-group_header no-border mb-3">
+                    <p class="form-group_title">Revenue Performance</p>
+                    <p class="form-group_desc">
+                      Monthly breakdown of invoiced revenue and gross profit
+                      against this vessel's order activity
+                    </p>
+                  </div>
+                  <div class="chart-toggle">
+                    <button
+                      class="toggle-btn"
+                      [class.active]="ordersFilter === '3M'"
+                      (click)="setOrdersTrendFilter('3M')"
+                    >
+                      3M
+                    </button>
+                    <button
+                      class="toggle-btn"
+                      [class.active]="ordersFilter === '6M'"
+                      (click)="setOrdersTrendFilter('6M')"
+                    >
+                      6M
+                    </button>
+
+                    <button
+                      class="toggle-btn"
+                      [class.active]="ordersFilter === 'year'"
+                      (click)="setOrdersTrendFilter('year')"
+                    >
+                      12M
+                    </button>
+
+                    <button
+                      class="toggle-btn"
+                      [class.active]="ordersFilter === 'all'"
+                      (click)="setOrdersTrendFilter('all')"
+                    >
+                      All
+                    </button>
+                  </div>
+                </div>
+                <p-chart
+                  type="line"
+                  [data]="dataRevenueTrend"
+                  [options]="optionsRevenueTrend"
+                />
+              </div>
+              <div class="form-row">
+                <div class="form-view width-70 border br-6">
+                  <div class="form-row">
+                    <div class="form-group_header no-border mb-3">
+                      <p class="form-group_title">Order Frequency Trend</p>
+                      <p class="form-group_desc">
+                        Tracks the number of orders placed per month to identify
+                        activity patterns and engagement levels
+                      </p>
+                    </div>
+
+                    <div class="chart-toggle">
+                      <button
+                        class="toggle-btn"
+                        [class.active]="ordersFilter === '3M'"
+                        (click)="setOrdersTrendFilter('3M')"
+                      >
+                        3M
+                      </button>
+                      <button
+                        class="toggle-btn"
+                        [class.active]="ordersFilter === '6M'"
+                        (click)="setOrdersTrendFilter('6M')"
+                      >
+                        6M
+                      </button>
+
+                      <button
+                        class="toggle-btn"
+                        [class.active]="ordersFilter === 'year'"
+                        (click)="setOrdersTrendFilter('year')"
+                      >
+                        12M
+                      </button>
+
+                      <button
+                        class="toggle-btn"
+                        [class.active]="ordersFilter === 'all'"
+                        (click)="setOrdersTrendFilter('all')"
+                      >
+                        All
+                      </button>
+                    </div>
+                  </div>
+                  <p-chart
+                    type="line"
+                    [data]="dataOrdersTrend"
+                    [options]="optionsOrdersTrend"
+                  />
+                </div>
+
+                <div class="form-view border width-30 br-6">
+                  <div class="form-group_header no-border">
+                    <p class="form-group_title">Top Ports by Order Volume</p>
+                    <p class="form-group_desc">
+                      Ports where this vessel has placed the most orders
+                    </p>
+                  </div>
+                  <p-chart
+                    type="bar"
+                    [data]="dataPortActivity"
+                    [options]="optionsPortActivity"
+                  />
+                </div>
+              </div>
+
+              <div class="form-row mt-1">
+                <div class="form-view border width-5 br-6">
+                  <div class="form-group_header no-border mb-3">
+                    <p class="form-group_title">Orders Category</p>
+                    <p class="form-group_desc">
+                      Distribution of orders across supply categories to
+                      highlight procurement focus areas
+                    </p>
+                  </div>
+
+                  <p-chart
+                    type="bar"
+                    [data]="dataOrdersCategory"
+                    [options]="optionsOrdersCategory"
+                  />
+                </div>
+                <div class="form-view border width-5 br-6">
+                  <div class="form-group_header no-border mb-3">
+                    <p class="form-group_title">Invoice Status Overview</p>
+                    <p class="form-group_desc">
+                      Aging breakdown of outstanding invoices by overdue period
+                      to support collection prioritization
+                    </p>
+                  </div>
+                  <p-chart
+                    type="doughnut"
+                    [data]="dataInvoicesStatus"
+                    [options]="optionsInvoicesStatus"
+                  />
+
+                  <div class="form no-border mt-4">
+                    <div class="donut-legend">
+                      <div class="donut-legend-item">
+                        <div class="donut-legend-label">
+                          <span
+                            class="donut-legend-dot"
+                            [style.background]="'#16a34a'"
+                          ></span>
+                          <p class="form-title-view form-data-closed-txt">
+                            Paid
+                          </p>
+                        </div>
+
+                        <div class="donut-legend-values">
+                          <p class="form-data form-data-closed-txt">$5,000</p>
+                          <p class="form-data">(22)</p>
+                        </div>
+                      </div>
+
+                      <div class="donut-legend-item">
+                        <div class="donut-legend-label">
+                          <span
+                            class="donut-legend-dot"
+                            [style.background]="'#e8960c'"
+                          ></span>
+                          <p class="form-title-view form-data-pending-txt">
+                            Pending
+                          </p>
+                        </div>
+
+                        <div class="donut-legend-values">
+                          <p class="form-data form-data-pending-txt">$1,000</p>
+                          <p class="form-data">(2)</p>
+                        </div>
+                      </div>
+
+                      <div class="donut-legend-item">
+                        <div class="donut-legend-label">
+                          <span
+                            class="donut-legend-dot"
+                            [style.background]="'#e03d3d'"
+                          ></span>
+                          <p class="form-title-view form-data-danger">
+                            Overdue
+                          </p>
+                        </div>
+
+                        <div class="donut-legend-values">
+                          <p class="form-data form-data-danger">$500</p>
+                          <p class="form-data">(1)</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </p-tabpanel>
           </p-tabpanels>
         </p-tabs>

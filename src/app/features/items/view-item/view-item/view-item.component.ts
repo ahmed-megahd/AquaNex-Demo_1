@@ -1,17 +1,34 @@
-import { Component } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  inject,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Breadcrumb } from 'primeng/breadcrumb';
 import { Button } from 'primeng/button';
 import { DataTableComponent } from '../../../../shared/components/data-table/data-table/data-table.component';
+import { TabsModule } from 'primeng/tabs';
+import { ChartModule } from 'primeng/chart';
+import { isPlatformBrowser } from '@angular/common';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 @Component({
   selector: 'app-view-item',
-  imports: [Breadcrumb, Button, DataTableComponent],
+  imports: [
+    Breadcrumb,
+    Button,
+    DataTableComponent,
+    TabsModule,
+    ChartModule,
+    ProgressBarModule,
+  ],
   standalone: true,
   templateUrl: './view-item.component.html',
   styleUrl: './view-item.component.css',
 })
-export class ViewItemComponent {
+export class ViewItemComponent implements OnInit {
   items: MenuItem[] = [
     { label: 'Items', routerLink: '/items' },
     { label: 'View Item Detail' },
@@ -120,4 +137,311 @@ export class ViewItemComponent {
       total: '5000',
     },
   ];
+
+  ngOnInit(): void {
+    this.initChartOrdersTime();
+    this.initChartPriceHistory();
+    this.initChartSuppliers();
+  }
+
+  platformId = inject(PLATFORM_ID);
+  cd = inject(ChangeDetectorRef);
+
+  ////Usage Over Time Chart
+  dataUsage: any;
+  optionsUsage: any;
+
+  initChartOrdersTime() {
+    if (isPlatformBrowser(this.platformId)) {
+      const documentStyle = getComputedStyle(document.documentElement);
+      const textColor = documentStyle.getPropertyValue('--p-text-color');
+      const textColorSecondary = documentStyle.getPropertyValue(
+        '--p-text-muted-color',
+      );
+
+      this.dataUsage = {
+        labels: [
+          'January',
+          'February',
+          'March',
+          'April',
+          'May',
+          'June',
+          'July',
+          'August',
+          'September',
+          'October',
+          'November',
+          'December',
+        ],
+        datasets: [
+          {
+            type: 'line',
+            label: 'Orders',
+            borderColor: documentStyle.getPropertyValue('--primary-color'),
+            borderWidth: 2,
+            fill: true,
+            tension: 0.4,
+            data: [50, 25, 12, 48, 56, 76, 42, 9, 22, 23, 0, 10],
+            backgroundColor: 'rgba(83, 113, 255, 0.1)',
+            yAxisID: 'y', // Assign to left Y-axis
+
+            // Point styling
+            pointRadius: 5, // Size of points
+            pointHoverRadius: 7, // Size when hovering
+            pointBackgroundColor:
+              documentStyle.getPropertyValue('--primary-color'),
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor:
+              documentStyle.getPropertyValue('--primary-color'),
+            pointStyle: 'circle', // 'circle', 'rect', 'rectRounded', 'triangle', 'star'
+          },
+        ],
+      };
+
+      this.optionsUsage = {
+        maintainAspectRatio: false,
+        aspectRatio: 0.6,
+
+        plugins: {
+          legend: {
+            labels: {
+              color: textColor,
+              font: {
+                size: 14,
+                weight: 'normal',
+                family: 'Urbanist',
+              },
+              usePointStyle: true, // Use circular points instead of rectangles
+              pointStyle: 'circle',
+            },
+            padding: {
+              bottom: 20,
+            },
+          },
+        },
+
+        scales: {
+          x: {
+            ticks: {
+              color: textColorSecondary,
+              font: {
+                size: 12,
+                weight: '500',
+
+                family: 'Urbanist',
+              },
+            },
+            grid: {
+              display: false,
+            },
+          },
+          y: {
+            type: 'linear',
+            display: true,
+            position: 'left',
+            title: {
+              display: false,
+            },
+            ticks: {
+              color: textColorSecondary,
+              font: {
+                size: 12,
+                weight: '500',
+                family: 'Urbanist',
+              },
+            },
+            grid: {
+              color: '#f8f8f8',
+            },
+          },
+        },
+        // Interaction options
+        interaction: {
+          mode: 'index', // 'point', 'nearest', 'index', 'dataset', 'x', 'y'
+          intersect: false, // Show tooltip even when not hovering directly on point
+        },
+
+        // Animation
+        animation: {
+          duration: 1000, // Animation duration in ms
+          easing: 'easeInOutQuart', // Animation easing
+        },
+      };
+
+      this.cd.markForCheck();
+    }
+  }
+
+  ////Usage Over Time Chart
+  dataPrice: any;
+  optionsPrice: any;
+
+  initChartPriceHistory() {
+    if (isPlatformBrowser(this.platformId)) {
+      const documentStyle = getComputedStyle(document.documentElement);
+      const textColor = documentStyle.getPropertyValue('--p-text-color');
+      const textColorSecondary = documentStyle.getPropertyValue(
+        '--p-text-muted-color',
+      );
+
+      this.dataPrice = {
+        labels: [
+          'January',
+          'February',
+          'March',
+          'April',
+          'May',
+          'June',
+          'July',
+          'August',
+          'September',
+          'October',
+          'November',
+          'December',
+        ],
+        datasets: [
+          {
+            type: 'line',
+            label: 'Pirce (LE)',
+            borderColor: documentStyle.getPropertyValue('--p-orange-500'),
+            borderWidth: 2,
+            fill: true,
+            backgroundColor: 'rgba(249, 115, 22,0.1)',
+            tension: 0.4,
+            data: [20, 25, 19, 19, 19, 16, 20, 19, 22, 23, 0, 19],
+            yAxisID: 'y', // Assign to left Y-axis
+
+            // Point styling
+            pointRadius: 5, // Size of points
+            pointHoverRadius: 7, // Size when hovering
+            pointBackgroundColor:
+              documentStyle.getPropertyValue('--p-orange-500'),
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor:
+              documentStyle.getPropertyValue('--p-orange-500'),
+            pointStyle: 'circle', // 'circle', 'rect', 'rectRounded', 'triangle', 'star'
+          },
+        ],
+      };
+
+      this.optionsPrice = {
+        maintainAspectRatio: false,
+        aspectRatio: 0.6,
+
+        plugins: {
+          legend: {
+            labels: {
+              color: textColor,
+              font: {
+                size: 14,
+                weight: 'normal',
+                family: 'Urbanist',
+              },
+              usePointStyle: true, // Use circular points instead of rectangles
+              pointStyle: 'circle',
+            },
+            padding: {
+              bottom: 20,
+            },
+          },
+        },
+
+        scales: {
+          x: {
+            ticks: {
+              color: textColorSecondary,
+              font: {
+                size: 12,
+                weight: '500',
+
+                family: 'Urbanist',
+              },
+            },
+            grid: {
+              display: false,
+            },
+          },
+          y: {
+            type: 'linear',
+            display: true,
+            position: 'left',
+            title: {
+              display: false,
+            },
+            ticks: {
+              color: textColorSecondary,
+              font: {
+                size: 12,
+                weight: '500',
+                family: 'Urbanist',
+              },
+            },
+            grid: {
+              color: '#f8f8f8',
+            },
+          },
+        },
+        // Interaction options
+        interaction: {
+          mode: 'index', // 'point', 'nearest', 'index', 'dataset', 'x', 'y'
+          intersect: false, // Show tooltip even when not hovering directly on point
+        },
+
+        // Animation
+        animation: {
+          duration: 1000, // Animation duration in ms
+          easing: 'easeInOutQuart', // Animation easing
+        },
+      };
+
+      this.cd.markForCheck();
+    }
+  }
+
+  //Supplier Donught Chart
+  dataSuppliers: any;
+  optionsSuppliers: any;
+
+  initChartSuppliers() {
+    if (isPlatformBrowser(this.platformId)) {
+      const documentStyle = getComputedStyle(document.documentElement);
+      const textColor = documentStyle.getPropertyValue('--text-color');
+
+      this.dataSuppliers = {
+        labels: ['Boch', 'Siemens', 'Black & Decker'],
+        datasets: [
+          {
+            data: [22, 9, 12],
+            backgroundColor: [
+              documentStyle.getPropertyValue('--p-cyan-500'),
+              documentStyle.getPropertyValue('--p-orange-500'),
+              documentStyle.getPropertyValue('--p-gray-500'),
+            ],
+            hoverBackgroundColor: [
+              documentStyle.getPropertyValue('--p-cyan-400'),
+              documentStyle.getPropertyValue('--p-orange-400'),
+              documentStyle.getPropertyValue('--p-gray-400'),
+            ],
+          },
+        ],
+      };
+
+      this.optionsSuppliers = {
+        maintainAspectRatio: false, // Important for centering
+        aspectRatio: 1,
+        cutout: '78%',
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+      };
+      this.cd.markForCheck();
+    }
+  }
 }

@@ -1,0 +1,774 @@
+<p-breadcrumb [home]="home" [model]="items" />
+<div class="main-content_top">
+  <div class="title-container">
+    <p class="page-title">Record Customer Payment</p>
+  </div>
+
+  <div class="cta">
+    <p-button
+      label="Save as Draft"
+      size="large"
+      type="button"
+      (onClick)="onSubmit(paymentForm)"
+    />
+  </div>
+</div>
+
+<div class="main-contecnt_form">
+  <form
+    action="#"
+    class="form"
+    [formGroup]="paymentForm"
+    (ngSubmit)="onSubmit(paymentForm)"
+  >
+    <div class="form-row">
+      <div class="form-group mb-0">
+        <div class="form-group_header">
+          <p class="form-group_title">Payment Information</p>
+        </div>
+
+        <div class="form-inputs">
+          <app-form-field
+            label="Payment Number"
+            [control]="paymentForm.get('paymentNumber')"
+          >
+            <input
+              placeholder="Auto-generated"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="paymentNumber"
+              name="paymentNumber"
+              id="paymentNumber"
+              type="number"
+              (keypress)="allowOnlyNumbers($event)"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+          <app-form-field
+            label="Payment Date"
+            [control]="paymentForm.get('paymentDate')"
+          >
+            <p-datepicker
+              placeholder="03/04/2026"
+              size="large"
+              [iconDisplay]="'input'"
+              [showIcon]="true"
+              formControlName="paymentDate"
+              name="paymentDate"
+              id="paymentDate"
+            />
+          </app-form-field>
+
+          <app-form-field
+            label="Payment Method"
+            [control]="paymentForm.get('paymentMethod')"
+          >
+            <p-select
+              placeholder="e.g. Bank Transfer"
+              appendTo="body"
+              [options]="paymentMethod"
+              formControlName="paymentMethod"
+              name="paymentMethod"
+              id="paymentMethod"
+              optionLabel="name"
+            />
+          </app-form-field>
+
+          <app-form-field
+            label="Payment Type"
+            [control]="paymentForm.get('paymentType')"
+          >
+            <p-select
+              placeholder="e.g. Invoice Payment"
+              appendTo="body"
+              [options]="paymentType"
+              formControlName="paymentType"
+              name="paymentType"
+              id="paymentType"
+              optionLabel="name"
+            />
+          </app-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group mb-0">
+        <div class="form-group_header">
+          <p class="form-group_title">Customer Information</p>
+        </div>
+
+        <div class="form-inputs">
+          <app-form-field
+            label="Customer Name"
+            [control]="paymentForm.get('customerName')"
+          >
+            <p-select
+              placeholder="Select Customer"
+              appendTo="body"
+              [options]="customers"
+              formControlName="customerName"
+              name="customerName"
+              id="customerName"
+              optionLabel="name"
+            />
+          </app-form-field>
+
+          <app-form-field
+            label="Customer Code"
+            [control]="paymentForm.get('customerCode')"
+          >
+            <input
+              placeholder="Auto-populated"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="customerCode"
+              name="customerCode"
+              id="customerCode"
+              type="number"
+              (keypress)="allowOnlyNumbers($event)"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+
+          <app-form-field
+            label="Vessel Name"
+            [control]="paymentForm.get('vesselName')"
+          >
+            <p-select
+              placeholder="e.g. MSC Pacific Star"
+              appendTo="body"
+              [options]="vessels"
+              formControlName="vesselName"
+              name="vesselName"
+              id="vesselName"
+              optionLabel="name"
+            />
+          </app-form-field>
+
+          <app-form-field
+            label="Vessel IMO"
+            [control]="paymentForm.get('vesselImo')"
+          >
+            <input
+              placeholder="e.g. 876543"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="vesselImo"
+              name="vesselImo"
+              id="vesselImo"
+              type="number"
+              (keypress)="allowOnlyNumbers($event)"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+        </div>
+        <div class="form-inputs">
+          <app-form-field
+            label="Bank Name"
+            [control]="paymentForm.get('customerBankName')"
+          >
+            <p-select
+              placeholder="Select Customer Bank"
+              appendTo="body"
+              [options]="customerBanks"
+              formControlName="customerBankName"
+              name="customerBankName"
+              id="customerBankName"
+              optionLabel="name"
+            />
+          </app-form-field>
+
+          <app-form-field
+            label="Account Number"
+            [control]="paymentForm.get('customerBankNumber')"
+          >
+            <input
+              placeholder="Auto-populated"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="customerBankNumber"
+              name="customerBankNumber"
+              id="customerBankNumber"
+              type="number"
+              (keypress)="allowOnlyNumbers($event)"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+
+          <app-form-field
+            label="IBAN"
+            [control]="paymentForm.get('customerBankIBAN')"
+          >
+            <input
+              placeholder="Auto-populated"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              type="number"
+              formControlName="customerBankIBAN"
+              name="customerBankIBAN"
+              id="customerBankIBAN"
+              (keypress)="allowOnlyNumbers($event)"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+
+          <app-form-field
+            label="Order PO Reference"
+            [control]="paymentForm.get('customerPoRef')"
+          >
+            <input
+              placeholder="e.g. LKSI-009-0091"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="customerPoRef"
+              name="customerPoRef"
+              id="customerPoRef"
+              type="number"
+              (keypress)="allowOnlyNumbers($event)"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group mb-0">
+        <div class="form-group_header">
+          <p class="form-group_title">Financial Details</p>
+        </div>
+
+        <div class="form-inputs">
+          <app-form-field
+            label="Currency"
+            [control]="paymentForm.get('currency')"
+          >
+            <p-select
+              placeholder="e.g. USD - Dollar"
+              appendTo="body"
+              [options]="currency"
+              formControlName="currency"
+              name="currency"
+              id="currency"
+              optionLabel="name"
+            />
+          </app-form-field>
+
+          <app-form-field
+            label="Exchange Rate"
+            [control]="paymentForm.get('exchangeRate')"
+          >
+            <input
+              placeholder="1.0000"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="exchangeRate"
+              name="exchangeRate"
+              id="exchangeRate"
+              type="number"
+              (keypress)="allowOnlyNumbers($event)"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+
+          <app-form-field
+            label="Total Amount Received"
+            [control]="paymentForm.get('totalAmount')"
+          >
+            <input
+              placeholder="0.0000"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="totalAmount"
+              name="totalAmount"
+              id="totalAmount"
+              type="number"
+              (keypress)="allowOnlyNumbers($event)"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+
+          <app-form-field
+            label="Discount Amount"
+            [control]="paymentForm.get('discountAmount')"
+          >
+            <input
+              placeholder="0.0000"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="discountAmount"
+              name="discountAmount"
+              id="discountAmount"
+              type="number"
+              (keypress)="allowOnlyNumbers($event)"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+        </div>
+        <div class="form-inputs">
+          <app-form-field
+            label="Withholding Tax"
+            [control]="paymentForm.get('withholdingTax')"
+          >
+            <input
+              placeholder="0.0000"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="withholdingTax"
+              name="withholdingTax"
+              id="withholdingTax"
+              type="number"
+              (keypress)="allowOnlyNumbers($event)"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+
+          <app-form-field
+            label="Bank Charges"
+            [control]="paymentForm.get('bankCharges')"
+          >
+            <input
+              placeholder="0.0000"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="bankCharges"
+              name="bankCharges"
+              id="bankCharges"
+              type="number"
+              (keypress)="allowOnlyNumbers($event)"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+
+          <app-form-field
+            label="Net Amount Applied"
+            [control]="paymentForm.get('netAmount')"
+          >
+            <input
+              placeholder="0.0000"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="netAmount"
+              name="netAmount"
+              id="netAmount"
+              type="number"
+              (keypress)="allowOnlyNumbers($event)"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+
+          <app-form-field
+            label="Unapplied Amount"
+            [control]="paymentForm.get('unappliedAmount')"
+          >
+            <input
+              placeholder="0.0000"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="unappliedAmount"
+              name="unappliedAmount"
+              id="unappliedAmount"
+              type="number"
+              (keypress)="allowOnlyNumbers($event)"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group mb-0">
+        <div class="form-group_header">
+          <p class="form-group_title">Bank & Check Details</p>
+        </div>
+
+        <div class="form-inputs">
+          <app-form-field
+            label="Deposit To Account"
+            [control]="paymentForm.get('receiverBankName')"
+          >
+            <p-select
+              placeholder="Select Beneficiary Account"
+              appendTo="body"
+              [options]="companyBanks"
+              formControlName="receiverBankName"
+              name="receiverBankName"
+              id="receiverBankName"
+              optionLabel="name"
+            />
+          </app-form-field>
+
+          <app-form-field
+            label="Account Number"
+            [control]="paymentForm.get('receiverAccountNumber')"
+          >
+            <input
+              placeholder="Auto-populated"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="receiverAccountNumber"
+              name="receiverAccountNumber"
+              id="receiverAccountNumber"
+              type="number"
+              (keypress)="allowOnlyNumbers($event)"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+
+          <app-form-field
+            label="Account Currency"
+            [control]="paymentForm.get('receiverCurrency')"
+          >
+            <input
+              placeholder="Auto-populated"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="receiverCurrency"
+              name="receiverCurrency"
+              id="receiverCurrency"
+              type="number"
+              (keypress)="allowOnlyNumbers($event)"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+          <app-form-field
+            label="IBAN"
+            [control]="paymentForm.get('receiverIBAN')"
+          >
+            <input
+              placeholder="Auto-populated"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="receiverIBAN"
+              name="receiverIBAN"
+              id="receiverIBAN"
+              type="number"
+              (keypress)="allowOnlyNumbers($event)"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+        </div>
+        <div class="form-inputs">
+          <app-form-field
+            label="Bank Branch"
+            [control]="paymentForm.get('receiverBranch')"
+          >
+            <input
+              placeholder="Branch Name"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="receiverBranch"
+              name="receiverBranch"
+              id="receiverBranch"
+              type="number"
+              (keypress)="allowOnlyNumbers($event)"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+          <app-form-field
+            label="SWIFT / BIC Code"
+            [control]="paymentForm.get('receiverSWIFT')"
+          >
+            <input
+              placeholder="E.G. BOFAUS3N"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="receiverSWIFT"
+              name="receiverSWIFT"
+              id="receiverSWIFT"
+              type="number"
+              (keypress)="allowOnlyNumbers($event)"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+
+          <app-form-field
+            label="Reference Number"
+            [control]="paymentForm.get('referenceNumber')"
+          >
+            <input
+              placeholder="e.g. CHK-00988712"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="referenceNumber"
+              name="referenceNumber"
+              id="referenceNumber"
+              type="number"
+              (keypress)="allowOnlyNumbers($event)"
+              aria-describedby="username-help"
+            />
+          </app-form-field>
+
+          <app-form-field
+            label="Deposit Date"
+            [control]="paymentForm.get('depositDate')"
+          >
+            <p-datepicker
+              placeholder="Select Date"
+              size="large"
+              [iconDisplay]="'input'"
+              [showIcon]="true"
+              formControlName="depositDate"
+              name="depositDate"
+              id="depositDate"
+            />
+          </app-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group mb-0">
+        <div class="form-group_header">
+          <p class="form-group_title">Invoice Allocation</p>
+        </div>
+
+        <app-data-table
+          [columns]="invoiceColumn"
+          [value]="invoices"
+          [showToolbar]="false"
+          [showActions]="false"
+          [selectionMode]="'multiple'"
+          [exportable]="true"
+          (selectionChange)="
+            selectedInvoices = $event; handleInvoiceSelection()
+          "
+        />
+      </div>
+      <!-- NEW: Allocation Panel (appears when invoices are selected) -->
+      @if (selectedInvoices.length > 0) {
+        <div class="allocation-panel">
+          <div class="allocation-header">
+            <h3>
+              Allocate Payment to Selected Invoices ({{
+                selectedInvoices.length
+              }})
+            </h3>
+            <p-button
+              label="Auto-Allocate"
+              icon="pi pi-calculator"
+              (onClick)="autoAllocate()"
+              outlined
+              size="small"
+              type="button"
+            />
+          </div>
+
+          <div class="allocation-list">
+            <div
+              class="allocation-item"
+              *ngFor="let invoice of selectedInvoices; let i = index"
+            >
+              <div class="invoice-info">
+                <div class="invoice-number">
+                  <strong>{{ invoice.invoiceID }}</strong>
+                  <!-- <span class="invoice-date">{{ invoice.date | date }}</span> -->
+                </div>
+                <div class="invoice-details">
+                  <span class="detail-label">Outstanding:</span>
+                  <span class="detail-value">{{
+                    invoice.outstanding | currency
+                  }}</span>
+                </div>
+              </div>
+
+              <div class="allocation-input">
+                <label>Amount to Pay</label>
+                <p-inputNumber
+                  [(ngModel)]="invoice.amountToPay"
+                  [ngModelOptions]="{ standalone: true }"
+                  (onInput)="validateAllocation()"
+                  mode="currency"
+                  currency="USD"
+                  locale="en-US"
+                  [min]="0"
+                  [max]="invoice.outstanding"
+                  placeholder="0.00"
+                />
+                <p-button
+                  icon="pi pi-check-circle"
+                  label="Full"
+                  (onClick)="payFull(invoice)"
+                  outlined
+                  size="small"
+                  class="ml-2"
+                />
+              </div>
+
+              <div class="allocation-status">
+                <p-tag
+                  *ngIf="invoice.amountToPay === invoice.outstanding"
+                  value="Full Payment"
+                  severity="success"
+                />
+                <p-tag
+                  *ngIf="
+                    invoice.amountToPay > 0 &&
+                    invoice.amountToPay < invoice.outstanding
+                  "
+                  value="Partial Payment"
+                  severity="warning"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="allocation-summary">
+            <div class="summary-grid">
+              <div class="summary-item">
+                <span class="label">Total Payment Amount:</span>
+                <span class="value">{{ totalPaymentAmount | currency }}</span>
+              </div>
+              <div class="summary-item">
+                <span class="label">Total Allocated:</span>
+                <span class="value allocated">{{
+                  getTotalAllocated() | currency
+                }}</span>
+              </div>
+              <div class="summary-item" *ngIf="getUnallocatedAmount() !== 0">
+                <span class="label">Unallocated:</span>
+                <span class="value" [class.error]="getUnallocatedAmount() < 0">
+                  {{ getUnallocatedAmount() | currency }}
+                </span>
+              </div>
+            </div>
+
+            <p-message
+              *ngIf="getUnallocatedAmount() < 0"
+              severity="error"
+              text="Allocated amount exceeds payment amount!"
+            />
+            <p-message
+              *ngIf="getUnallocatedAmount() > 0"
+              severity="warn"
+              text="You have unallocated funds."
+            />
+
+            <p-button
+              label="Confirm"
+              icon="pi pi-calculator"
+              (onClick)="autoAllocate()"
+              size="small"
+              outlined
+            />
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="form-row">
+      <div class="form-group mb-0">
+        <div class="form-group_header">
+          <p class="form-group_title">Remarks / Description</p>
+        </div>
+
+        <div class="form-inputs">
+          <app-form-field
+            label="Internal Description"
+            [control]="paymentForm.get('remarks')"
+          >
+            <textarea
+              placeholder="Internal notes about this payment..."
+              class="p-inputtext"
+              formControlName="remarks"
+              name="remarks"
+              id="remarks"
+              rows="5"
+            ></textarea>
+          </app-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group mb-0">
+        <div class="form-group_header">
+          <p class="form-group_title">Audit Trail</p>
+        </div>
+
+        <div class="form-inputs">
+          <app-form-field
+            label="Created By"
+            [control]="paymentForm.get('createdBy')"
+          >
+            <input
+              readonly="true"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="createdBy"
+              name="createdBy"
+              id="createdBy"
+            />
+          </app-form-field>
+          <app-form-field
+            label="Created Date"
+            [control]="paymentForm.get('createdDate')"
+          >
+            <p-datepicker
+              readonly="true"
+              size="large"
+              [iconDisplay]="'input'"
+              [showIcon]="true"
+              formControlName="createdDate"
+              name="createdDate"
+              id="createdDate"
+            />
+          </app-form-field>
+
+          <app-form-field
+            label="Last Modified By"
+            [control]="paymentForm.get('lastModifiedBy')"
+          >
+            <input
+              readonly="true"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="lastModifiedBy"
+              name="lastModifiedBy"
+              id="lastModifiedBy"
+            />
+          </app-form-field>
+
+          <app-form-field
+            label="Approval Status"
+            [control]="paymentForm.get('approvalStatus')"
+          >
+            <input
+              readonly="true"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="approvalStatus"
+              name="approvalStatus"
+              id="approvalStatus"
+              optionLabel="name"
+            />
+          </app-form-field>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

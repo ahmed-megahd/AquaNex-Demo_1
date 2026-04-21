@@ -1,52 +1,55 @@
-<p-toolbar class="mb-4 pl-2">
-  <ng-template #start>
-    <p-iconfield>
-      <p-inputicon class="pi pi-search" />
-      <input
-        pInputText
-        type="text"
-        (input)="filterGlobal($event)"
-        placeholder="Search..."
-      />
-    </p-iconfield>
-  </ng-template>
+@if (showToolbar()) {
+  <p-toolbar class="mb-4">
+    <ng-template #start>
+      <p-iconfield>
+        <input
+          pInputText
+          type="text"
+          (input)="filterGlobal($event)"
+          placeholder="Search..."
+        />
+      </p-iconfield>
+    </ng-template>
 
-  <ng-template #end>
-    <div class="cta-del">
-      <p-button
-        *ngIf="selectionMode() === 'multiple'"
-        severity="danger"
-        label="Delete"
-        icon="pi pi-trash"
-        outlined
-        size="large"
-        (onClick)="onDeleteSelected.emit(selected())"
-        [disabled]="!selected() || !selected().length"
-      />
-    </div>
-    <div class="cta">
-      <p-button
-        size="large"
-        *ngIf="exportable"
-        label="Export"
-        icon="pi pi-upload"
-        (onClick)="dt.exportCSV()"
-        severity="secondary"
-      />
-    </div>
-  </ng-template>
-</p-toolbar>
-
+    <ng-template #end>
+      <div class="cta-del">
+        <p-button
+          *ngIf="selectionMode() === 'multiple'"
+          severity="danger"
+          label="Delete"
+          icon="pi pi-trash"
+          outlined
+          size="large"
+          (onClick)="onDeleteSelected.emit(selected())"
+          [disabled]="!selected() || !selected().length"
+        />
+      </div>
+      <div class="cta">
+        <p-button
+          outlined="true"
+          size="large"
+          *ngIf="exportable"
+          label="Export"
+          icon="pi pi-upload"
+          (onClick)="dt.exportCSV()"
+          severity="secondary"
+        />
+      </div>
+    </ng-template>
+  </p-toolbar>
+}
 <p-table
   #dt
   [value]="value()"
   [columns]="columns()"
   [paginator]="true"
   [rows]="10"
+  [rowHover]="true"
   [globalFilterFields]="globalFilterFields()"
   [(selection)]="selected"
   [rowHover]="true"
   dataKey="id"
+  (selectionChange)="handleSelectionChange($event)"
   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
   [showCurrentPageReport]="true"
 >
@@ -59,7 +62,9 @@
         {{ col.header }}
         <p-sortIcon [field]="col.field" />
       </th>
-      <th>Actions</th>
+      @if (showActions()) {
+        <th>Actions</th>
+      }
     </tr>
   </ng-template>
 
@@ -90,34 +95,36 @@
         </ng-template>
       </td>
 
-      <td>
-        <p-button
-          icon="pi pi-search"
-          (onClick)="onView.emit(rowData)"
-          size="large"
-          outlined
-          class="mr-2 edit-btn"
-          [rounded]="true"
-        />
+      @if (showActions()) {
+        <td>
+          <p-button
+            icon="pi pi-search"
+            (onClick)="onView.emit(rowData)"
+            size="large"
+            outlined
+            class="mr-2 edit-btn"
+            [rounded]="true"
+          />
 
-        <p-button
-          icon="pi pi-pencil"
-          (onClick)="onEdit.emit(rowData)"
-          size="large"
-          outlined
-          class="mr-2 edit-btn"
-          [rounded]="true"
-        />
+          <p-button
+            icon="pi pi-pencil"
+            (onClick)="onEdit.emit(rowData)"
+            size="large"
+            outlined
+            class="mr-2 edit-btn"
+            [rounded]="true"
+          />
 
-        <p-button
-          [rounded]="true"
-          icon="pi pi-trash"
-          severity="danger"
-          (onClick)="onDelete.emit(rowData)"
-          size="large"
-          outlined
-        />
-      </td>
+          <p-button
+            [rounded]="true"
+            icon="pi pi-trash"
+            severity="danger"
+            (onClick)="onDelete.emit(rowData)"
+            size="large"
+            outlined
+          />
+        </td>
+      }
     </tr>
   </ng-template>
 </p-table>

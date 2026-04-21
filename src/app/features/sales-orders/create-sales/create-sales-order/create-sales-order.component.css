@@ -1,0 +1,13 @@
+td.text-right {
+  text-align: right;
+}
+
+td .positive {
+  color: var(--success-color);
+  font-weight: 600;
+}
+
+td .negative {
+  color: #dc3545;
+  font-weight: 600;
+}

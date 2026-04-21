@@ -83,6 +83,7 @@ export class CreateSalesOrderComponent {
     { name: 'Oil & Gas' },
     { name: 'Offshore Catering' },
     { name: 'Cabin Store' },
+    { name: 'Other' },
   ];
   purchaseOrders = [
     { name: 'PO-2289101' },
@@ -132,10 +133,11 @@ export class CreateSalesOrderComponent {
   availableVessels: Vessel[] = [];
 
   currencys = [
-    { name: 'USD - United States Dollar' },
-    { name: 'EURO' },
-    { name: 'Pounds' },
+    { name: 'USD - US Dollar' },
+    { name: 'EUR - Euro' },
+    { name: 'GBP - British Pound' },
     { name: 'LE - Egyptian Pounds' },
+    { name: 'AED - UAE Dirham' },
   ];
 
   deliveryMethods = [
@@ -164,18 +166,6 @@ export class CreateSalesOrderComponent {
     },
     { name: 'Apple', unit: 'kg', price: 3 },
     { name: 'Apple', unit: 'kg', price: 3 },
-    { name: 'Apple', unit: 'kg', price: 3 },
-    { name: 'Apple', unit: 'kg', price: 3 },
-    { name: 'Apple', unit: 'kg', price: 3 },
-    { name: 'Apple', unit: 'kg', price: 3 },
-    { name: 'Apple', unit: 'kg', price: 3 },
-    { name: 'Apple', unit: 'kg', price: 3 },
-    { name: 'Apple', unit: 'kg', price: 3 },
-    { name: 'Apple', unit: 'kg', price: 3 },
-    { name: 'Apple', unit: 'kg', price: 3 },
-    { name: 'Apple', unit: 'kg', price: 3 },
-    { name: 'Apple', unit: 'kg', price: 3 },
-    { name: 'Apple', unit: 'kg', price: 3 },
     { name: 'Banana', unit: 'bunch', price: 5 },
     { name: 'Orange', unit: 'kg', price: 4 },
   ];
@@ -193,15 +183,15 @@ export class CreateSalesOrderComponent {
     creationDate: ['', Validators.required],
     quoteNumber: ['', Validators.required],
     purchaseOrders: ['', Validators.required],
-    salesStatus: ['', Validators.required],
-    paymentStatus: ['', Validators.required],
+    salesStatus: [''],
+    paymentStatus: [''],
     shipManager: this.fb.control<ShipManager | null>(null, {
       validators: Validators.required,
     }),
-    compAddress: ['', Validators.required],
-    contactPerson: ['', Validators.required],
-    contactEmail: ['', Validators.required],
-    contactPhone: ['', Validators.required],
+    compAddress: [''],
+    contactPerson: [''],
+    contactEmail: [''],
+    contactPhone: [''],
     vesselName: ['', Validators.required],
     imoNum: ['', Validators.required],
     paymentTerms: ['', Validators.required],
@@ -221,6 +211,8 @@ export class CreateSalesOrderComponent {
     additionalCost: [0],
     vat: [0],
     totalPrice: [0],
+
+    notes: [''],
   });
 
   ngOnInit(): void {
@@ -250,15 +242,6 @@ export class CreateSalesOrderComponent {
     this.orderForm.valueChanges.subscribe(() => {
       this.recalculateAllFinancials();
     });
-
-    // this.orderItems.valueChanges.subscribe(() => {
-    //   this.updateBaseAndSellingTotals();
-    //   this.updateNetProfit();
-    // });
-
-    // this.orderForm.valueChanges.subscribe(() => {
-    //   this.updateNetProfit();
-    // });
   }
 
   fillShipManagerDetails(manager: any) {
@@ -297,7 +280,7 @@ export class CreateSalesOrderComponent {
     const discount = Number(this.orderForm.get('discount')?.value) || 0;
 
     this.netProfit = this.roundMoney(
-      this.grossProfit - delivery - additional - discount
+      this.grossProfit - delivery - additional - discount,
     );
   }
 
@@ -349,7 +332,7 @@ export class CreateSalesOrderComponent {
     this.filteredItems = this.itemOptions.filter(
       (item) =>
         item.name.toLowerCase().includes(query) &&
-        !this.orderItems.value.some((row: any) => row.item === item.name)
+        !this.orderItems.value.some((row: any) => row.item === item.name),
     );
   }
 
@@ -378,6 +361,7 @@ export class CreateSalesOrderComponent {
 
     const row = this.fb.group({
       item: [data?.item || ''],
+      itemIMBA: [data?.itemIMBA || ''],
       description: [data?.description || ''],
       unit: [{ value: data?.unit || '', disabled: true }],
       quantity: [data?.quantity ?? 1, Validators.required],
@@ -385,6 +369,7 @@ export class CreateSalesOrderComponent {
       itemMargin: [rowMargin],
       isMarginOverridden: [isOverridden],
       totalPrice: [0],
+      itemProfit: [0],
     });
 
     this.attachRowListeners(row);
@@ -416,8 +401,18 @@ export class CreateSalesOrderComponent {
     const margin = this.resolveMargin(row);
 
     const sellingPrice = basePrice + (basePrice * margin) / 100;
+    const rowTotal = sellingPrice * qty;
 
-    row.get('totalPrice')?.setValue(this.roundMoney(sellingPrice * qty), {
+    // ✅ Calculate profit (selling price - base price) × quantity
+    const profitPerUnit = sellingPrice - basePrice;
+    const totalProfit = profitPerUnit * qty;
+
+    row.get('totalPrice')?.setValue(this.roundMoney(rowTotal), {
+      emitEvent: false,
+    });
+
+    // ✅ SET PROFIT VALUE
+    row.get('itemProfit')?.setValue(this.roundMoney(totalProfit), {
       emitEvent: false,
     });
   }
@@ -434,7 +429,7 @@ export class CreateSalesOrderComponent {
       {
         generalMargin: 0,
       },
-      { emitEvent: false }
+      { emitEvent: false },
     );
   }
 
@@ -470,6 +465,7 @@ export class CreateSalesOrderComponent {
     rows.forEach((rowData) => {
       const row = this.buildItemRow({
         item: rowData.item,
+        itemIMBA: rowData.itemIMBA,
         description: rowData.description,
         unit: rowData.unit,
         quantity: Number(rowData.quantity) || 1,
@@ -507,7 +503,7 @@ export class CreateSalesOrderComponent {
         netPrice: this.roundMoney(subtotal),
         totalPrice: this.roundMoney(total),
       },
-      { emitEvent: false }
+      { emitEvent: false },
     );
   }
 
@@ -541,5 +537,14 @@ export class CreateSalesOrderComponent {
 
     // console.log(formGroup.getRawValue());
     console.log(formGroup.value);
+    const submittedData = {
+      ...this.orderForm.value,
+      baseTotal: this.baseTotal,
+      sellingTotal: this.sellingTotal,
+      grossProfit: this.grossProfit,
+      netProfit: this.netProfit,
+    };
+
+    console.log(submittedData);
   }
 }

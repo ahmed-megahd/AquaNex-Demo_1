@@ -1,14 +1,7 @@
 <div class="top-bar">
-  <div class="top-bar_left">
-    <div class="logo-img-container">
-      <img src="logo-only-removebg-preview.png" alt="" class="logo-img" />
-    </div>
-    <p class="logo-name">Aqua <span>nex</span></p>
-  </div>
-
   <div class="top-bar_center">
     <p-iconfield>
-      <p-inputicon class="pi pi-search" />
+      <!-- <p-inputicon class="pi pi-search" /> -->
       <input
         name="mainSearch"
         type="text"
@@ -63,6 +56,12 @@
 </div>
 <div class="container">
   <aside class="side-nav" (mouseleave)="hovered = null">
+    <div class="logo-container">
+      <!-- <div class="logo-img-container">
+      <img src="logo-only-removebg-preview.png" alt="" class="logo-img" />
+    </div> -->
+      <p class="logo-name">Aqua <span>nex</span> <span class="dot"></span></p>
+    </div>
     <div
       *ngFor="let item of items"
       class="menu-item"

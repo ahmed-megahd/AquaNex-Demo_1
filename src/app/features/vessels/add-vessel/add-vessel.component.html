@@ -3,15 +3,6 @@
   <div class="title-container">
     <p class="page-title">Add New Vessel</p>
   </div>
-
-  <div class="cta">
-    <p-button
-      label="Save as Draft"
-      size="large"
-      type="button"
-      (onClick)="onSubmit(vesselForm)"
-    />
-  </div>
 </div>
 
 <div class="main-content_form form-small">
@@ -24,10 +15,9 @@
     <div class="form-row">
       <div class="form-group mb-0">
         <div class="form-group_header">
-          <p class="form-group_title">Basic Information</p>
+          <p class="form-group_title">Vessel Identity</p>
           <p class="form-group_desc">
-            Enter vessel`s information, This information is linked with the
-            selected vessel owner and manager in all sales orders
+            Core technical details and registration information for this vessel
           </p>
         </div>
         <div class="form-inputs">
@@ -36,14 +26,13 @@
             [control]="vesselForm.get('name')"
           >
             <input
-              placeholder="Name"
+              placeholder="e.g. British Landlord"
               class="p-inputtext"
               pSize="large"
               pInputText
               formControlName="name"
               name="name"
               id="name"
-              aria-describedby="username-help"
             />
           </app-form-field>
 
@@ -51,7 +40,7 @@
             label="Vessel type"
             [control]="vesselForm.get('type')"
           >
-            <p-multiselect
+            <p-select
               appendTo="body"
               [options]="type"
               formControlName="type"
@@ -59,7 +48,7 @@
               id="type"
               optionLabel="name"
               display="chip"
-              placeholder="Select Vessel Type"
+              placeholder="Select  Type"
             />
           </app-form-field>
         </div>
@@ -67,7 +56,7 @@
         <div class="form-inputs">
           <app-form-field label="IMO Number" [control]="vesselForm.get('IMO')">
             <input
-              placeholder="IMO Number"
+              placeholder="7-digit IMO number"
               class="p-inputtext"
               pSize="large"
               pInputText
@@ -76,19 +65,74 @@
               id="IMO"
               type="number"
               (keypress)="allowOnlyNumbers($event)"
-              aria-describedby="username-help"
             />
           </app-form-field>
 
-          <app-form-field label="Flag " [control]="vesselForm.get('flag')">
+          <app-form-field label="MMSI" [control]="vesselForm.get('MMSI')">
             <input
-              placeholder="Registeration Company"
+              placeholder="e.g. ABCD1"
               class="p-inputtext"
               pSize="large"
               pInputText
+              formControlName="MMSI"
+              name="MMSI"
+              id="MMSI"
+              type="number"
+              (keypress)="allowOnlyNumbers($event)"
+            />
+          </app-form-field>
+
+          <app-form-field
+            label="Call Sign"
+            [control]="vesselForm.get('callSign')"
+          >
+            <input
+              placeholder="9-digit callSign number"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="callSign"
+              name="callSign"
+              id="callSign"
+              type="number"
+              (keypress)="allowOnlyNumbers($event)"
+            />
+          </app-form-field>
+        </div>
+
+        <div class="form-inputs">
+          <app-form-field
+            label="Vessel Flag"
+            [control]="vesselForm.get('flag')"
+          >
+            <p-select
+              appendTo="body"
+              [options]="countries"
               formControlName="flag"
               name="flag"
               id="flag"
+              optionLabel="name"
+              display="chip"
+              [filter]="true"
+              filterBy="name,code"
+              placeholder="Country of registration "
+            />
+          </app-form-field>
+
+          <app-form-field
+            label="Gross Tonnage"
+            [control]="vesselForm.get('grossTonage')"
+          >
+            <input
+              placeholder="e.g. 45000"
+              class="p-inputtext"
+              pSize="large"
+              pInputText
+              formControlName="grossTonage"
+              name="grossTonage"
+              id="grossTonage"
+              type="number"
+              (keypress)="allowOnlyNumbers($event)"
             />
           </app-form-field>
         </div>
@@ -98,9 +142,100 @@
     <div class="form-row">
       <div class="form-group mb-0">
         <div class="form-group_header">
-          <p class="form-group_title">Ownership & Operator Information</p>
+          <p class="form-group_title">Operations & Ports</p>
           <p class="form-group_desc">
-            Please, make sure to correctly enter the below fields
+            Operational status, trading area and port activity
+          </p>
+        </div>
+        <div class="form-inputs">
+          <app-form-field
+            label="Vessel status"
+            [control]="vesselForm.get('status')"
+          >
+            <p-select
+              appendTo="body"
+              [options]="status"
+              formControlName="status"
+              name="status"
+              id="status"
+              optionLabel="name"
+              display="chip"
+              placeholder="Select vessel status"
+            />
+          </app-form-field>
+          <app-form-field
+            label="Dry Dock Date"
+            [control]="vesselForm.get('dryDockDate')"
+          >
+            <p-datepicker
+              size="large"
+              [iconDisplay]="'input'"
+              [showIcon]="true"
+              formControlName="dryDockDate"
+              name="dryDockDate"
+              id="dryDockDate"
+              placeholder="Select expected dry dock date"
+            />
+          </app-form-field>
+        </div>
+
+        <div class="form-inputs">
+          <app-form-field
+            label="Home Port"
+            [control]="vesselForm.get('homePort')"
+          >
+            <p-select
+              appendTo="body"
+              [options]="ports"
+              formControlName="homePort"
+              name="homePort"
+              id="homePort"
+              optionLabel="name"
+              display="chip"
+              placeholder="Select home port"
+            />
+          </app-form-field>
+          <app-form-field
+            label="current Port"
+            [control]="vesselForm.get('currentPort')"
+          >
+            <p-select
+              appendTo="body"
+              [options]="ports"
+              formControlName="currentPort"
+              name="currentPort"
+              id="currentPort"
+              optionLabel="name"
+              display="chip"
+              placeholder="Select  current port"
+            />
+          </app-form-field>
+
+          <app-form-field
+            label="Trade Route"
+            [control]="vesselForm.get('tradeRoute')"
+          >
+            <p-select
+              appendTo="body"
+              [options]="tradeRoutes"
+              formControlName="tradeRoute"
+              name="tradeRoute"
+              id="tradeRoute"
+              optionLabel="name"
+              display="chip"
+              placeholder="Select  trade route"
+            />
+          </app-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group mb-0">
+        <div class="form-group_header">
+          <p class="form-group_title">Ownership & Operator</p>
+          <p class="form-group_desc">
+            Linked customer accounts and onboard contact details
           </p>
         </div>
 
@@ -117,6 +252,7 @@
               id="owner"
               optionLabel="name"
               display="chip"
+              placeholder="Select ship owner"
             />
           </app-form-field>
 
@@ -133,6 +269,7 @@
               name="manager"
               id="manager"
               optionLabel="name"
+              placeholder="Select ship manager"
             />
           </app-form-field>
         </div>
@@ -140,19 +277,19 @@
         <div class="form-inputs mb-0">
           <app-form-field label="E-mail" [control]="vesselForm.get('email')">
             <input
-              placeholder="Email"
               class="p-inputtext"
               pSize="large"
               pInputText
               formControlName="email"
               name="email"
               id="email"
+              placeholder="email@company.com"
             />
           </app-form-field>
 
           <app-form-field label="Phone" [control]="vesselForm.get('phone')">
             <input
-              placeholder="Phone Number"
+              placeholder="+1 234 567 8900"
               class="p-inputtext"
               pSize="large"
               pInputText
@@ -161,22 +298,9 @@
               id="phone"
               type="number"
               (keypress)="allowOnlyNumbers($event)"
-              aria-describedby="username-help"
             />
           </app-form-field>
         </div>
-      </div>
-    </div>
-
-    <div class="form-row">
-      <div class="form-group mb-0">
-        <div class="form-group_header">
-          <p class="form-group_title">Captain / Contact Details</p>
-          <p class="form-group_desc">
-            Please, make sure to correctly enter the below fields
-          </p>
-        </div>
-
         <div class="form-inputs">
           <app-form-field
             label="Captain Name"
@@ -189,11 +313,10 @@
               formControlName="captainName"
               name="captainName"
               id="captainName"
+              placeholder="Full name"
             />
           </app-form-field>
-        </div>
 
-        <div class="form-inputs mb-0">
           <app-form-field
             label="Captain E-mail"
             [control]="vesselForm.get('captainEmail')"
@@ -205,11 +328,10 @@
               formControlName="captainEmail"
               name="captainEmail"
               id="captainEmail"
+              placeholder="email@company.com"
             />
           </app-form-field>
-        </div>
 
-        <div class="form-inputs">
           <app-form-field
             label="Captain Phone"
             [control]="vesselForm.get('captainPhone')"
@@ -223,7 +345,7 @@
               id="captainPhone"
               type="number"
               (keypress)="allowOnlyNumbers($event)"
-              aria-describedby="username-help"
+              placeholder="+1 234 567 8900"
             />
           </app-form-field>
         </div>
@@ -232,6 +354,16 @@
 
     <div class="cta-container">
       <div class="cta ml-auto">
+        <p-button
+          outlined="true"
+          size="large"
+          label="Save as Draft"
+          type="button"
+          (onClick)="onSubmit(vesselForm)"
+        />
+      </div>
+
+      <div class="cta">
         <p-button
           size="large"
           label="Save"

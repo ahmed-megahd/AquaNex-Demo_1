@@ -22,7 +22,6 @@ import { TabsModule } from 'primeng/tabs';
     DataTableComponent,
   ],
   templateUrl: './customers.component.html',
-  styleUrl: './customers.component.css',
 })
 export class CustomersComponent implements OnInit {
   private router = inject(Router);
@@ -50,15 +49,14 @@ export class CustomersComponent implements OnInit {
   tabs: { title: string; value: string }[] = [];
 
   columns = [
-    { field: 'ID', header: 'ID' },
+    // { field: 'id', header: 'ID' },
     { field: 'name', header: 'Customer' },
+    { field: 'status', header: 'Status' },
     { field: 'type', header: 'Type' },
     { field: 'ships', header: 'Total Ships' },
-    { field: 'totalSOs', header: 'Total SOs' },
+    { field: 'totalSOs', header: 'Orders' },
     { field: 'totalInvoices', header: 'Total Invoices' },
     { field: 'outstandingBalance', header: 'Outstanding Balance' },
-    { field: 'contact', header: 'Contact ' },
-    // { field: 'email', header: 'Email' },
   ];
 
   ngOnInit(): void {
@@ -111,7 +109,7 @@ export class CustomersComponent implements OnInit {
       this.filteredCustomers = [...this.customers];
     } else {
       this.filteredCustomers = this.customers.filter(
-        (cst) => cst.type === type
+        (cst) => cst.type === type,
       );
     }
   }

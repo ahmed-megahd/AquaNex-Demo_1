@@ -90,12 +90,12 @@ export class LayoutComponent {
       label: 'Finance',
       children: [
         {
-          label: 'Payments Recieved',
+          label: 'Inflow Payments',
           icon: 'pi pi-plus-circle',
-          route: '/payments-cst',
+          route: '/inflow-payments',
         },
         {
-          label: 'Payments Made',
+          label: 'Outflow Payments',
           icon: 'pi pi-minus-circle',
           route: '/payments-sup',
         },

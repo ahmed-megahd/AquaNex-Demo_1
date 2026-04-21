@@ -2,6 +2,11 @@
 <div class="main-content_top">
   <div class="title-container">
     <p class="page-title">Customer Invoices center</p>
+    <div class="page-subtitle">
+      Invoices of last 30 days from
+      <span class="form-title-view">17/02/2026</span> to
+      <span class="form-title-view">17/03/2026</span>
+    </div>
   </div>
 
   <div class="cta">
@@ -14,34 +19,34 @@
   </div>
 </div>
 
-<div class="main-content_center">
-  <div class="search-header">
-    <p>Searching Options based on your insights</p>
+<div class="search-inputs">
+  <div class="search-input-item">
+    <p-datepicker
+      placeholder="Creation Date"
+      size="large"
+      [(ngModel)]="creationDate"
+      selectionMode="range"
+      [iconDisplay]="'input'"
+      [showIcon]="true"
+    />
   </div>
-  <div class="search-inputs">
-    <div class="search-input-item">
-      <p-datepicker
-        placeholder="Creation Date"
-        size="large"
-        [(ngModel)]="creationDate"
-        selectionMode="range"
-        [iconDisplay]="'input'"
-        [showIcon]="true"
-      />
-    </div>
 
-    <div class="search-input-item">
-      <p-multiselect
-        [options]="status"
-        [(ngModel)]="selectedStatus"
-        placeholder="Select Payment Status"
-        optionLabel="name"
-        display="chip"
-      />
-    </div>
-    <div class="cta">
-      <p-button icon="pi pi-search" size="large" (onClick)="onSearch()" />
-    </div>
+  <div class="search-input-item">
+    <p-multiselect
+      [options]="status"
+      [(ngModel)]="selectedStatus"
+      placeholder="Invoice Status"
+      optionLabel="name"
+      display="chip"
+    />
+  </div>
+  <div class="cta">
+    <p-button
+      outlined="true"
+      icon="pi pi-search"
+      size="large"
+      (onClick)="onSearch()"
+    />
   </div>
 </div>
 
@@ -49,27 +54,44 @@
   <div class="analysis-box">
     <div class="analysis-card">
       <p class="card-title">
-        <i class="pi pi-box total-orders"></i> total invoices
+        <i class="pi pi-circle-fill"></i>
+        total
       </p>
-      <p class="card-data">48</p>
+      <p class="card-data">
+        $48,110.00
+        <span class="form-data text-right">12 invoices</span>
+      </p>
     </div>
     <div class="analysis-card">
       <p class="card-title">
-        <i class="pi pi-check-circle total-closed"></i>total Paid
+        <i class="pi pi-circle-fill form-data-closed-txt"></i>
+        Paid
       </p>
-      <p class="card-data">20</p>
+      <p class="card-data form-data-closed-txt">
+        $20,000
+        <span class="form-data text-right">12 invoices</span>
+      </p>
+    </div>
+
+    <div class="analysis-card">
+      <p class="card-title">
+        <i class="pi pi-circle-fill form-data-pending-txt"></i>
+        partially paid
+      </p>
+      <p class="card-data form-data-pending-txt">
+        $18,00.00
+        <span class="form-data text-right">2 invoices</span>
+      </p>
     </div>
     <div class="analysis-card">
       <p class="card-title">
-        <i class="pi pi-hourglass total-in-progress"></i>total Partial
+        <i class="pi pi-circle-fill form-data-danger"></i>
+        overdue invoices
       </p>
-      <p class="card-data">18</p>
-    </div>
-    <div class="analysis-card">
-      <p class="card-title">
-        <i class="pi pi-money-bill total-invoiced"></i>total Un-paid
+      <p class="card-data form-data-danger">
+        $100.00
+        <span class="form-data text-right">12 invoices</span>
       </p>
-      <p class="card-data">10</p>
     </div>
   </div>
 
@@ -77,14 +99,14 @@
     <p-tabs>
       <p-tablist>
         @for (tab of tabs; track tab.value) {
-        <p-tab [value]="tab.value" (click)="onTabChange(tab.value)">
-          {{ tab.title }}
-        </p-tab>
+          <p-tab [value]="tab.value" (click)="onTabChange(tab.value)">
+            {{ tab.title }}
+          </p-tab>
         }
       </p-tablist>
     </p-tabs>
 
-    <div class="form-view">
+    <div class="form-view pt-0 pb-0">
       <app-data-table
         [columns]="columns"
         [value]="filteredInvoices"
@@ -93,7 +115,7 @@
           'linkedSO',
           'customer',
           'status',
-          'amount'
+          'amount',
         ]"
         [selectionMode]="'multiple'"
         [exportable]="true"

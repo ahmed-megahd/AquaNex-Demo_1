@@ -6,6 +6,8 @@ import { TabsModule } from 'primeng/tabs';
 import { DataTableComponent } from '../../../../shared/components/data-table/data-table/data-table.component';
 import { TimelineModule } from 'primeng/timeline';
 import { CardModule } from 'primeng/card';
+import { Router } from '@angular/router';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-view-sales',
@@ -16,12 +18,14 @@ import { CardModule } from 'primeng/card';
     TabsModule,
     DataTableComponent,
     TimelineModule,
+    DecimalPipe,
   ],
   standalone: true,
   templateUrl: './view-sales.component.html',
   styleUrl: './view-sales.component.css',
 })
 export class ViewSalesComponent {
+  private router = inject(Router);
   events: any[] = [
     {
       status: 'Ordered',
@@ -45,6 +49,12 @@ export class ViewSalesComponent {
       status: 'Delivered',
       date: '16/10/2020 ',
       icon: 'pi pi-check',
+      // color: '#607D8B',
+    },
+    {
+      status: 'Paid',
+      date: '26/10/2020 ',
+      icon: 'pi pi-verified',
       // color: '#607D8B',
     },
   ];
@@ -81,6 +91,222 @@ export class ViewSalesComponent {
       unitPrice: '2000',
       quantity: '3',
       total: '6000',
+    },
+
+    {
+      itemName: 'Tomato pack',
+      description: 'A 10kg tomato pack, sealed',
+      unit: 'pack',
+      unitPrice: '100',
+      quantity: '50',
+      total: '5000',
+    },
+
+    {
+      itemName: 'Tomato pack',
+      description: 'A 10kg tomato pack, sealed',
+      unit: 'pack',
+      unitPrice: '100',
+      quantity: '50',
+      total: '5000',
+    },
+
+    {
+      itemName: 'Tomato pack',
+      description: 'A 10kg tomato pack, sealed',
+      unit: 'pack',
+      unitPrice: '100',
+      quantity: '50',
+      total: '5000',
+    },
+
+    {
+      itemName: 'Tomato pack',
+      description: 'A 10kg tomato pack, sealed',
+      unit: 'pack',
+      unitPrice: '100',
+      quantity: '50',
+      total: '5000',
+    },
+
+    {
+      itemName: 'Tomato pack',
+      description: 'A 10kg tomato pack, sealed',
+      unit: 'pack',
+      unitPrice: '100',
+      quantity: '50',
+      total: '5000',
+    },
+
+    {
+      itemName: 'Tomato pack',
+      description: 'A 10kg tomato pack, sealed',
+      unit: 'pack',
+      unitPrice: '100',
+      quantity: '50',
+      total: '5000',
+    },
+
+    {
+      itemName: 'Tomato pack',
+      description: 'A 10kg tomato pack, sealed',
+      unit: 'pack',
+      unitPrice: '100',
+      quantity: '50',
+      total: '5000',
+    },
+
+    {
+      itemName: 'Tomato pack',
+      description: 'A 10kg tomato pack, sealed',
+      unit: 'pack',
+      unitPrice: '100',
+      quantity: '50',
+      total: '5000',
+    },
+
+    {
+      itemName: 'Tomato pack',
+      description: 'A 10kg tomato pack, sealed',
+      unit: 'pack',
+      unitPrice: '100',
+      quantity: '50',
+      total: '5000',
+    },
+
+    {
+      itemName: 'Tomato pack',
+      description: 'A 10kg tomato pack, sealed',
+      unit: 'pack',
+      unitPrice: '100',
+      quantity: '50',
+      total: '5000',
+    },
+
+    {
+      itemName: 'Tomato pack',
+      description: 'A 10kg tomato pack, sealed',
+      unit: 'pack',
+      unitPrice: '100',
+      quantity: '50',
+      total: '5000',
+    },
+
+    {
+      itemName: 'Tomato pack',
+      description: 'A 10kg tomato pack, sealed',
+      unit: 'pack',
+      unitPrice: '100',
+      quantity: '50',
+      total: '5000',
+    },
+
+    {
+      itemName: 'Tomato pack',
+      description: 'A 10kg tomato pack, sealed',
+      unit: 'pack',
+      unitPrice: '100',
+      quantity: '50',
+      total: '5000',
+    },
+
+    {
+      itemName: 'Tomato pack',
+      description: 'A 10kg tomato pack, sealed',
+      unit: 'pack',
+      unitPrice: '100',
+      quantity: '50',
+      total: '5000',
+    },
+
+    {
+      itemName: 'Tomato pack',
+      description: 'A 10kg tomato pack, sealed',
+      unit: 'pack',
+      unitPrice: '100',
+      quantity: '50',
+      total: '5000',
+    },
+
+    {
+      itemName: 'Tomato pack',
+      description: 'A 10kg tomato pack, sealed',
+      unit: 'pack',
+      unitPrice: '100',
+      quantity: '50',
+      total: '5000',
+    },
+
+    {
+      itemName: 'Tomato pack',
+      description: 'A 10kg tomato pack, sealed',
+      unit: 'pack',
+      unitPrice: '100',
+      quantity: '50',
+      total: '5000',
+    },
+
+    {
+      itemName: 'Tomato pack',
+      description: 'A 10kg tomato pack, sealed',
+      unit: 'pack',
+      unitPrice: '100',
+      quantity: '50',
+      total: '5000',
+    },
+
+    {
+      itemName: 'Tomato pack',
+      description: 'A 10kg tomato pack, sealed',
+      unit: 'pack',
+      unitPrice: '100',
+      quantity: '50',
+      total: '5000',
+    },
+
+    {
+      itemName: 'Tomato pack',
+      description: 'A 10kg tomato pack, sealed',
+      unit: 'pack',
+      unitPrice: '100',
+      quantity: '50',
+      total: '5000',
+    },
+
+    {
+      itemName: 'Tomato pack',
+      description: 'A 10kg tomato pack, sealed',
+      unit: 'pack',
+      unitPrice: '100',
+      quantity: '50',
+      total: '5000',
+    },
+
+    {
+      itemName: 'Tomato pack',
+      description: 'A 10kg tomato pack, sealed',
+      unit: 'pack',
+      unitPrice: '100',
+      quantity: '50',
+      total: '5000',
+    },
+
+    {
+      itemName: 'Tomato pack',
+      description: 'A 10kg tomato pack, sealed',
+      unit: 'pack',
+      unitPrice: '100',
+      quantity: '50',
+      total: '5000',
+    },
+
+    {
+      itemName: 'Tomato pack',
+      description: 'A 10kg tomato pack, sealed',
+      unit: 'pack',
+      unitPrice: '100',
+      quantity: '50',
+      total: '5000',
     },
 
     {
@@ -142,4 +368,18 @@ export class ViewSalesComponent {
       status: 'Delivered',
     },
   ];
+
+  //   get statusNote(): string {
+  //   switch (this.order.status) {
+  //     case 'draft':     return 'This order has not been confirmed yet. Review and submit when ready.';
+  //     case 'confirmed': return 'Order confirmed and awaiting supplier processing.';
+  //     case 'shipped':   return 'Items are in transit. Expected delivery in 3–5 working days.';
+  //     case 'invoiced':  return 'Invoice issued. Awaiting payment confirmation.';
+  //     default:          return '';
+  //   }
+  // }
+
+  onCreateInvoice() {
+    this.router.navigate(['customer-invoices/create']);
+  }
 }

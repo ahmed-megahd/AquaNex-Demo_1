@@ -48,7 +48,7 @@
 
 .upload-icon {
   font-size: 3rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .upload-text {
@@ -85,7 +85,7 @@
   background: white;
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
   margin-bottom: 2rem;
 }
 
@@ -152,7 +152,7 @@
 }
 
 .overall-comparison h3 {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   color: #2d3748;
 }
 
@@ -166,7 +166,7 @@
   background: white;
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
   border: 2px solid transparent;
   transition: all 0.3s ease;
 }
@@ -180,7 +180,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .card-header h4 {
@@ -211,7 +211,7 @@
 }
 
 .item-comparison h3 {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   color: #2d3748;
 }
 
@@ -219,7 +219,6 @@
   overflow-x: auto;
   background: white;
   border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .comparison-table {
@@ -297,7 +296,7 @@
 
 .empty-icon {
   font-size: 4rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .empty-state h3 {

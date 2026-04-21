@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { LayoutComponent } from './layouts/layout/layout.component';
 import { SalesComponent } from './features/sales-orders/sales/sales.component';
 import { CreateSalesOrderComponent } from './features/sales-orders/create-sales/create-sales-order/create-sales-order.component';
-import { PaymentsComponent } from './features/payments/all-payments/payments.component';
+// import { PaymentsComponent } from './features/payments/all-payments/payments.component';
 import { ViewSalesComponent } from './features/sales-orders/view-sales/view-sales/view-sales.component';
 import { ExpensesComponent } from './features/expenses/expenses/expenses.component';
 import { CreateExpenseComponent } from './features/expenses/create-expense/create-expense/create-expense.component';
@@ -31,6 +31,8 @@ import { CustomerInvoiceCreateComponent } from './features/invoices/customer/cus
 import { CustomerInvoiceViewComponent } from './features/invoices/customer/customer-invoice-view/customer-invoice-view.component';
 import { CustomerInvoices } from './features/invoices/customer/customer-invoices/customer-invoices.component';
 import { UnderConstruction } from './under-construction/under-construction';
+import { InflowPaymentsComponent } from './features/payments/inflow-payments/inflow-payments/inflow-payments.component';
+import { CreateInflowPaymentsComponent } from './features/payments/inflow-payments/create-inflow-payments/create-inflow-payments.component';
 
 export const routes: Routes = [
   {
@@ -46,7 +48,7 @@ export const routes: Routes = [
       { path: 'sales-order/create', component: CreateSalesOrderComponent },
       { path: 'sales-order/view/:id', component: ViewSalesComponent },
 
-      { path: 'payments', component: PaymentsComponent },
+      // { path: 'payments', component: PaymentsComponent },
 
       { path: 'expenses', component: ExpensesComponent },
       { path: 'expenses/create', component: CreateExpenseComponent },
@@ -92,6 +94,15 @@ export const routes: Routes = [
         path: 'customer-invoices/view/:id',
         component: CustomerInvoiceViewComponent,
       },
+
+      {
+        path: 'inflow-payments',
+        component: InflowPaymentsComponent,
+      },
+      {
+        path: 'inflow-payments/create',
+        component: CreateInflowPaymentsComponent,
+      },
       // UNDER CONSTRUCTION ROUTES
       {
         path: 'overview',
@@ -99,10 +110,6 @@ export const routes: Routes = [
       },
       {
         path: 'sales-report',
-        component: UnderConstruction,
-      },
-      {
-        path: 'payments',
         component: UnderConstruction,
       },
       {

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, input } from '@angular/core';
-import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { Component, computed, input } from '@angular/core';
+import { AbstractControl, ValidationErrors, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-form-field',
@@ -12,6 +12,14 @@ import { AbstractControl, ValidationErrors } from '@angular/forms';
 export class FormFieldComponent {
   label = input.required<string>();
   control = input.required<AbstractControl | null>();
+
+  isRequired = computed(() => {
+    const ctrl = this.control();
+    if (!ctrl) return false;
+
+    // Check if control has required validator
+    return ctrl.hasValidator(Validators.required);
+  });
 
   getError(errors: ValidationErrors | null): string {
     if (!errors) return '';
